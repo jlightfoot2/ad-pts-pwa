@@ -13,63 +13,104 @@ import {
 	TAB_CHANGE_INDEX
 } from '../actions'
 import { normalize, Schema, arrayOf } from 'normalizr';
-import { List, Map } from 'immutable';
 
-const appitem = new Schema('appitems');
+const videoSchema = new Schema('videos');
+const categorySchema = new Schema('Categories');
 
-appitem.define({
 
+videoSchema.define({
+	category: categorySchema
 });
 
-const defaultApps = [
+const defaultUser = {
+	stage: 0, //intro stage
+	role: 'anonymous',
+	firstname: '',
+	lastname: ''	
+}
+
+const defaultView = {
+	flash: {
+		message: '',
+		open: false
+	},
+	tabs: {
+		mainTab: 0
+	}
+};
+
+const apiVideos = [
 	{
 		id: 1,
-	    img: require('../../images/ad_injury_topics_lg.png'),
-	    title: 'Physical Injuries',
+	    img: require('../../images/videos/introduction-to-pts.jpg'),
+	    title: 'Introduction to PTS',
 	    author: 'T2',	
 	    url: 'https://google.com',
-	    installed: false	
+	    featured: true,
+		category: {
+			id: 1,
+			name: 'Featured'
+		}
 	},
 	{
 		id: 2,
-	    img: require('../../images/intro-pts.png'),
-	    title: 'PTS',
+	    img: require('../../images/videos/reaction-and-triggers.jpg'),
+	    title: 'Reactions and Triggers',
 	    author: 'T2',
 	    url: 'https://google.com',
-	    installed: false
+	    featured: false,
+		category: {
+			id: 1,
+			name: 'Featured'
+		}
 	},
 	{
 		id: 3,
-	    img: require('../../images/ad_tobacco_topics_lg.png'),
-	    title: 'Tobacco',
+	    img: require('../../images/videos/harmful-habits.jpg'),
+	    title: 'Harmful Habits',
 	    author: 'T2',	
 	    url: 'https://google.com',
-	    installed: false	
+		category: {
+			id: 2,
+			name: 'Popular'
+		}
 	},
 	{
 		id: 4,
-	    img: require('../../images/lg-icon-b2r_3.png'),
-	    title: 'Breath to Relax',
+	    img: require('../../images/videos/helpful-habits.jpg'),
+	    title: 'Helpful Habits',
 	    author: 'T2',	
 	    url: 'https://google.com',
-	    installed: false	
+	    featured: false,
+		category: {
+			id: 2,
+			name: 'Popular'
+		}
+	},
+	{
+		id: 5,
+	    img: require('../../images/videos/treatment.jpg'),
+	    title: 'Treatment',
+	    author: 'T2',	
+	    url: 'https://google.com',
+	    featured: false,
+		category: {
+			id: 2,
+			name: 'Popular'
+		}
 	}
 ];
-
 const appTree = {
-	apps: defaultApps
+	videos: apiVideos
 }
 
-var t2apps = normalize(appTree.apps,arrayOf(appitem));
+const videoItems = normalize(appTree.videos,arrayOf(videoSchema));
 
-const appItems = t2apps.entities.appitems;
+console.log(videoItems);
 
-
-const initT2AppIds = t2apps.result;
-const initMyAppIds = [];
-
-
-//just containes an object list of all apps
+/**
+ * Convenience functions to prevent mutations
+ */
 function updateMapItem(state,id,cb){
 	var item = state[id+""];
 
@@ -100,22 +141,9 @@ function arrayDeleteValue(arr,val){
 	return [...arr];
 }
 
-const defaultUser = {
-	stage: 0, //intro stage
-	role: 'anonymous',
-	firstname: '',
-	lastname: ''	
-}
-
-const defaultView = {
-	flash: {
-		message: '',
-		open: false
-	},
-	tabs: {
-		mainTab: 0
-	}
-};
+/**
+ * Redux State
+ */
 
 function user(state = defaultUser, action){
 	switch(action.type){
@@ -126,41 +154,12 @@ function user(state = defaultUser, action){
 	return state;
 }
 
-function apps(state = appItems , action){
 
-	switch(action.type){
-		case REMOVE_T2APP_FROM_MYAPPS_LIST:
-			return updateMapItem(state,action.id,function(err,item){
-				item.installed = false;
-				return item
-			});
-		case TOGGLE_T2APP_FROM_MYAPPS_LIST:
-			return updateMapItem(state,action.id,function(err,item){
-				item.installed = !item.installed;
-				return item
-			});
-	}
-
+function videoIds(state = videoItems.entities.result , action){
 	return state;
 }
 
-function t2AppIds(state = initT2AppIds, action){
-	switch(action.type){
-
-	}
-	return state;
-}
-
-function myAppIds(state = initMyAppIds, action){
-
-	switch(action.type){
-		case ADD_T2APP_TO_MYAPPS_LIST:
-			return arrayPushUnique(state,action.id);
-		case TOGGLE_T2APP_FROM_MYAPPS_LIST:
-			return arrayHasItem(state,action.id) ? arrayDeleteValue(state,action.id) : arrayPushUnique(state,action.id);
-		case REMOVE_T2APP_FROM_MYAPPS_LIST:
-			return arrayDeleteValue(state,action.id);	
-	}
+function videos(state = videoItems.entities.videos , action){
 	return state;
 }
 
@@ -188,9 +187,7 @@ function view(state = defaultView, action){
 
 
 const appHub = combineReducers({
-  apps,
-  t2AppIds,
-  myAppIds,
+  videos,
   routing: routerReducer,
   user,
   view

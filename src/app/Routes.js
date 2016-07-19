@@ -1,7 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Main from './Main.js';
+import IntroPage from './Intro.js';
 import HomePage from './HomePage.js';
+import VideoPage from './VideoPage.js';
 import MainTabs from './MainTabs.js';
 import MyApps from './MyApps.js';
 import Catalog from './Catalog.js';
@@ -77,10 +79,11 @@ const Routes = () => (
 	  <Router history={history}>
 	    <Route component={Main}>
 	      {/* make them children of `App` */}
-	      <Route path="/" component={MyApps} onEnter={requireIntro} />
-	      <Route path="/intro" component={HomePage} />
-	      <Route path="/catalog" component={Catalog} />
-        <Route path="/myapps" component={MyApps} />
+	      <Route path="/" component={HomePage} onEnter={requireIntro} />
+	      <Route path="/intro" component={IntroPage} />
+        <Route path="/splash" component={IntroPage} />
+	      <Route path="/home" component={HomePage} />
+        <Route path="/videos" component={VideoPage} />
         <Route path="/catalogtabs" component={MainTabs} />
 	    </Route>
 	  </Router>

@@ -8,19 +8,24 @@ import { connect } from 'react-redux';
 import { toggleT2AppFromMyList, addT2AppsToMyApps ,showFlashMessage} from './actions';
 import { List, Map } from 'immutable';
 import AppButtonIcon from './AppButtonIcon.js';
-
+import PlayIcon from 'material-ui/svg-icons/av/play-circle-outline';
+import IconButton from 'material-ui/IconButton';
+import CheckBox from 'material-ui/svg-icons/toggle/check-box';
 const styles = {
   gridList: {
     width: 500,
     height: 650,
     overflowY: 'auto',
     marginBottom: 24,
+  },
+  playIcon: {
+  	marginRight: 24
   }
 };
 
-class HomePage extends Component {
+class VideosPage extends Component {
   componentDidMount(){
-      this.props.appBarTitle && this.props.appBarTitle("Home");
+      this.props.appBarTitle && this.props.appBarTitle("Videos");
   }
   render(){
   var {videoList,toggleToMyApps,flashMessage, appBarTitle,stylesRoot} = this.props;
@@ -38,9 +43,11 @@ class HomePage extends Component {
             key={tile.id}
              {...tile}
             cols={tile.featured ? 2 : 1}
+            actionPosition="right"
+            titlePosition="top"
+            actionIcon={<IconButton><PlayIcon color={'white'} {...tile}  /></IconButton>}
           >
             <img src={tile.img} />
-
           </GridTile>
         
          
@@ -67,4 +74,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(HomePage);
+)(VideosPage);

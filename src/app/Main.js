@@ -28,20 +28,16 @@ const styles = {
     padding: '10px'
   },
   desktop: {
-    backgroundImage: "url("+require('../images/wallpaper/cold-ocean.jpg')+")",
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'center',
-
   }
 };
 
 const muiTheme = getMuiTheme({
   palette: {
-    primary1Color: '#315B85',
-    primary2Color: '#315B85',
-    accent1Color: '#DEA326',
-    accent2Color: '#DEA326',
-    accent3Color: '#DEA326',
+    primary1Color: '#F8C023',
+    primary2Color: '#07405E',
+    accent1Color: '#E64818',
+    accent2Color: '#E64818',
+    accent3Color: '#E64818',
   },
 });
 
@@ -100,9 +96,8 @@ class Main extends Component {
 			        targetOrigin={{horizontal: 'left', vertical: 'top'}}
 			        anchorOrigin={{horizontal: 'left', vertical: 'top'}}
 			      >
-			        <MenuItem primaryText="Home" containerElement={<Link to="/" />} />
-              <MenuItem primaryText="Catalog" containerElement={<Link to="/catalog" />} />
-		          <MenuItem primaryText="Tabbed Catalog" containerElement={<Link to="/catalogtabs" />} />
+			        <MenuItem primaryText="Home" containerElement={<Link to="/home" />} />
+
 			      </IconMenu>
 			    }
 
