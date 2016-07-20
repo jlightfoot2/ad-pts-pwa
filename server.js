@@ -5,7 +5,7 @@ var
   express = require('express'),
   path = require('path'),
   host = process.env.HOST || '0.0.0.0',
-  port = process.env.PORT || 3001,
+  port = process.env.PORT || 3003,
   root = path.resolve(__dirname),
   https = require('https'),
   http = require('http')

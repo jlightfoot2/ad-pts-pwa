@@ -2,16 +2,12 @@ import {combineReducers} from 'redux'
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
 
 import {
-	MOVE_T2APP_TO_MYAPPS_LIST, 
-	MOVE_MYAPP_TO_T2APPS_LIST, 
-	ADD_T2APP_TO_MYAPPS_LIST,
-	REMOVE_T2APP_FROM_MYAPPS_LIST,
-	TOGGLE_T2APP_FROM_MYAPPS_LIST,
 	USER_SEES_INTRO,
 	SHOW_FLASH_MESSAGE,
 	HIDE_FLASH_MESSAGE,
 	TAB_CHANGE_INDEX
 } from '../actions'
+
 import { normalize, Schema, arrayOf } from 'normalizr';
 
 const videoSchema = new Schema('videos');
@@ -22,13 +18,10 @@ videoSchema.define({
 	category: categorySchema
 });
 
-const defaultUser = {
-	stage: 0, //intro stage
-	role: 'anonymous',
-	firstname: '',
-	lastname: ''	
-}
-
+/*
+* This is default view data which germane to the app ui only 
+* and should be kept separate from rest of the state.
+*/
 const defaultView = {
 	flash: {
 		message: '',
@@ -39,6 +32,19 @@ const defaultView = {
 	}
 };
 
+/* 
+* The data below could come from a rest server
+*/
+const defaultUser = {
+	stage: 0, //intro stage
+	role: 'anonymous',
+	firstname: '',
+	lastname: ''	
+}
+
+/* 
+* The data below could come from a rest server
+*/
 const apiVideos = [
 	{
 		id: 1,
@@ -104,13 +110,25 @@ const appTree = {
 	videos: apiVideos
 }
 
+
+/*
+* normalize function will flatten hierarchical/nested data which is 
+* the recommended way to handle data with redux
+* see https://github.com/paularmstrong/normalizr
+* see http://stackoverflow.com/questions/32135779/updating-nested-data-in-redux-store    (scroll to dan abramov's answer)
+*/
 const videoItems = normalize(appTree.videos,arrayOf(videoSchema));
 
-console.log(videoItems);
+/**
+ * Below are convenience functions to prevent mutations
+ */
 
 /**
- * Convenience functions to prevent mutations
+ * Update object/Map member and
+ *
+ * @return object A new object representing the new state
  */
+
 function updateMapItem(state,id,cb){
 	var item = state[id+""];
 
@@ -122,11 +140,20 @@ function arrayHasItem(arr,val){
 	return arr.indexOf(val) > -1
 }
 
+/**
+ * Adds an item to an array and returns a new array
+ * @param  Array arr the current array
+ * @param  Any val The new value to append to the array
+ * @return Array     The new array representing the new state
+ */
 function arrayPush(arr,val){
 	arr.push(val);
 	return [...arr];
 }
 
+/**
+ * Same as arrayPush but ensures no duplicates are added
+ */
 function arrayPushUnique(arr,val){
 	if(!arrayHasItem(arr,val)){
 		return arrayPush(arr,val)
@@ -134,6 +161,12 @@ function arrayPushUnique(arr,val){
 	return [...arr];
 }
 
+/**
+ * Returns a new array respresenting the old array less the provided value
+ * @param  Array arr  The target array
+ * @param  Any val The value we want to target for removal
+ * @return Array     The new array representing the new state
+ */
 function arrayDeleteValue(arr,val){
 	if(arrayHasItem(arr,val)){
 		arr.splice(arr.indexOf(val),1);
@@ -142,12 +175,12 @@ function arrayDeleteValue(arr,val){
 }
 
 /**
- * Redux State
+ * Redux State functions
  */
 
 function user(state = defaultUser, action){
 	switch(action.type){
-		case USER_SEES_INTRO:
+		case USER_SEES_INTRO: //User has seen the intro so they don't need to see it again with stage > -
 		    state.stage = 1;
 			return  {...state};
 	}
@@ -165,7 +198,7 @@ function videos(state = videoItems.entities.videos , action){
 
 function view(state = defaultView, action){
 	switch(action.type){
-		case SHOW_FLASH_MESSAGE:
+		case SHOW_FLASH_MESSAGE: //Display an action message
 			state.flash.message = action.text;
 			state.flash.open = true;
 			return {...state}; 
