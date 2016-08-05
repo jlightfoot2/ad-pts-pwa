@@ -1,9 +1,9 @@
 import React,{Component} from 'react';
 import ReactDOM from 'react-dom';
 import {GridList, GridTile} from 'material-ui/GridList';
+import { Link, browserHistory } from 'react-router'
 
 import Subheader from 'material-ui/Subheader';
-
 import { connect } from 'react-redux';
 import { toggleT2AppFromMyList, addT2AppsToMyApps ,showFlashMessage} from './actions';
 import { List, Map } from 'immutable';
@@ -38,17 +38,19 @@ class VideosPage extends Component {
       >
 
         {videoList.map((tile) => (
-          
-          <GridTile
-            key={tile.id}
-             {...tile}
-            cols={tile.featured ? 2 : 1}
-            actionPosition="right"
-            titlePosition="top"
-            actionIcon={<IconButton><PlayIcon color={'white'} {...tile}  /></IconButton>}
-          >
-            <img src={tile.img} />
-          </GridTile>
+
+          <Link key={tile.id} to={'/video/'+tile.id}>
+            <GridTile
+              key={tile.id}
+               {...tile}
+              cols={tile.featured ? 2 : 1}
+              actionPosition="right"
+              titlePosition="top"
+              actionIcon={<IconButton><PlayIcon color={'white'} {...tile}  /></IconButton>}
+            >
+              <img src={tile.img} />
+            </GridTile>
+          </Link>
         
          
         ))}

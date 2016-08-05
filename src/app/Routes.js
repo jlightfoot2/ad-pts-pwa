@@ -3,22 +3,25 @@ import ReactDOM from 'react-dom';
 import Main from './Main.js';
 import IntroPage from './Intro.js';
 import HomePage from './HomePage.js';
-import VideoPage from './VideoPage.js';
+import VideosPage from './VideosPage.js';
 import MainTabs from './MainTabs.js';
 import MyApps from './MyApps.js';
 import Catalog from './Catalog.js';
+import VideoPage from './VideoContainer.js';
 import { Router, Route, hashHistory } from 'react-router'
-import { createStore } from 'redux'
+import { createStore ,applyMiddleware} from 'redux'
 import { Provider } from 'react-redux'
 import appHub from './reducers'
 import { Map } from 'immutable';
 import { userSeesIntro } from './actions';
-import { syncHistoryWithStore} from 'react-router-redux';
+
 import {persistStore, autoRehydrate} from 'redux-persist'
 import localForage from 'localForage'
+import { browserHistory } from 'react-router'
+import { syncHistoryWithStore,routerMiddleware, push } from 'react-router-redux'
 
-
-let store = createStore(appHub,undefined,autoRehydrate());
+const middleware = routerMiddleware(browserHistory)
+let store = createStore(appHub,applyMiddleware(middleware),autoRehydrate());
 const history = syncHistoryWithStore(hashHistory, store);
 persistStore(store);
 
@@ -83,7 +86,8 @@ const Routes = () => (
 	      <Route path="/intro" component={IntroPage} />
         <Route path="/splash" component={IntroPage} />
 	      <Route path="/home" component={HomePage} />
-        <Route path="/videos" component={VideoPage} />
+        <Route path="/videos" component={VideosPage} />
+        <Route path="/video/:id" component={VideoPage} />
         <Route path="/catalogtabs" component={MainTabs} />
 	    </Route>
 	  </Router>
