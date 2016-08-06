@@ -14,23 +14,32 @@ import { Provider } from 'react-redux'
 import appHub from './reducers'
 import { Map } from 'immutable';
 import { userSeesIntro } from './actions';
-
+import thunkMiddleware from 'redux-thunk'
 import {persistStore, autoRehydrate} from 'redux-persist'
 import localForage from 'localForage'
 import { browserHistory } from 'react-router'
 import { syncHistoryWithStore,routerMiddleware, push } from 'react-router-redux'
 
-const middleware = routerMiddleware(browserHistory)
-let store = createStore(appHub,applyMiddleware(middleware),autoRehydrate());
+
+
+let store = createStore(
+    appHub,
+    applyMiddleware(
+            routerMiddleware(browserHistory),
+            thunkMiddleware
+          ),
+    autoRehydrate()
+  );
+
 const history = syncHistoryWithStore(hashHistory, store);
 persistStore(store);
-
-var storeObserver = function(store, selector, onChange) {
+var observerGenerator = function(){
+  return function(store, selector, onChange) {
     if (!store) throw Error('\'store\' should be truthy');
     if (!selector) throw Error('\'selector\' should be truthy');
     var currentValue = null;
     store.subscribe(() => {
-    	console.log(store.getState());
+        console.log(store.getState());
         let previousValue = currentValue;
         try {
             currentValue = selector(store.getState());
@@ -43,7 +52,9 @@ var storeObserver = function(store, selector, onChange) {
             onChange(store, previousValue, currentValue);
         }
     });
+  }
 }
+var storeObserver = observerGenerator();
 storeObserver (
 			store,
 			(state) => {
@@ -53,6 +64,8 @@ storeObserver (
 					store.dispatch(userSeesIntro());
 			}
 		);
+
+
 /*
 let unsubscribe = store.subscribe(() => {
   		console.log(store.getState())
