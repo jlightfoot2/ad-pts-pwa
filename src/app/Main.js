@@ -17,11 +17,9 @@ import IconButton from 'material-ui/IconButton/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import MoreHorizIcon from 'material-ui/svg-icons/navigation/more-horiz';
 import MenuIcon from 'material-ui/svg-icons/navigation/menu';
-import DeviceSignalCellular0Bar from 'material-ui/svg-icons/device/signal-cellular-0-bar';
-import DeviceSignalCellular2Bar from 'material-ui/svg-icons/device/signal-cellular-2-bar';
-import DeviceSignalCellular4Bar from 'material-ui/svg-icons/device/signal-cellular-4-bar';
 import { Link } from 'react-router'
 import { Router, Route, hashHistory } from 'react-router'
+import OnlineStatusBarIcon from './OnlineStatusContainer.js'
 import AppSnackBar from './AppSnackBar.js'
 const styles = {
   root: {
@@ -104,7 +102,7 @@ class Main extends Component {
 
     			      </IconMenu>
     			    }
-              iconElementRight={<DeviceSignalCellular2Bar/>}
+              iconElementRight={<OnlineStatusBarIcon/>}
                />
 
 

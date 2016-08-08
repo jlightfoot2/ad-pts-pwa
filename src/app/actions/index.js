@@ -56,17 +56,15 @@ export const connectivityCheckEnd = () => {
 
 export const checkIsOnline = (checkSource) => {
 	return function(dispatch,getState){
-		dispatch(connectivityCheckStart())
-	    isOnline(function(err, online) {
+		dispatch(connectivityCheckStart());
+	    isOnline(function(online) {
 	    	var onlineId = online ? 1 : 0;
-	        if(!err){
-	        	if(getState().app.connectivity.status !== onlineId){
-	        		dispatch(connectivityChange(onlineId))
-	        	}
-	        }else{
-	        	throw err;
-	        }
-	        dispatch(connectivityCheckEnd())
+	     	console.log(online);
+	    	if(getState().app.connectivity.status !== onlineId){
+	    		dispatch(connectivityChange(onlineId))
+	    	}
+
+	        dispatch(connectivityCheckEnd());
 	    });
 	}
 

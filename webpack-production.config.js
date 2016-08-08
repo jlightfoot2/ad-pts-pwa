@@ -29,10 +29,10 @@ const config = {
       {
         cacheId: 'ad-asset-cache1',
         filename: 'ad-service-worker.js',
-        maximumFileSizeToCacheInBytes: 4194304,
+        maximumFileSizeToCacheInBytes: 104857600,
         runtimeCaching: [{
           handler: 'cacheFirst',
-          urlPattern: /\.(gif|jpg|jpeg|png)$/i,
+          urlPattern: /\.(gif|jpg|jpeg|png|mp4)$/i,
         }],
       }
     ),

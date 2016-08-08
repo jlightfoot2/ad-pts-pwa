@@ -1,5 +1,5 @@
 import {updateMapItem, arrayHasItem, arrayPush, arrayPushUnique ,arrayDeleteValue} from './utils.js';
-export {CONNECTIVITY_CHANGE,CONNECTIVITY_CHECK} from '../actions';
+import {CONNECTIVITY_CHANGE,CONNECTIVITY_CHECK_START} from '../actions';
 const defaultApp = {
 	connectivity: {
 		status: 1, //1 == online, 0 == offline
@@ -11,12 +11,16 @@ const defaultApp = {
 
 export const app = (state = defaultApp,action) => {
 	switch(action.type){
-		case CONNECTIVITY_CHECK:
-			state.connectivity = updateMapItem(state.connectivity,'lastCheck',() => (0) )
-			return {...state};
+		case CONNECTIVITY_CHECK_START:
+			return updateMapItem(state,'connectivity',(err,item) => {
+				item.lastCheck = 0;
+				return item;
+			} )
 		case CONNECTIVITY_CHANGE:
-			state.connectivity = updateMapItem(state.connectivity,'status',() => (action.status) )
-			return {...state};		
+			return updateMapItem(state,'connectivity',(err,item) => {
+				item.status = action.status;
+				return item;
+			} )	
 	}
 	return state;
 }

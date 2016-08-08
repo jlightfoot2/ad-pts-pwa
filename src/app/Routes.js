@@ -19,18 +19,21 @@ import {persistStore, autoRehydrate} from 'redux-persist'
 import localForage from 'localForage'
 import { browserHistory } from 'react-router'
 import { syncHistoryWithStore,routerMiddleware, push } from 'react-router-redux'
+import createSagaMiddleware from 'redux-saga';
+import sagaRoot from './sagas';
 
-
+const sagaMiddleware = createSagaMiddleware()
 
 let store = createStore(
     appHub,
     applyMiddleware(
             routerMiddleware(browserHistory),
-            thunkMiddleware
+            thunkMiddleware,
+            sagaMiddleware
           ),
     autoRehydrate()
   );
-
+sagaMiddleware.run(sagaRoot);
 const history = syncHistoryWithStore(hashHistory, store);
 persistStore(store);
 var observerGenerator = function(){

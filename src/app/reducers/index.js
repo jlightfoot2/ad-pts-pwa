@@ -1,6 +1,7 @@
 import {combineReducers} from 'redux';
 import {view} from './view.js';
 import {videos, videoIds,} from './videos.js';
+import { app } from './app.js';
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
 import {updateMapItem, arrayHasItem, arrayPush, arrayPushUnique ,arrayDeleteValue} from './utils.js';
 
@@ -33,6 +34,7 @@ function user(state = defaultUser, action){
 
 
 const appHub = combineReducers({
+  app,
   videos,
   videoIds,
   routing: routerReducer,
