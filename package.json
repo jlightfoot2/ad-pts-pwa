@@ -34,6 +34,7 @@
     "babel-plugin-transform-object-rest-spread": "^6.8.0",
     "immutable": "^3.8.1",
     "install": "^0.8.1",
+    "is-online": "^5.1.2",
     "json-loader": "^0.5.4",
     "localforage": "^1.4.2",
     "manifest-revision-webpack-plugin": "^0.3.0",
@@ -51,6 +52,7 @@
     "react-tap-event-plugin": "^1.0.0",
     "redux": "^3.5.2",
     "redux-immutable": "^3.0.6",
-    "redux-persist": "^3.2.2"
+    "redux-persist": "^3.2.2",
+    "redux-thunk": "^2.1.0"
   }
 }

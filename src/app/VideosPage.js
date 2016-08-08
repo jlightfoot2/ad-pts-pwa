@@ -39,11 +39,11 @@ class VideosPage extends Component {
 
         {videoList.map((tile) => (
 
-          <Link key={tile.id} to={'/video/'+tile.id}>
+          <Link key={tile.id} to={'/video/'+tile.id} cols={tile.featured ? 2 : 1}>
             <GridTile
               key={tile.id}
                {...tile}
-              cols={tile.featured ? 2 : 1}
+              
               actionPosition="right"
               titlePosition="top"
               actionIcon={<IconButton><PlayIcon color={'white'} {...tile}  /></IconButton>}

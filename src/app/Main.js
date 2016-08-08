@@ -17,6 +17,9 @@ import IconButton from 'material-ui/IconButton/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import MoreHorizIcon from 'material-ui/svg-icons/navigation/more-horiz';
 import MenuIcon from 'material-ui/svg-icons/navigation/menu';
+import DeviceSignalCellular0Bar from 'material-ui/svg-icons/device/signal-cellular-0-bar';
+import DeviceSignalCellular2Bar from 'material-ui/svg-icons/device/signal-cellular-2-bar';
+import DeviceSignalCellular4Bar from 'material-ui/svg-icons/device/signal-cellular-4-bar';
 import { Link } from 'react-router'
 import { Router, Route, hashHistory } from 'react-router'
 import AppSnackBar from './AppSnackBar.js'
@@ -88,20 +91,21 @@ class Main extends Component {
         <div style={styles.desktop}>
 
           <AppBar
-			    iconElementLeft={
-			      <IconMenu
-			        iconButtonElement={
-			          <IconButton><MenuIcon /></IconButton>
-			        }
-			        targetOrigin={{horizontal: 'left', vertical: 'top'}}
-			        anchorOrigin={{horizontal: 'left', vertical: 'top'}}
-			      >
-			        <MenuItem primaryText="Home" containerElement={<Link to="/home" />} />
+              title={this.state.title}
+    			    iconElementLeft={
+    			      <IconMenu
+    			        iconButtonElement={
+    			          <IconButton><MenuIcon /></IconButton>
+    			        }
+    			        targetOrigin={{horizontal: 'left', vertical: 'top'}}
+    			        anchorOrigin={{horizontal: 'left', vertical: 'top'}}
+    			      >
+    			        <MenuItem primaryText="Home" containerElement={<Link to="/home" />} />
 
-			      </IconMenu>
-			    }
-
-              title={this.state.title} />
+    			      </IconMenu>
+    			    }
+              iconElementRight={<DeviceSignalCellular2Bar/>}
+               />
 
 
               <div>{React.cloneElement(this.props.children, { appBarTitle: this.handleTitle, stylesRoot: styles.root })}</div>

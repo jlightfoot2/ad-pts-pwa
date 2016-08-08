@@ -30,7 +30,7 @@ post-traumatic stress, and explore the e-library for in-depth information.
         
   				<RaisedButton 
             containerElement={<Link to="/home" />}
-            linkButton={true}
+            
             primary={true} label="Get Started!" />
   
   			</CardActions>
