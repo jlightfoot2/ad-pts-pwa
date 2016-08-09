@@ -1,0 +1,37 @@
+import React,{Component} from 'react';
+import { connect } from 'react-redux';
+import {showFlashMessage} from './actions';
+
+const Connectivity = (props) => {
+	var {isOnline,flashMessage} = props;
+	const onlineMessage = function(){
+		if(!isOnline){
+			flashMessage("This feature is not available offline")
+		}
+	}
+	return (
+		<div onClick={onlineMessage}>
+			{React.cloneElement(props.children, { isOnline})}
+		</div>
+		)
+}
+
+
+
+
+const mapStateToProps = (state,ownProps) => {
+  return {
+    isOnline: state.app.connectivity.status === 1
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    flashMessage: (text) => dispatch(showFlashMessage(text))
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Connectivity);
