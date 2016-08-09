@@ -11,6 +11,7 @@ import AppButtonIcon from './AppButtonIcon.js';
 import PlayIcon from 'material-ui/svg-icons/av/play-circle-outline';
 import IconButton from 'material-ui/IconButton';
 import CheckBox from 'material-ui/svg-icons/toggle/check-box';
+import Connectivity from './Connectivity.js';
 const styles = {
   gridList: {
     width: 500,
@@ -28,9 +29,11 @@ class VideosPage extends Component {
       this.props.appBarTitle && this.props.appBarTitle("Videos");
   }
   render(){
-  var {videoList,toggleToMyApps,flashMessage, appBarTitle,stylesRoot} = this.props;
+    console.log(this.props);
+  var {videoList,toggleToMyApps,flashMessage, appBarTitle,stylesRoot,isOnline} = this.props;
     return (
     <div style={stylesRoot}>
+      <Connectivity>
       <GridList
         cellHeight={200}
         style={styles.gridList}
@@ -55,6 +58,7 @@ class VideosPage extends Component {
          
         ))}
       </GridList>
+      </Connectivity>
     </div>);
   }
 

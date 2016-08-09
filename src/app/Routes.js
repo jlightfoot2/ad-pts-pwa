@@ -22,6 +22,7 @@ import { syncHistoryWithStore,routerMiddleware, push } from 'react-router-redux'
 import createSagaMiddleware from 'redux-saga';
 import sagaRoot from './sagas';
 
+
 const sagaMiddleware = createSagaMiddleware()
 
 let store = createStore(
