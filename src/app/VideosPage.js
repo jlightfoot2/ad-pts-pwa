@@ -12,6 +12,7 @@ import PlayIcon from 'material-ui/svg-icons/av/play-circle-outline';
 import IconButton from 'material-ui/IconButton';
 import CheckBox from 'material-ui/svg-icons/toggle/check-box';
 import Connectivity from './Connectivity.js';
+import OnlineOnlyLink from './OnlineOnlyLink.js';
 const styles = {
   gridList: {
     width: 500,
@@ -29,11 +30,13 @@ class VideosPage extends Component {
       this.props.appBarTitle && this.props.appBarTitle("Videos");
   }
   render(){
-    console.log(this.props);
+
   var {videoList,toggleToMyApps,flashMessage, appBarTitle,stylesRoot,isOnline} = this.props;
+
+
     return (
     <div style={stylesRoot}>
-      <Connectivity>
+    
       <GridList
         cellHeight={200}
         style={styles.gridList}
@@ -42,7 +45,7 @@ class VideosPage extends Component {
 
         {videoList.map((tile) => (
 
-          <Link key={tile.id} to={'/video/'+tile.id} cols={tile.featured ? 2 : 1}>
+          <OnlineOnlyLink isOnline={isOnline} key={tile.id} to={'/video/'+tile.id} cols={tile.featured ? 2 : 1}>
             <GridTile
               key={tile.id}
                {...tile}
@@ -53,12 +56,12 @@ class VideosPage extends Component {
             >
               <img src={tile.img} />
             </GridTile>
-          </Link>
+          </OnlineOnlyLink>
         
          
         ))}
       </GridList>
-      </Connectivity>
+
     </div>);
   }
 

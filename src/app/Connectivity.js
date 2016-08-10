@@ -2,6 +2,17 @@ import React,{Component} from 'react';
 import { connect } from 'react-redux';
 import {showFlashMessage} from './actions';
 
+const styles = {
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+    padding: '10px'
+  },
+  desktop: {
+  }
+};
+
 const Connectivity = (props) => {
 	var {isOnline,flashMessage} = props;
 	const onlineMessage = function(){
@@ -11,7 +22,7 @@ const Connectivity = (props) => {
 	}
 	return (
 		<div onClick={onlineMessage}>
-			{React.cloneElement(props.children, { isOnline})}
+			{React.cloneElement(props.children, Object.assign({ isOnline },props))}
 		</div>
 		)
 }

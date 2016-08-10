@@ -99,6 +99,8 @@ class Main extends Component {
     			        anchorOrigin={{horizontal: 'left', vertical: 'top'}}
     			      >
     			        <MenuItem primaryText="Home" containerElement={<Link to="/home" />} />
+                  <MenuItem primaryText="Videos" containerElement={<Link to="/videos" />} />
+                  <MenuItem primaryText="Assessments" containerElement={<Link to="/assessment" />} />
 
     			      </IconMenu>
     			    }

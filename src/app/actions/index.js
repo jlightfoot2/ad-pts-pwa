@@ -8,6 +8,7 @@ export const CONNECTIVITY_CHECK_END = 'CONNECTIVITY_CHECK_END';
 export const SHOW_FLASH_MESSAGE = 'SHOW_FLASH_MESSAGE';
 export const HIDE_FLASH_MESSAGE = 'HIDE_FLASH_MESSAGE';
 export const TAB_CHANGE_INDEX = 'TAB_CHANGE_INDEX';
+export const QUESTION_ANSWERED = 'QUESTION_ANSWERED';
 ;
 
 export const tabChangeIndex = (id,index) => {
@@ -68,4 +69,11 @@ export const checkIsOnline = (checkSource) => {
 	    });
 	}
 
+}
+
+export const questionAnswered = (answers) => {
+	return {
+		type: QUESTION_ANSWERED,
+		answers
+	}
 }

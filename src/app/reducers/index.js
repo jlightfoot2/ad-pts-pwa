@@ -2,6 +2,8 @@ import {combineReducers} from 'redux';
 import {view} from './view.js';
 import {videos, videoIds,} from './videos.js';
 import { app } from './app.js';
+import { questions, questionIds, answers} from './assessment.js';
+import {reducer as formReducer} from 'redux-form';
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
 import {updateMapItem, arrayHasItem, arrayPush, arrayPushUnique ,arrayDeleteValue} from './utils.js';
 
@@ -37,6 +39,10 @@ const appHub = combineReducers({
   app,
   videos,
   videoIds,
+  questions,
+  questionIds,
+  answers,
+  form: formReducer,
   routing: routerReducer,
   user,
   view

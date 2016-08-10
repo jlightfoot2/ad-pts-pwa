@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 
 const mapStateToProps = (state,ownProps) => {
+  console.log(ownProps)
   return {
     videoList: state.videoIds.map((id) => state.videos[id]),
     video: state.videos[ownProps.params.id]

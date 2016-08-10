@@ -5,6 +5,7 @@ import IntroPage from './Intro.js';
 import HomePage from './HomePage.js';
 import VideosPage from './VideosPage.js';
 import MainTabs from './MainTabs.js';
+import Assessment from './Assessment.js';
 import MyApps from './MyApps.js';
 import Catalog from './Catalog.js';
 import VideoPage from './VideoContainer.js';
@@ -21,7 +22,13 @@ import { browserHistory } from 'react-router'
 import { syncHistoryWithStore,routerMiddleware, push } from 'react-router-redux'
 import createSagaMiddleware from 'redux-saga';
 import sagaRoot from './sagas';
+import Connectivity from './Connectivity.js';
 
+function onlineWrap(comp){
+  return (props) => {
+      return <Connectivity {...props}>{comp}</Connectivity>
+    }
+}
 
 const sagaMiddleware = createSagaMiddleware()
 
@@ -103,9 +110,9 @@ const Routes = () => (
 	      <Route path="/intro" component={IntroPage} />
         <Route path="/splash" component={IntroPage} />
 	      <Route path="/home" component={HomePage} />
-        <Route path="/videos" component={VideosPage} />
-        <Route path="/video/:id" component={VideoPage} />
-        <Route path="/catalogtabs" component={MainTabs} />
+        <Route path="/videos" component={onlineWrap(<VideosPage/>)} />
+        <Route path="/video/:id" component={onlineWrap(<VideoPage/>)} />
+        <Route path="/assessment" component={Assessment} />
 	    </Route>
 	  </Router>
 	</Provider>
