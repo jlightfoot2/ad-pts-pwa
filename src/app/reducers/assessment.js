@@ -1,3 +1,4 @@
+import {combineReducers} from 'redux';
 import { normalize, Schema, arrayOf } from 'normalizr';
 import {
 	QUESTION_ANSWERED
@@ -65,12 +66,44 @@ export const questionIds = (state = questionItems.result,action) => {
 	return state;
 }
 
+export const result = (state = 0.5, action) => {
+	function countAnswered(answers){
+		var count = 0
+		var totalCount = 0
+		Object.keys(answers).map(function(v){
+			console.log(answers[v])
+			if(answers[v]){
+				count++;
+			}
+			totalCount++;
+		});
+		return {numAnswered: count,total: totalCount};
+	}
+
+	switch(action.type){
+		case QUESTION_ANSWERED:
+			console.log(countAnswered(action.answers),action.answers);
+			const {numAnswered, total} = countAnswered(action.answers);
+			return numAnswered/total;
+	}
+	return state;
+}
+
 
 export const answers = (state = {},action) => {
 	switch(action.type){
 		case QUESTION_ANSWERED:
-			console.log(action.answers);
 			return {...action.answers}
 	}
 	return state;
 }
+
+
+const Assessments = combineReducers({
+	answers,
+	questions,
+	questionIds,
+	result
+})
+
+export default Assessments;

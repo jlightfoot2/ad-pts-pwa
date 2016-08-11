@@ -5,8 +5,7 @@ import {questionAnswered} from './actions';
 import { dispatch } from 'redux';
 import D3LinearaGauge from './D3LinearaGauge.js';
 const Assessment = function(props){
-	var {questions,handleSubmit,fields,questionAnswered} = props;
-	    console.log('fields');
+	var {result,questions,handleSubmit,fields,questionAnswered} = props;
 
 	function getInput(question,field){
 		
@@ -21,7 +20,7 @@ const Assessment = function(props){
    return (
    		<div>
    		    <h3>PTS Assessment</h3>
-   		    <D3LinearaGauge/>
+   		    <D3LinearaGauge result={result} />
 	        <form onSubmit={handleSubmit((data) => questionAnswered(data))}>
 	        {Object.keys(fields).map((name,i) => {
 	          const field = fields[name]
@@ -52,9 +51,10 @@ export default reduxForm(
 	(state) => {
 		
 		return {
-			questions: state.questions,
-			fields: state.questionIds.map((id,i) => (state.questions[id+""].id+"")),
-			initialValues: state.answers
+			questions: state.assessment.questions,
+			result: state.assessment.result,
+			fields: state.assessment.questionIds.map((id,i) => (state.assessment.questions[id+""].id+"")),
+			initialValues: state.assessment.answers
 		}
 
 	},
