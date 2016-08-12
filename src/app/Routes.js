@@ -4,11 +4,9 @@ import Main from './Main.js';
 import IntroPage from './Intro.js';
 import HomePage from './HomePage.js';
 import VideosPage from './VideosPage.js';
-import MainTabs from './MainTabs.js';
 import Assessment from './Assessment.js';
 import AssessmentResult from './AssessmentResult.js';
-import MyApps from './MyApps.js';
-import Catalog from './Catalog.js';
+import PTSLibrary from './PTSLibrary.js';
 import VideoPage from './VideoContainer.js';
 import { Router, Route, hashHistory } from 'react-router'
 import { createStore ,applyMiddleware} from 'redux'
@@ -115,6 +113,7 @@ const Routes = () => (
         <Route path="/video/:id" component={onlineWrap(<VideoPage/>)} />
         <Route path="/assessment" component={Assessment} />
         <Route path="/result" component={AssessmentResult} />
+        <Route path="/library" component={PTSLibrary} />
 	    </Route>
 	  </Router>
 	</Provider>
