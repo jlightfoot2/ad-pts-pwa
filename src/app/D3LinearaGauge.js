@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import { connect } from 'react-redux';
+
 
 
 import d3Chart from './lib/d3t2/LinearGauge.js';

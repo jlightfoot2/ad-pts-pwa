@@ -9,7 +9,8 @@ const style = {
 	},
 	horizontal: {
 		float: 'left',
-		padding: '5px'
+		padding: '5px',
+		marginLeft: '5px'
 	}
 }
 

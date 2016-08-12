@@ -5,7 +5,19 @@ import {
 } from '../actions'
 const questionSchema = new Schema('questions');
 
-
+const assessmentConfig = {
+	maxScore: 85.0,
+	scoring: [
+		{id: 1,title: 'Low PTS ',min: 0,max: 33, conclusion: "Your score reflects that you are not experiencing symptoms that are typically associated with post-traumatic stress. \
+			Although only a healthcare professional can provide an actual diagnosis of post-traumatic stress, or its absence, your results suggest that \
+			your experience is not similar to the experience of individuals suffering from post-traumatic stress."
+		},
+		{id: 2,title: 'Moderate PTS',min: 34,max: 43, conclusion: "Although only a healthcare professional can provide an actual diagnosis, your score indicates that you are experiencing a moderate number of symptoms that are similar to those associated with post-traumatic stress"
+		},
+		{id: 3,title: 'High PTS',min: 44,max: 85, conclusion: "Although only a healthcare professional can provide an actual diagnosis, your score indicates that you are experiencing a significantly high number of symptoms that are similar to those associated with post-traumatic stress"
+		},
+	]
+}
 function makeRadios(){
 
 	return {
@@ -19,6 +31,53 @@ function makeRadios(){
 			]
 	}
 }
+
+function ratioComplete(answers){
+	const {numAnswered, total} = countCompleted(answers);
+	return numAnswered/total;
+}
+function percentComplete(answers){
+	return ratioComplete(answers) * 100;
+}
+
+function scaleRatio(answers){
+	return tallyScore(answers)/assessmentConfig.maxScore;
+}
+
+function countCompleted(answers){
+	var count = 0;
+	var totalCount = 0;
+	Object.keys(answers).map(function(v){
+		if(answers[v]){
+			count++;
+		}
+		totalCount++;
+	});
+	return {numAnswered: count,total: totalCount};
+}
+
+function tallyScore(answers){
+	if(ratioComplete < 1){
+		return 0; //assessment incomplete
+	}
+	var total = 0;
+	Object.keys(answers).map(function(v){
+		total += parseInt(answers[v])
+	});
+	return total;
+}
+
+function getScore(answers){
+	var tally = tallyScore(answers);
+
+	return assessmentConfig.scoring.filter(function(criteria){
+		if(criteria.min <= tally && criteria.max >= tally){
+			return true
+		}
+		return false;
+	})[0] || assessmentConfig.scoring[0];
+}
+
 const apiQuestions = [
 	{id: 1, title: "Repeated, disturbing memories, thoughts, or images of a stressful military experience from the past?",type: 'text', answer: makeRadios()},
 	{id: 2,title: "Repeated, disturbing dreams of a stressful military experience from the past?",type: 'text',answer: makeRadios()},
@@ -54,10 +113,6 @@ const appTree = {
 const questionItems = normalize(appTree.questions,arrayOf(questionSchema));
 
 
-
-
-
-
 export const questions = (state = questionItems.entities.questions,action) => {
 	return state;
 }
@@ -67,24 +122,23 @@ export const questionIds = (state = questionItems.result,action) => {
 }
 
 export const result = (state = 0.5, action) => {
-	function countAnswered(answers){
-		var count = 0
-		var totalCount = 0
-		Object.keys(answers).map(function(v){
-			console.log(answers[v])
-			if(answers[v]){
-				count++;
-			}
-			totalCount++;
-		});
-		return {numAnswered: count,total: totalCount};
-	}
+
+
 
 	switch(action.type){
 		case QUESTION_ANSWERED:
-			console.log(countAnswered(action.answers),action.answers);
-			const {numAnswered, total} = countAnswered(action.answers);
-			return numAnswered/total;
+			return scaleRatio(action.answers);
+	}
+	return state;
+}
+
+export const resultDetails = (state = assessmentConfig.scoring[0], action) => {
+
+
+
+	switch(action.type){
+		case QUESTION_ANSWERED:
+			return getScore(action.answers);
 	}
 	return state;
 }
@@ -103,7 +157,8 @@ const Assessments = combineReducers({
 	answers,
 	questions,
 	questionIds,
-	result
+	result,
+	resultDetails
 })
 
 export default Assessments;

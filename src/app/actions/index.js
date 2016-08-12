@@ -60,7 +60,6 @@ export const checkIsOnline = (checkSource) => {
 		dispatch(connectivityCheckStart());
 	    isOnline(function(online) {
 	    	var onlineId = online ? 1 : 0;
-	     	console.log(online);
 	    	if(getState().app.connectivity.status !== onlineId){
 	    		dispatch(connectivityChange(onlineId))
 	    	}

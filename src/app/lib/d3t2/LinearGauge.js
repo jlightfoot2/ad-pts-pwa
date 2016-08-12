@@ -1,3 +1,6 @@
+/**
+ * adapted from https://codepen.io/VicM/pen/NPGqwr
+ */
 var EventEmitter = require('events').EventEmitter;
 var d3 = require('d3');
 
@@ -11,7 +14,7 @@ ns.tickLine = null;
 ns.tickCircle = null;
 ns.tickPosition = 0.0;
 ns.width = 500;
-ns.chart_w = ns.width;
+ns.chart_w = ns.width - 20;
 
 ns.create = function(el, props, state) {
 
@@ -20,7 +23,7 @@ ns.create = function(el, props, state) {
 	var gauge_h = 60;
 
 
-	var chart_y_pos = 0;
+	var chart_y_pos = 5;
 
 	var result = state.data;	// in a scale [0 1]
 	console.log()
@@ -69,38 +72,32 @@ ns.create = function(el, props, state) {
 	/****************************************
 	* Text, titles
 	*****************************************/
-    /*
-	// Left percentage indicator
+    
+	// Left indicator
 	svg.append("g")
 		.append("text")
 	  .attr("x", 0)
 	  .attr("y", text_margins.top )
-	  .text( "0%" );
+	  .text( "Low" );
+
 
 	svg.append("g")
 		.append("text")
-	  .attr("x", 0)
-	  .attr("y", text_margins.top + LF )
-	  .text( "Alarm" );
+	  .attr("x", this.chart_w / 2)
+	  .attr("y", text_margins.top )
+	  .attr("text-anchor",'middle')
+	  .text( "Moderate" );
 
-	// Right percentage indicator
+
+	// Right indicator
 
 	svg.append("g")
 		.append("text")
 		.classed("rightPrcnt", true )
-	  .attr("x", chart_w )
+	  .attr("x", this.chart_w )
 	  .attr("y", text_margins.top )
 		.attr("text-anchor", "end")
-	  .text( "100%" );
-
-	svg.append("g")
-		.append("text")
-		.classed("rightLabel", true )
-	  .attr("x", chart_w )
-	  .attr("y", text_margins.top + LF )
-		.attr("text-anchor", "end")
-	  .text( "width: " + chart_w );
-		*/
+	  .text( "High" );
 	  
 
 	/****************************************
@@ -112,14 +109,15 @@ ns.create = function(el, props, state) {
 
 	this.tickLine = tickMark.append("line")
 			  
-				.attr("y1", chart_y_pos )
+				.attr("y1", chart_y_pos - 5)
 
-				.attr("y2", gauge_h + chart_y_pos )
+				.attr("y2", gauge_h + chart_y_pos + 5)
 				.attr("stroke-width", 3)
 				.attr("stroke", "black");
 
 	this.tickCircle = tickMark.append("circle")
-	  .attr("cy", (gauge_h + chart_y_pos) / 2 )
+	  .attr("cy", (gauge_h + chart_y_pos+5) / 2 )
+	    .attr('fill','grey')
 		.attr("r", 10);
 
 	  var dispatcher = new EventEmitter();

@@ -6,6 +6,7 @@ import HomePage from './HomePage.js';
 import VideosPage from './VideosPage.js';
 import MainTabs from './MainTabs.js';
 import Assessment from './Assessment.js';
+import AssessmentResult from './AssessmentResult.js';
 import MyApps from './MyApps.js';
 import Catalog from './Catalog.js';
 import VideoPage from './VideoContainer.js';
@@ -113,6 +114,7 @@ const Routes = () => (
         <Route path="/videos" component={onlineWrap(<VideosPage/>)} />
         <Route path="/video/:id" component={onlineWrap(<VideoPage/>)} />
         <Route path="/assessment" component={Assessment} />
+        <Route path="/result" component={AssessmentResult} />
 	    </Route>
 	  </Router>
 	</Provider>
