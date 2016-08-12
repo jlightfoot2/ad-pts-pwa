@@ -64,6 +64,7 @@ function tallyScore(answers){
 	Object.keys(answers).map(function(v){
 		total += parseInt(answers[v])
 	});
+	
 	return total;
 }
 
@@ -127,7 +128,7 @@ export const result = (state = 0.5, action) => {
 
 	switch(action.type){
 		case QUESTION_ANSWERED:
-			return scaleRatio(action.answers);
+			return tallyScore(action.answers);
 	}
 	return state;
 }

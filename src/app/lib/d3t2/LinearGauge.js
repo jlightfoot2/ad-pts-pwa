@@ -12,13 +12,14 @@ var TOOLTIP_HEIGHT = 30;
 var ns = {};
 ns.tickLine = null;
 ns.tickCircle = null;
+ns.tickMark = null;
 ns.tickPosition = 0.0;
 ns.width = 500;
 ns.chart_w = ns.width - 20;
 
 ns.create = function(el, props, state) {
 
-	var LF = 30;
+   var scales = ns._scales(el,state.domain);
 
 	var gauge_h = 60;
 
@@ -26,9 +27,10 @@ ns.create = function(el, props, state) {
 	var chart_y_pos = 5;
 
 	var result = state.data;	// in a scale [0 1]
-	console.log()
+
 	var resultPos = this.chart_w * result;
-    this.tickPosition = resultPos;
+    this.tickPosition = scales.x(result);
+    
 	var text_margins = {top: chart_y_pos + gauge_h + 35, right: 10, bottom: 0, left: 10};
 
 	var svg = d3.select(el).append("svg")
@@ -65,6 +67,7 @@ ns.create = function(el, props, state) {
 	  .attr("x", 0 )
 	  .attr("y", chart_y_pos )
 	  .attr("width", "100%" )
+
 	  .attr("height", gauge_h )
 	  .style("fill", "url(#gradient)");
 
@@ -105,18 +108,22 @@ ns.create = function(el, props, state) {
 	*****************************************/
 
 
-	var tickMark = svg.append("g");
 
-	this.tickLine = tickMark.append("line")
-			  
+	this.tickMark = svg.append("g")
+			.attr("transform", "translate(10,0)" );
+
+	this.tickLine = this.tickMark.append("line")
+  				.attr("x2", 0)
+  				.attr("x1", 0)
 				.attr("y1", chart_y_pos - 5)
 
 				.attr("y2", gauge_h + chart_y_pos + 5)
 				.attr("stroke-width", 3)
 				.attr("stroke", "black");
 
-	this.tickCircle = tickMark.append("circle")
+	this.tickCircle = this.tickMark.append("circle")
 	  .attr("cy", (gauge_h + chart_y_pos+5) / 2 )
+	  .attr("cx", 0)
 	    .attr('fill','grey')
 		.attr("r", 10);
 
@@ -131,10 +138,20 @@ ns.update = function(el, state, dispatcher) {
   var scales = this._scales(el, state.domain);
   var prevScales = this._scales(el, state.prevDomain);
   var resultPos = this.chart_w * state.data;
-  this.tickPosition = resultPos;
-  this.tickLine.attr("x2", this.tickPosition);
-  this.tickLine.attr("x1", this.tickPosition)
-  this.tickCircle.attr("cx", this.tickPosition);
+  this.tickPosition = scales.x(state.data);
+  //this.tickLine.attr("x2", this.tickPosition);
+  //this.tickLine.attr("x1", this.tickPosition)
+
+
+ this.tickMark
+  			.transition()
+  			.duration(2000)
+  			.delay(500)
+  			.attr("transform", "translate("+this.tickPosition+",0)" )
+  			
+
+  //this.tickCircle.attr("cx", this.tickPosition)
+  			;
   this._draw(el, scales, state.data, prevScales, dispatcher);
   //this._drawTooltips(el, scales, state.tooltips, prevScales);
 };
