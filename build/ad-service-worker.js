@@ -83,7 +83,7 @@ function parse(e){for(var t,r=[],n=0,o=0,a="";null!=(t=PATH_REGEXP.exec(e));){va
 
 
 /* eslint-disable quotes, comma-spacing */
-var PrecacheConfig = [["011f1c3a3046e5b526ed08e428b6bd1d.png","011f1c3a3046e5b526ed08e428b6bd1d"],["3fff296c9561626643d87267725d2bbc.jpg","3fff296c9561626643d87267725d2bbc"],["404e7458f27ab9152fa5c0caa5a1b9ab.jpg","404e7458f27ab9152fa5c0caa5a1b9ab"],["615a21a22216f5823974109d367f4b42.jpg","615a21a22216f5823974109d367f4b42"],["73c65ec1484a513fe9a2b6133bebd35e.png","73c65ec1484a513fe9a2b6133bebd35e"],["app.js","65927ec267ea3adeb54710e5febfb911"],["b1fc0a7dec59c4b37c6e13f17112355c.jpg","b1fc0a7dec59c4b37c6e13f17112355c"],["b7fbe8976e0dc776aab733d17cd5001a.jpg","b7fbe8976e0dc776aab733d17cd5001a"],["index.html","8859c397445800e06e8625ec90f69564"],["main-04312762f51e2ceefa7ee046a1f1e37d.css","04312762f51e2ceefa7ee046a1f1e37d"],["manifest.json","53a50ad48919f9f370da4339844b4db3"],["stats.json","a833e75011591670fec6bfb7b7ae7c07"]];
+var PrecacheConfig = [["011f1c3a3046e5b526ed08e428b6bd1d.png","011f1c3a3046e5b526ed08e428b6bd1d"],["1ef5d19a0feaa22b07f066f218c1b0a7.mp4","1ef5d19a0feaa22b07f066f218c1b0a7"],["29169595a3f830e8fae30db81ace7baa.mp4","29169595a3f830e8fae30db81ace7baa"],["3fff296c9561626643d87267725d2bbc.jpg","3fff296c9561626643d87267725d2bbc"],["404e7458f27ab9152fa5c0caa5a1b9ab.jpg","404e7458f27ab9152fa5c0caa5a1b9ab"],["495dd97226bb9743169d4e1d28d5469c.mp4","495dd97226bb9743169d4e1d28d5469c"],["615a21a22216f5823974109d367f4b42.jpg","615a21a22216f5823974109d367f4b42"],["6aa26c9d2417e8a3e693ed8f9c0d1ed4.mp4","6aa26c9d2417e8a3e693ed8f9c0d1ed4"],["73c65ec1484a513fe9a2b6133bebd35e.png","73c65ec1484a513fe9a2b6133bebd35e"],["app.js","9b5d6a1606380564a34fa6dc7a608f1c"],["app.js.map","0994eda3e455232407a9add03e8552c9"],["b1fc0a7dec59c4b37c6e13f17112355c.jpg","b1fc0a7dec59c4b37c6e13f17112355c"],["b7fbe8976e0dc776aab733d17cd5001a.jpg","b7fbe8976e0dc776aab733d17cd5001a"],["bb40888b7c992069068527530ca5603b.mp4","bb40888b7c992069068527530ca5603b"],["index.html","8859c397445800e06e8625ec90f69564"],["main-04312762f51e2ceefa7ee046a1f1e37d.css","04312762f51e2ceefa7ee046a1f1e37d"],["manifest.json","53a50ad48919f9f370da4339844b4db3"],["stats.json","0ffdd43fb4a51087f33dc201fd341496"]];
 /* eslint-enable quotes, comma-spacing */
 var CacheNamePrefix = 'sw-precache-v1-ad-asset-cache1-' + (self.registration ? self.registration.scope : '') + '-';
 
@@ -310,7 +310,7 @@ self.addEventListener('fetch', function(event) {
 
 // Runtime cache configuration, using the sw-toolbox library.
 
-toolbox.router.get(/\.(gif|jpg|jpeg|png)$/i, toolbox.cacheFirst, {});
+toolbox.router.get(/\.(gif|jpg|jpeg|png|mp4)$/i, toolbox.cacheFirst, {});
 
 
 
