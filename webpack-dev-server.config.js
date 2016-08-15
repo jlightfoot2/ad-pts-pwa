@@ -8,6 +8,7 @@ const PathRewriterPlugin = require('webpack-path-rewriter');
 const config = {
   // Entry points to the project
   entry: [
+    'babel-polyfill',
     'webpack/hot/dev-server',
     'webpack/hot/only-dev-server',
     path.join(__dirname, '/src/app/app.js'),
@@ -43,7 +44,7 @@ const config = {
         exclude: [nodeModulesPath],
       },
       {
-        test:   /\.(png|gif|jpe?g|svg)$/i,
+        test:   /\.(png|gif|jpe?g|svg|mp4)$/i,
         loader: 'url?limit=100', 
         /*
         TODO upping limit cause images to inline but this causes probem

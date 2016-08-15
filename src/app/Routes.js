@@ -3,31 +3,53 @@ import ReactDOM from 'react-dom';
 import Main from './Main.js';
 import IntroPage from './Intro.js';
 import HomePage from './HomePage.js';
-import VideoPage from './VideoPage.js';
-import MainTabs from './MainTabs.js';
-import MyApps from './MyApps.js';
-import Catalog from './Catalog.js';
+import VideosPage from './VideosPage.js';
+import Assessment from './Assessment.js';
+import AssessmentResult from './AssessmentResult.js';
+import PTSLibrary from './PTSLibrary.js';
+import VideoPage from './VideoContainer.js';
 import { Router, Route, hashHistory } from 'react-router'
-import { createStore } from 'redux'
+import { createStore ,applyMiddleware} from 'redux'
 import { Provider } from 'react-redux'
 import appHub from './reducers'
 import { Map } from 'immutable';
 import { userSeesIntro } from './actions';
-import { syncHistoryWithStore} from 'react-router-redux';
+import thunkMiddleware from 'redux-thunk'
 import {persistStore, autoRehydrate} from 'redux-persist'
 import localForage from 'localForage'
+import { browserHistory } from 'react-router'
+import { syncHistoryWithStore,routerMiddleware, push } from 'react-router-redux'
+import createSagaMiddleware from 'redux-saga';
+import sagaRoot from './sagas';
+import Connectivity from './Connectivity.js';
 
+function onlineWrap(comp){
+  return (props) => {
+      return <Connectivity {...props}>{comp}</Connectivity>
+    }
+}
 
-let store = createStore(appHub,undefined,autoRehydrate());
+const sagaMiddleware = createSagaMiddleware()
+
+let store = createStore(
+    appHub,
+    applyMiddleware(
+            routerMiddleware(browserHistory),
+            thunkMiddleware,
+            sagaMiddleware
+          ),
+    autoRehydrate()
+  );
+sagaMiddleware.run(sagaRoot);
 const history = syncHistoryWithStore(hashHistory, store);
 persistStore(store);
-
-var storeObserver = function(store, selector, onChange) {
+var observerGenerator = function(){
+  return function(store, selector, onChange) {
     if (!store) throw Error('\'store\' should be truthy');
     if (!selector) throw Error('\'selector\' should be truthy');
     var currentValue = null;
     store.subscribe(() => {
-    	console.log(store.getState());
+        console.log(store.getState());
         let previousValue = currentValue;
         try {
             currentValue = selector(store.getState());
@@ -40,7 +62,9 @@ var storeObserver = function(store, selector, onChange) {
             onChange(store, previousValue, currentValue);
         }
     });
+  }
 }
+var storeObserver = observerGenerator();
 storeObserver (
 			store,
 			(state) => {
@@ -50,6 +74,8 @@ storeObserver (
 					store.dispatch(userSeesIntro());
 			}
 		);
+
+
 /*
 let unsubscribe = store.subscribe(() => {
   		console.log(store.getState())
@@ -61,6 +87,9 @@ let unsubscribe = store.subscribe(() => {
   		}
 	}
 )
+
+        <Route path="/videos" component={onlineWrap(<VideosPage/>)} />
+        <Route path="/video/:id" component={onlineWrap(<VideoPage/>)} /> 
  */
 
 
@@ -83,8 +112,11 @@ const Routes = () => (
 	      <Route path="/intro" component={IntroPage} />
         <Route path="/splash" component={IntroPage} />
 	      <Route path="/home" component={HomePage} />
-        <Route path="/videos" component={VideoPage} />
-        <Route path="/catalogtabs" component={MainTabs} />
+        <Route path="/videos" component={VideosPage} />
+        <Route path="/video/:id" component={VideoPage} /> 
+        <Route path="/assessment" component={Assessment} />
+        <Route path="/result" component={AssessmentResult} />
+        <Route path="/library" component={PTSLibrary} />
 	    </Route>
 	  </Router>
 	</Provider>

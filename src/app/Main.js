@@ -19,6 +19,7 @@ import MoreHorizIcon from 'material-ui/svg-icons/navigation/more-horiz';
 import MenuIcon from 'material-ui/svg-icons/navigation/menu';
 import { Link } from 'react-router'
 import { Router, Route, hashHistory } from 'react-router'
+import OnlineStatusBarIcon from './OnlineStatusContainer.js'
 import AppSnackBar from './AppSnackBar.js'
 const styles = {
   root: {
@@ -88,20 +89,23 @@ class Main extends Component {
         <div style={styles.desktop}>
 
           <AppBar
-			    iconElementLeft={
-			      <IconMenu
-			        iconButtonElement={
-			          <IconButton><MenuIcon /></IconButton>
-			        }
-			        targetOrigin={{horizontal: 'left', vertical: 'top'}}
-			        anchorOrigin={{horizontal: 'left', vertical: 'top'}}
-			      >
-			        <MenuItem primaryText="Home" containerElement={<Link to="/home" />} />
+              title={this.state.title}
+    			    iconElementLeft={
+    			      <IconMenu
+    			        iconButtonElement={
+    			          <IconButton><MenuIcon /></IconButton>
+    			        }
+    			        targetOrigin={{horizontal: 'left', vertical: 'top'}}
+    			        anchorOrigin={{horizontal: 'left', vertical: 'top'}}
+    			      >
+    			        <MenuItem primaryText="Home" containerElement={<Link to="/home" />} />
+                  <MenuItem primaryText="Videos" containerElement={<Link to="/videos" />} />
+                  <MenuItem primaryText="Assessments" containerElement={<Link to="/assessment" />} />
 
-			      </IconMenu>
-			    }
-
-              title={this.state.title} />
+    			      </IconMenu>
+    			    }
+              iconElementRight={<OnlineStatusBarIcon/>}
+               />
 
 
               <div>{React.cloneElement(this.props.children, { appBarTitle: this.handleTitle, stylesRoot: styles.root })}</div>
