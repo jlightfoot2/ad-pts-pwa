@@ -87,6 +87,9 @@ let unsubscribe = store.subscribe(() => {
   		}
 	}
 )
+
+        <Route path="/videos" component={onlineWrap(<VideosPage/>)} />
+        <Route path="/video/:id" component={onlineWrap(<VideoPage/>)} /> 
  */
 
 
@@ -109,8 +112,8 @@ const Routes = () => (
 	      <Route path="/intro" component={IntroPage} />
         <Route path="/splash" component={IntroPage} />
 	      <Route path="/home" component={HomePage} />
-        <Route path="/videos" component={onlineWrap(<VideosPage/>)} />
-        <Route path="/video/:id" component={onlineWrap(<VideoPage/>)} />
+        <Route path="/videos" component={VideosPage} />
+        <Route path="/video/:id" component={VideoPage} /> 
         <Route path="/assessment" component={Assessment} />
         <Route path="/result" component={AssessmentResult} />
         <Route path="/library" component={PTSLibrary} />

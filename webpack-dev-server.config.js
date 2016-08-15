@@ -44,7 +44,7 @@ const config = {
         exclude: [nodeModulesPath],
       },
       {
-        test:   /\.(png|gif|jpe?g|svg)$/i,
+        test:   /\.(png|gif|jpe?g|svg|mp4)$/i,
         loader: 'url?limit=100', 
         /*
         TODO upping limit cause images to inline but this causes probem

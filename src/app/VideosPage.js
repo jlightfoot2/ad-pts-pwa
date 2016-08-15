@@ -45,7 +45,7 @@ class VideosPage extends Component {
 
         {videoList.map((tile) => (
 
-          <OnlineOnlyLink isOnline={isOnline} key={tile.id} to={'/video/'+tile.id} cols={tile.featured ? 2 : 1}>
+          <OnlineOnlyLink isOnline={true} key={tile.id} to={'/video/'+tile.id} cols={tile.featured ? 2 : 1}>
             <GridTile
               key={tile.id}
                {...tile}

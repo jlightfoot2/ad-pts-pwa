@@ -7,7 +7,7 @@ const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 //const HtmlWebpackPlugin = require('html-webpack-plugin');
 const PathRewriterPlugin = require('webpack-path-rewriter');
 const config = {
-  entry: [path.join(__dirname, '/src/app/app.js')],
+  entry: ['babel-polyfill',path.join(__dirname, '/src/app/app.js')],
   // Render source-map file for final build
   devtool: 'source-map',
   // output config
@@ -46,7 +46,7 @@ const config = {
         exclude: [nodeModulesPath],
       },
       {
-        test:   /\.(png|gif|jpe?g|svg)$/i,
+        test:   /\.(png|gif|jpe?g|svg|mp4)$/i,
         loader: 'url?limit=100',
         /*
         TODO upping limit cause images to in-line but this causes probems
