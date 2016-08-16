@@ -20,7 +20,7 @@ import localForage from 'localForage'
 import { browserHistory } from 'react-router'
 import { syncHistoryWithStore,routerMiddleware, push } from 'react-router-redux'
 import createSagaMiddleware from 'redux-saga';
-//import sagaRoot from './sagas';
+import sagaRoot from './sagas';
 import Connectivity from './Connectivity.js';
 
 function onlineWrap(comp){
@@ -29,18 +29,18 @@ function onlineWrap(comp){
     }
 }
 
-//const sagaMiddleware = createSagaMiddleware()
+const sagaMiddleware = createSagaMiddleware()
 
 let store = createStore(
     appHub,
     applyMiddleware(
             routerMiddleware(browserHistory),
-            thunkMiddleware //,
-           // sagaMiddleware
+            thunkMiddleware,
+            sagaMiddleware
           ),
     autoRehydrate()
   );
-//sagaMiddleware.run(sagaRoot);
+sagaMiddleware.run(sagaRoot);
 const history = syncHistoryWithStore(hashHistory, store);
 persistStore(store);
 var observerGenerator = function(){
