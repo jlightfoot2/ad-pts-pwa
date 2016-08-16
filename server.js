@@ -8,7 +8,10 @@ var
   port = process.env.PORT || 3003,
   root = path.resolve(__dirname),
   https = require('https'),
-  http = require('http')
+  http = require('http'),
+  util = require('util')
+  //sendSeekable = require('send-seekable'),
+  //fs = require('fs')
   ;
   
 /*
@@ -18,12 +21,36 @@ const options = {
 }*/
 
 app = express();
-
+//app.use(sendSeekable);
 app.use(function(req, res, next) { console.log(req.url); next(); });
+
+/*
+app.use("/*.mp4*",function(req,res,next){
+  console.log('video route called');
+   var filePath = root + '/build' + req.baseUrl;
+   console.log(filePath);
+   //console.log(util.inspect(req));
+   var video = fs.createReadStream(filePath);
+   fs.stat(filePath, function(err,stats){
+    console.log(util.inspect(stats));
+      var status = req.headers['range'] ? 206 : 200;
+      console.log("response status: ",status);
+      res.status(status);
+      res.sendSeekable(video,{
+        type: 'video/mp4',
+        length: stats.size
+      });
+   });
+   
+
+}); 
+*/
+
 app.use(express.static(root + '/build'));
 //server = app.listen(port, host, serverStarted); //old server
 server = http.createServer(app).listen(port);
 //server = https.createServer(options, app).listen(443); //if ssl is option
+
 
 function serverStarted () {
   console.log('Server started', host, port);

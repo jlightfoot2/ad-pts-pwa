@@ -6,8 +6,8 @@ const mapStateToProps = (state,ownProps) => {
   console.log(ownProps)
   return {
     videoList: state.videoIds.map((id) => state.videos[id]),
-    video: state.videos[ownProps.params.id]
-
+    video: state.videos[ownProps.params.id],
+    isOnline: state.app.connectivity.status === 1
   }
 }
 
