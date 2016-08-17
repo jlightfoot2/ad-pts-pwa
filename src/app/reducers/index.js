@@ -1,5 +1,5 @@
 import {combineReducers} from 'redux';
-import {view} from './view.js';
+import {view,device} from './view.js';
 import {videos, videoIds,} from './videos.js';
 import { app } from './app.js';
 import assessment from './assessment.js';
@@ -43,7 +43,8 @@ const appHub = combineReducers({
   form: formReducer,
   routing: routerReducer,
   user,
-  view
+  view,
+  device
 });
 
 
