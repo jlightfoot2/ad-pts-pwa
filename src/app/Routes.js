@@ -13,7 +13,7 @@ import { createStore ,applyMiddleware} from 'redux'
 import { Provider } from 'react-redux'
 import appHub from './reducers'
 import { Map } from 'immutable';
-import { userSeesIntro } from './actions';
+import { userSeesIntro,windowResize } from './actions';
 import thunkMiddleware from 'redux-thunk'
 import {persistStore, autoRehydrate} from 'redux-persist'
 import localForage from 'localForage'
@@ -29,6 +29,8 @@ function onlineWrap(comp){
     }
 }
 
+
+
 const sagaMiddleware = createSagaMiddleware()
 
 let store = createStore(
@@ -42,6 +44,11 @@ let store = createStore(
   );
 sagaMiddleware.run(sagaRoot);
 const history = syncHistoryWithStore(hashHistory, store);
+
+window.addEventListener('resize', () => {
+    store.dispatch(windowResize(window.innerWidth));
+});
+
 persistStore(store);
 var observerGenerator = function(){
   return function(store, selector, onChange) {

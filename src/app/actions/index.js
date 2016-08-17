@@ -9,6 +9,8 @@ export const SHOW_FLASH_MESSAGE = 'SHOW_FLASH_MESSAGE';
 export const HIDE_FLASH_MESSAGE = 'HIDE_FLASH_MESSAGE';
 export const TAB_CHANGE_INDEX = 'TAB_CHANGE_INDEX';
 export const QUESTION_ANSWERED = 'QUESTION_ANSWERED';
+export const ORIENTATION_CHANGE = 'ORIENTATION_CHANGE_EVENT';
+export const WINDOW_RESIZE = 'WINDOW_RESIZE';
 ;
 
 export const tabChangeIndex = (id,index) => {
@@ -18,6 +20,14 @@ export const tabChangeIndex = (id,index) => {
 		index 
 	}
 };
+
+export const windowResize = (width,height=0) => {
+	return {
+		type: WINDOW_RESIZE,
+		width,
+		height
+	}
+}
 
 export const userSeesIntro = () => {
 	return {

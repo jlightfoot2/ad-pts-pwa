@@ -1,9 +1,11 @@
 import {
 	SHOW_FLASH_MESSAGE,
 	HIDE_FLASH_MESSAGE,
-	TAB_CHANGE_INDEX
+	TAB_CHANGE_INDEX,
+	ORIENTATION_CHANGE,
+	WINDOW_RESIZE,
 } from '../actions'
-
+import {updateMapItem} from  './utils.js'
 
 /*
 * This is default view data which germane to the app ui only 
@@ -19,6 +21,24 @@ const defaultView = {
 	}
 };
 
+const defaultDevice = {
+	orientation: 'landscape',
+	width: typeof window === 'object' ? window.innerWidth : 0
+}
+
+export const device = function(state = defaultDevice, action){
+	switch(action.type){
+		case ORIENTATION_CHANGE:
+		case WINDOW_RESIZE:
+			if(state.width !== action.width){
+				return updateMapItem(state,(err,item) => {
+					item.width = action.width;
+					return item;
+				} );
+			}
+	}
+	return state
+}
 export const view = function(state = defaultView, action){
 	switch(action.type){
 		case SHOW_FLASH_MESSAGE: //Display an action message

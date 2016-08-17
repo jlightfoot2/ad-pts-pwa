@@ -7,11 +7,17 @@
  *
  * @return object A new object representing the new state
  */
-
+//TODO change name
 export const updateMapItem  = function(state,id,cb){
-	var item = state[id+""];
-
-	state[id+""] = {...cb(null,item)};
+	var item = typeof cb === 'undefined' ? state : state[id+""];
+	const itemCb = cb || id;
+    //TODO 
+	if(typeof cb === 'undefined'){
+		state = {...itemCb(null,item)};
+	}else{
+		state[id+""] = {...itemCb(null,item)};
+	}
+	
 	return {...state};
 }
 
