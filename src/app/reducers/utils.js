@@ -7,7 +7,9 @@
  *
  * @return object A new object representing the new state
  */
-//TODO change name
+//TODO consider refactoring updateMapItem without id param, I'm not sure the id param is necessary or beneficial
+// the id param was to help updating properties that were themselves objects
+// would refactored version even necessary given {...state}
 export const updateMapItem  = function(state,id,cb){
 	var item = typeof cb === 'undefined' ? state : state[id+""];
 	const itemCb = cb || id;

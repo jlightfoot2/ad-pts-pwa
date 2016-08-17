@@ -4,7 +4,7 @@ import Main from './Main.js';
 import IntroPage from './Intro.js';
 import HomePage from './HomePage.js';
 import VideosPage from './VideosPage.js';
-import Assessment from './Assessment.js';
+import Assessment from './Assessment2.js';
 import AssessmentResult from './AssessmentResult.js';
 import PTSLibrary from './PTSLibrary.js';
 import VideoPage from './VideoContainer.js';

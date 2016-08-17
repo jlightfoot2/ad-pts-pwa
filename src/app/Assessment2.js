@@ -1,9 +1,11 @@
 import React,{Component} from 'react';
 import { reduxForm } from 'redux-form'
-import RadioList from './RadioList.js'
+import RadioList from './RadioList2.js'
 import {questionAnswered} from './actions';
 import { dispatch } from 'redux';
 import { withRouter } from 'react-router';
+import { connect } from 'react-redux';
+
 const validate = (values,ownProps) => {
   const errors = {};
 
@@ -21,16 +23,16 @@ class Assessment extends Component{
 	}
 	render(){
 
-		var {result,questions,handleSubmit,fields,questionAnswered,stylesRoot,router} = this.props;
+		var {result,questions,handleSubmit,questionAnswered,stylesRoot,router} = this.props;
+		console.log(questions);
 
-
-		function getInput(question,field){
+		function getInput(question){
 			
 	        	switch(question.answer.type){
 	    			case 'radio':
-	    				return <RadioList choices={question.answer.inputs} field={field} />
+	    				return <RadioList choices={question.answer.inputs} />
 	    			default:
-	    				return <input type="text" placeholder="placeholder test" {...field} />
+	    				return <input type="text" placeholder="placeholder test" />
 	    		}
 		}
 			
@@ -45,15 +47,15 @@ class Assessment extends Component{
 	   		    	</p>
 	   		    </div>
 	   		    <div>
-			        <form onSubmit={handleSubmit((data) => questionAnswered(data,this.props))}>
-			        {Object.keys(fields).map((name,i) => {
+			        <form>
+			        {questions.map((question,i) => {
 			        	console.log('field called');
-			          const field = fields[name]
-			          return (<div key={name}>
-			            <label style={{fontWeight: 'bold'}}>{(i+1)+'. '+questions[name].title}</label>
+			    	
+			          return (<div key={question.id}>
+			            <label style={{fontWeight: 'bold'}}>{(i+1)+'. '+question.title}</label>
 			            <div>
-			            	{getInput(questions[name],field)}
-			            	{field.touched && field.error && <div style={{color: 'red'}}>{field.error}</div>}
+			            	{getInput(question)}
+			          
 			            </div>
 			          </div>)
 			        })}
@@ -73,18 +75,13 @@ class Assessment extends Component{
 
 
 
-export default reduxForm(
-	{
-		form: 'ptsAssessment',
-		validate
-	},
+export default connect(
 	(state,ownProps) => {
 
 		return {
-			questions: state.assessment.questions,
+			questions: state.assessment.questionIds.map((qid) => (state.assessment.questions[qid+""]) ),
 			result: state.assessment.result,
-			fields: state.assessment.questionIds.map((id,i) => (state.assessment.questions[id+""].id+"")),
-			initialValues: state.assessment.answers
+			//initialValues: state.assessment.answers
 		}
 
 	},
