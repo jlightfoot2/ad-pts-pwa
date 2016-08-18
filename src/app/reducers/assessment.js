@@ -1,7 +1,8 @@
 import {combineReducers} from 'redux';
 import { normalize, Schema, arrayOf } from 'normalizr';
 import {
-	QUESTION_ANSWERED
+	QUESTION_ANSWERED,
+	FORM_FIELD_CHANGE
 } from '../actions'
 const questionSchema = new Schema('questions');
 
@@ -81,7 +82,7 @@ function getScore(answers){
 
 const apiQuestions = [
 	{id: 1, title: "Repeated, disturbing memories, thoughts, or images of a stressful military experience from the past?",type: 'text', answer: makeRadios()},
-	{id: 2,title: "Repeated, disturbing dreams of a stressful military experience from the past?",type: 'text',answer: makeRadios()},
+	{id: 2, title: "Repeated, disturbing dreams of a stressful military experience from the past?",type: 'text',answer: makeRadios()},
 
 	{id: 3,title: "Suddenly acting or feeling as if a stressful military experience were happening again (as if you were reliving it)?",type: 'text',answer: makeRadios()},
 	{id: 4,title: "Feeling very upset when something reminded you of a stressful military experience from the past?",type: 'text',answer: makeRadios()},
@@ -144,9 +145,15 @@ export const resultDetails = (state = assessmentConfig.scoring[0], action) => {
 	return state;
 }
 
-
-export const answers = (state = {},action) => {
+export const answers = (state = {assessmentTest: {}},action) => {
 	switch(action.type){
+		case FORM_FIELD_CHANGE:
+			console.log(FORM_FIELD_CHANGE);
+			if(typeof state[action.formId+""] !== null && 
+				state[action.formId+""][action.fieldId+""] !== null){
+				state[action.formId+""][action.fieldId+""] = action.value;
+				return {...state}
+			}
 		case QUESTION_ANSWERED:
 			return {...action.answers}
 	}

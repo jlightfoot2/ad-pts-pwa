@@ -11,7 +11,18 @@ export const TAB_CHANGE_INDEX = 'TAB_CHANGE_INDEX';
 export const QUESTION_ANSWERED = 'QUESTION_ANSWERED';
 export const ORIENTATION_CHANGE = 'ORIENTATION_CHANGE_EVENT';
 export const WINDOW_RESIZE = 'WINDOW_RESIZE';
+export const FORM_FIELD_CHANGE = 'FORM_FIELD_CHANGE';
 ;
+
+
+export const fieldChange = (formId,fieldId,value) => {
+  return {
+  	type: FORM_FIELD_CHANGE,
+  	formId,
+  	fieldId,
+  	value
+  }
+}
 
 export const tabChangeIndex = (id,index) => {
 	return {

@@ -23,14 +23,15 @@ class Assessment extends Component{
 	}
 	render(){
 
-		var {result,questions,handleSubmit,questionAnswered,stylesRoot,router} = this.props;
-		console.log(questions);
+		var {fields,result,questions,handleSubmit,questionAnswered,stylesRoot,router} = this.props;
+	
 
-		function getInput(question){
+		function getInput(field){
 			
-	        	switch(question.answer.type){
+	        	switch(questions[field.fieldId].answer.type){
+
 	    			case 'radio':
-	    				return <RadioList choices={question.answer.inputs} />
+	    				return <RadioList field={field} choices={questions[field.fieldId].answer.inputs} />
 	    			default:
 	    				return <input type="text" placeholder="placeholder test" />
 	    		}
@@ -48,13 +49,11 @@ class Assessment extends Component{
 	   		    </div>
 	   		    <div>
 			        <form>
-			        {questions.map((question,i) => {
-			        	console.log('field called');
-			    	
-			          return (<div key={question.id}>
-			            <label style={{fontWeight: 'bold'}}>{(i+1)+'. '+question.title}</label>
+			        {fields.map((field,i) => {
+			          return (<div key={field.fieldId}>
+			            <label style={{fontWeight: 'bold'}}>{(i+1)+'. '+field.title}</label>
 			            <div>
-			            	{getInput(question)}
+			            	{getInput(field)}
 			          
 			            </div>
 			          </div>)
@@ -79,8 +78,18 @@ export default connect(
 	(state,ownProps) => {
 
 		return {
-			questions: state.assessment.questionIds.map((qid) => (state.assessment.questions[qid+""]) ),
+			questions: state.assessment.questions,
 			result: state.assessment.result,
+			//to do abstract out into module
+			fields: state.assessment.questionIds.map((qid) => {
+				let question = state.assessment.questions[qid+""];
+				return {
+					formId: 'assessmentTest',
+					fieldId: question.id+"",
+					title: question.title,
+					value: state.assessment.answers.assessmentTest[qid+""] || null
+				}
+			} )
 			//initialValues: state.assessment.answers
 		}
 
