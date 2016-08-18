@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import { reduxForm } from 'redux-form'
 import RadioList from './RadioList2.js'
-import {questionAnswered} from './actions';
+import {formSubmitted} from './actions';
 import { dispatch } from 'redux';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
@@ -23,15 +23,14 @@ class Assessment extends Component{
 	}
 	render(){
 
-		var {fields,result,questions,handleSubmit,questionAnswered,stylesRoot,router} = this.props;
+		var {fields,result,questions,handleSubmit,formSubmitted,stylesRoot,router} = this.props;
 	
 
 		function getInput(field){
-			
-	        	switch(questions[field.fieldId].answer.type){
-
+				
+	        	switch(questions[field.id+""].answer.type){
 	    			case 'radio':
-	    				return <RadioList field={field} choices={questions[field.fieldId].answer.inputs} />
+	    				return <RadioList field={field} choices={questions[field.id+""].answer.inputs} />
 	    			default:
 	    				return <input type="text" placeholder="placeholder test" />
 	    		}
@@ -50,7 +49,7 @@ class Assessment extends Component{
 	   		    <div>
 			        <form>
 			        {fields.map((field,i) => {
-			          return (<div key={field.fieldId}>
+			          return (<div key={field.id}>
 			            <label style={{fontWeight: 'bold'}}>{(i+1)+'. '+field.title}</label>
 			            <div>
 			            	{getInput(field)}
@@ -58,7 +57,7 @@ class Assessment extends Component{
 			            </div>
 			          </div>)
 			        })}
-			        <input type="submit" value="submit" />
+			        <input type="button" onClick={() => {handleSubmit(fields[0].formId,fields,router)}} value="submit" />
 			   
 		          	</form>
 	          	</div>
@@ -73,23 +72,17 @@ class Assessment extends Component{
 
 
 
-
+var formId = 'assessmentTest';
 export default connect(
 	(state,ownProps) => {
 
 		return {
+			formId,
 			questions: state.assessment.questions,
 			result: state.assessment.result,
+
 			//to do abstract out into module
-			fields: state.assessment.questionIds.map((qid) => {
-				let question = state.assessment.questions[qid+""];
-				return {
-					formId: 'assessmentTest',
-					fieldId: question.id+"",
-					title: question.title,
-					value: state.assessment.answers.assessmentTest[qid+""] || null
-				}
-			} )
+			fields: state.assessment.forms.assessmentTest.fieldIds.map((fid) => (state.assessment.forms.assessmentTest.fields[fid+""]))
 			//initialValues: state.assessment.answers
 		}
 
@@ -97,9 +90,9 @@ export default connect(
 	(dispatch,ownProps) => {
 
 		return {
-			questionAnswered: (data,props) => {
-				dispatch(questionAnswered(data))
-				props.router.push('/result');
+			handleSubmit: (formId,fields,router) => {
+				dispatch(formSubmitted(formId,fields))
+				router.push('/result');
 			}
 		}
 	}

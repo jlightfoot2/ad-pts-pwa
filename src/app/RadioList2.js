@@ -24,16 +24,18 @@ class RadioList extends Component {
 	}
 	handleChange(event){
 		var {fieldChange} = this.props;
-		var {formId,fieldId,value} = this.props.field;
+		var {formId,id,value} = this.props.field;
 		if(value !== event.target.value){
-			fieldChange(formId,fieldId,event.target.value);
+			fieldChange(formId,id,event.target.value);
 		}
 	}
 
 	render(){
 		var {field,choices} = this.props;
-		var {formId,fieldId,value} = this.props.field;
+		var {formId,id,value} = this.props.field;
+
 		var _self = this;
+
 		return (
 				<div style={style.container} >
 				 	{choices.map(function(choice,i){
@@ -41,7 +43,7 @@ class RadioList extends Component {
 					 		<div style={style.horizontal} key={i} >
 						 		<label >{choice.title}</label>
 						 		
-						 		<input onClick={_self.handleChange} type="radio" checked={value === choice.value} value={choice.value}  />
+						 		<input onChange={_self.handleChange} type="radio" checked={value === choice.value} value={choice.value}  />
 						 
 					 		</div>
 					 		);

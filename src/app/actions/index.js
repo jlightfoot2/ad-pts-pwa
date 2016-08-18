@@ -12,6 +12,7 @@ export const QUESTION_ANSWERED = 'QUESTION_ANSWERED';
 export const ORIENTATION_CHANGE = 'ORIENTATION_CHANGE_EVENT';
 export const WINDOW_RESIZE = 'WINDOW_RESIZE';
 export const FORM_FIELD_CHANGE = 'FORM_FIELD_CHANGE';
+export const FORM_SUBMITTED = 'FORM_SUBMITTED';
 ;
 
 
@@ -21,6 +22,15 @@ export const fieldChange = (formId,fieldId,value) => {
   	formId,
   	fieldId,
   	value
+  }
+}
+
+export const formSubmitted = (formId,fields) => {
+	console.log(fields);
+  return {
+  	type: FORM_SUBMITTED,
+  	formId,
+  	answers: fields
   }
 }
 

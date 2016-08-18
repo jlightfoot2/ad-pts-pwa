@@ -1,10 +1,17 @@
 import {combineReducers} from 'redux';
 import { normalize, Schema, arrayOf } from 'normalizr';
 import {
-	QUESTION_ANSWERED,
-	FORM_FIELD_CHANGE
+	FORM_FIELD_CHANGE,
+	FORM_SUBMITTED
 } from '../actions'
 const questionSchema = new Schema('questions');
+
+questionSchema.define({
+});
+
+const fieldsSchema = new Schema('fields');
+
+fieldsSchema.define({});
 
 const assessmentConfig = {
 	maxScore: 85.0,
@@ -63,7 +70,7 @@ function tallyScore(answers){
 	}
 	var total = 0;
 	Object.keys(answers).map(function(v){
-		total += parseInt(answers[v])
+		total += parseInt(answers[v].value)
 	});
 	
 	return total;
@@ -105,11 +112,33 @@ const apiQuestions = [
 	{id: 17,title: "Feeling jumpy or easily startled?",type: 'text',answer: makeRadios()}
 ];
 
-questionSchema.define({
-});
+
 
 const appTree = {
 	questions: apiQuestions
+}
+
+function generateForm(formId,ids,ob){
+	let fields = ids.map((qid) => {
+						let question = ob[qid+""];
+						return {
+							id: question.id+"",
+							title: question.title,
+							touched: false,
+							error: '',
+							value: null,
+							answer: question.answer,
+							formId
+						}
+					} )
+	const normFields = normalize(fields, arrayOf(fieldsSchema));
+	
+	return {[formId]: {
+				id: formId+"",
+				fields: normFields.entities.fields,
+				fieldIds: normFields.result
+				}
+			}
 }
 
 const questionItems = normalize(appTree.questions,arrayOf(questionSchema));
@@ -128,45 +157,51 @@ export const result = (state = 0.5, action) => {
 
 
 	switch(action.type){
-		case QUESTION_ANSWERED:
+		case FORM_SUBMITTED:
 			return tallyScore(action.answers);
 	}
 	return state;
 }
 
 export const resultDetails = (state = assessmentConfig.scoring[0], action) => {
-
-
-
 	switch(action.type){
-		case QUESTION_ANSWERED:
+		case FORM_SUBMITTED:
 			return getScore(action.answers);
 	}
 	return state;
 }
 
-export const answers = (state = {assessmentTest: {}},action) => {
+const formDefault = generateForm(
+						'assessmentTest',
+						questionItems.result,
+						questionItems.entities.questions
+					);
+
+export const forms = (state = formDefault,action) => {
 	switch(action.type){
 		case FORM_FIELD_CHANGE:
-			console.log(FORM_FIELD_CHANGE);
 			if(typeof state[action.formId+""] !== null && 
-				state[action.formId+""][action.fieldId+""] !== null){
-				state[action.formId+""][action.fieldId+""] = action.value;
-				return {...state}
+				typeof state[action.formId+""].fields[action.fieldId+""].value !== "undefined"){
+				
+				state[action.formId+""].fields[action.fieldId+""].value = action.value;
+				state[action.formId+""].fields[action.fieldId+""] = {...state[action.formId+""].fields[action.fieldId+""]}
+				return {...state};
+			}else{
+				console.log("Field change missed");
 			}
-		case QUESTION_ANSWERED:
-			return {...action.answers}
+	    case FORM_SUBMITTED:
+
 	}
 	return state;
 }
 
 
 const Assessments = combineReducers({
-	answers,
 	questions,
 	questionIds,
 	result,
-	resultDetails
+	resultDetails,
+	forms
 })
 
 export default Assessments;
