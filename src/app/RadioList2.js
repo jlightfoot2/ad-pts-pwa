@@ -1,11 +1,13 @@
 import React,{Component} from 'react';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
 import { reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { fieldChange } from './actions';
 
 const style = {
 	container: {
-		height: '40px',
+		height: '80px',
 		display: 'block',
 		clear: 'both'
 	},
@@ -13,6 +15,11 @@ const style = {
 		float: 'left',
 		padding: '5px',
 		marginLeft: '5px'
+	},
+	vertical: {
+		padding: '5px',
+		marginLeft: '5px',
+		height: '10px'
 	}
 }
 
@@ -22,38 +29,42 @@ class RadioList extends Component {
 		super(props, context);
 		this.handleChange = this.handleChange.bind(this);
 	}
-	handleChange(event){
+	handleChange(event,index,newValue){
 		var {fieldChange} = this.props;
 		var {formId,id,value} = this.props.field;
-		if(value !== event.target.value){
-			fieldChange(formId,id,event.target.value);
+		
+		if(value !== newValue){
+			fieldChange(formId,id,newValue);
 		}
 	}
 
 	render(){
-		var {field,choices} = this.props;
+		var {field,choices,deviceSize} = this.props;
 		var {formId,id,value} = this.props.field;
 
 		var _self = this;
-
+		const radioStyles = deviceSize === 'small' ? style.vertical : style.horizontal;
 		return (
 				<div style={style.container} >
-				 	{choices.map(function(choice,i){
-					 	return (
-					 		<div style={style.horizontal} key={i} >
-						 		<label >{choice.title}</label>
-						 		
-						 		<input onChange={_self.handleChange} type="radio" checked={value === choice.value} value={choice.value}  />
-						 
-					 		</div>
-					 		);
-				 	})}
+        			<SelectField value={value} onChange={this.handleChange}>
+        			    <MenuItem key={0} disabled={value!==null} value={null} primaryText="Select One" />
+					 	{choices.map(function(choice,i){
+						 	return (
+							 		<MenuItem key={i+1} value={choice.value} primaryText={choice.title} />
+						 		);
+					 	})}
+				 	</SelectField>
 			 	</div>
 			);
 	}
 
 }
 
+const mapStateToProps = (state,ownProps) => {
+	return {
+		deviceSize: state.device.size
+	}
+}
 
 const mapDispatchToProps = (dispatch) => {
 	return {
@@ -61,6 +72,6 @@ const mapDispatchToProps = (dispatch) => {
 	}
 }
 export default connect(
-		null,
+		mapStateToProps,
 		mapDispatchToProps
 	)(RadioList)

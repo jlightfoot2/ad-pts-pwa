@@ -23,8 +23,15 @@ const defaultView = {
 
 const defaultDevice = {
 	orientation: 'landscape',
-	width: typeof window === 'object' ? window.innerWidth : 0
+	width: typeof window === 'object' ? window.innerWidth : 0,
+	size: 'large'
 }
+
+const breakPoints = {
+	large: 0,
+	medium: 1024,
+	small: 768
+};
 
 export const device = function(state = defaultDevice, action){
 	switch(action.type){
@@ -33,6 +40,15 @@ export const device = function(state = defaultDevice, action){
 			if(state.width !== action.width){
 				return updateMapItem(state,(err,item) => {
 					item.width = action.width;
+
+					if(item.width > breakPoints.medium){
+						item.size = 'large';
+					}else if(item.width > breakPoints.small){
+						item.size = 'medium';
+					}else if(item.width > 0){
+						item.size = 'small';
+					}
+					item.orientation = action.width > action.height ? 'landscape' : 'portrait';
 					return item;
 				} );
 			}

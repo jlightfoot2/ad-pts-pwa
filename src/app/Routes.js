@@ -46,7 +46,7 @@ sagaMiddleware.run(sagaRoot);
 const history = syncHistoryWithStore(hashHistory, store);
 
 window.addEventListener('resize', () => {
-    store.dispatch(windowResize(window.innerWidth));
+    store.dispatch(windowResize(window.innerWidth,window.innerHeight));
 });
 
 persistStore(store);
@@ -81,23 +81,6 @@ storeObserver (
 					store.dispatch(userSeesIntro());
 			}
 		);
-
-
-/*
-let unsubscribe = store.subscribe(() => {
-  		console.log(store.getState())
-  		var  hasSeen = false
-  		if(!hasSeen && store.getState().routing.locationBeforeTransitions.pathname === '/intro'){
-  			console.log('intro is seen');
-  			store.dispatch(userSeesIntro());
-  			hasSeen = true;
-  		}
-	}
-)
-
-        <Route path="/videos" component={onlineWrap(<VideosPage/>)} />
-        <Route path="/video/:id" component={onlineWrap(<VideoPage/>)} /> 
- */
 
 
 

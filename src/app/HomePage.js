@@ -40,7 +40,6 @@ class HomePage extends Component {
 
   render(){
   var {videoList,flashMessage, appBarTitle,stylesRoot,onTileClick} = this.props;
-  console.log(this.props)
     return (
     <div style={stylesRoot}>
       <GridList

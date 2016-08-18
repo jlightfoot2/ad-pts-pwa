@@ -26,7 +26,7 @@ export const fieldChange = (formId,fieldId,value) => {
 }
 
 export const formSubmitted = (formId,fields) => {
-	console.log(fields);
+
   return {
   	type: FORM_SUBMITTED,
   	formId,

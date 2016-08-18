@@ -11,16 +11,17 @@
 // the id param was to help updating properties that were themselves objects
 // would refactored version even necessary given {...state}
 export const updateMapItem  = function(state,id,cb){
-	var item = typeof cb === 'undefined' ? state : state[id+""];
+	var newState = {...state};
+	var item = typeof cb === 'undefined' ? newState : newState[id+""];
 	const itemCb = cb || id;
     //TODO 
 	if(typeof cb === 'undefined'){
-		state = {...itemCb(null,item)};
+		newState = {...itemCb(null,item)};
 	}else{
-		state[id+""] = {...itemCb(null,item)};
+		newState[id+""] = {...itemCb(null,item)};
 	}
 	
-	return {...state};
+	return newState;
 }
 
 export const arrayHasItem = function(arr,val){
