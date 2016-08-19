@@ -29,8 +29,15 @@ const config = {
       {
         cacheId: 'ad-asset-cache1',
         filename: 'ad-service-worker.js',
-        maximumFileSizeToCacheInBytes: 104857600,
-        staticFileGlobs: ['build/**/*.{js,html,css,png,jpg,gif,mp4}'],
+        maximumFileSizeToCacheInBytes: 104857600, //100Mb
+        staticFileGlobs: [
+                          'build/**/*.{js,html,css}',
+                          'build/static/**/*.{png,jpg,jpeg,svg,gif,mp4}'
+                          ],
+        runtimeCaching: [{
+          handler: 'cacheFirst',
+          urlPattern: /dynamic\/[\w_-]+\.(gif|jpe?g|png|svg|mp4|mp3)$/i
+        }],
         "stripPrefix": "build/"
       }
     ),
@@ -44,12 +51,16 @@ const config = {
         exclude: [nodeModulesPath],
       },
       {
-        test:   /\.(png|gif|jpe?g|svg|mp4)$/i,
-        loader: 'url?limit=100',
+        test:   /\.(jpe?g|png|gif|svg)$/i,
+        loader: 'url?limit=100&name=static/[name]-[hash].[ext]',
         /*
         TODO upping limit cause images to in-line but this causes probems
         with webpack-path-rewriter https://github.com/skozin/webpack-path-rewriter
          */
+      },
+      {
+        test:   /\.(mp3|mp4)$/i,
+        loader: 'file?name=dynamic/[name]-[hash].[ext]',
       },
       {
           test: /\.css/,
