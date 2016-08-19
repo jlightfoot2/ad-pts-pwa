@@ -29,7 +29,7 @@ const config = {
       {
         cacheId: 'ad-asset-cache1',
         filename: 'ad-service-worker.js',
-        maximumFileSizeToCacheInBytes: 104857600,
+        maximumFileSizeToCacheInBytes: 104857600, //100Mb
         staticFileGlobs: [
                           'build/**/*.{js,html,css}',
                           'build/static/**/*.{png,jpg,jpeg,svg,gif,mp4}'
