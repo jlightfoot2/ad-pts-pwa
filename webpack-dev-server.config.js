@@ -43,13 +43,17 @@ const config = {
         loaders: ['react-hot', 'babel-loader'], // react-hot is like browser sync and babel loads jsx and es6-7
         exclude: [nodeModulesPath],
       },
-      {
-        test:   /\.(png|gif|jpe?g|svg|mp4)$/i,
-        loader: 'url?limit=100', 
+{
+        test:   /\.(png|gif|jpe?g|svg)$/i,
+        loader: 'url?limit=100&name=static/[name]-[hash].[ext]',
         /*
-        TODO upping limit cause images to inline but this causes probem
+        TODO upping limit cause images to in-line but this causes probems
         with webpack-path-rewriter https://github.com/skozin/webpack-path-rewriter
          */
+      },
+      {
+        test:   /\.(mp3|mp4)$/i,
+        loader: 'file?name=dynamic/[name]-[hash].[ext]',
       },
       {
           test: /\.css/,
