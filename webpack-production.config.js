@@ -31,12 +31,12 @@ const config = {
         filename: 'ad-service-worker.js',
         maximumFileSizeToCacheInBytes: 104857600, //100Mb
         staticFileGlobs: [
-                          'build/**/*.{js,html,css}',
+                          'build/**/*.{js,html,css,json}',
                           'build/static/**/*.{png,jpg,jpeg,svg,gif,mp4}'
                           ],
         runtimeCaching: [{
           handler: 'cacheFirst',
-          urlPattern: /dynamic\/[\w_-]+\.(gif|jpe?g|png|svg|mp4|mp3)$/i
+          urlPattern: /dynamic\/[\w_-]+\.(gif|jpg|jpeg|png|svg|mp4|mp3)$/i
         }],
         "stripPrefix": "build/"
       }
