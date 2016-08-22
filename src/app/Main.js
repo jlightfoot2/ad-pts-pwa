@@ -31,7 +31,7 @@ const styles = {
   desktop: {
   }
 };
-
+//<IndexRoute component={Home}/>
 const muiTheme = getMuiTheme({
   palette: {
     primary1Color: '#F8C023',
