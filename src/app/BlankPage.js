@@ -20,14 +20,14 @@ import MenuIcon from 'material-ui/svg-icons/navigation/menu';
 import { Link } from 'react-router'
 import { Router, Route, hashHistory } from 'react-router'
 import OnlineStatusBarIcon from './OnlineStatusContainer.js'
-import AppSnackBar from './AppSnackBar.js';
-import AppBarMenuIcon from './AppBarMenuIcon.js';
+import AppSnackBar from './AppSnackBar.js'
 const styles = {
   root: {
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'space-around',
-    padding: '10px'
+    padding: '10px',
+    backgroundColor: '#E64818'
   },
   desktop: {
   }
@@ -43,71 +43,24 @@ const muiTheme = getMuiTheme({
   },
 });
 
-class Main extends Component {
+class BlankPage extends Component {
   constructor(props, context) {
     super(props, context);
 
-    this.handleRequestClose = this.handleRequestClose.bind(this);
-    this.handleTouchTap = this.handleTouchTap.bind(this);
-    this.handleTitle = this.handleTitle.bind(this);
-   
-    
-    this.state = {
-      open: false,
-      title: ''
-    };
   }
 
-  handleRequestClose() {
-    this.setState({
-      open: false,
-    });
-  }
-
-  handleTouchTap() {
-    this.setState({
-      open: true,
-    });
-  }
-
-  handleTitle(title){
-    this.setState({
-      title: title
-    });
-  }
 
   render() {
-    const standardActions = (
-      <FlatButton
-        label="Ok"
-        primary={true}
-        onTouchTap={this.handleRequestClose}
-      />
-    );
 
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
-        <Paper  zDepth={2} style={styles.container} >
-        <div style={styles.desktop}>
 
-          <AppBar
-              title={this.state.title}
-    			    iconElementLeft={<AppBarMenuIcon/>}
-              iconElementRight={<OnlineStatusBarIcon/>}
-               />
-
-
-              <div>{React.cloneElement(this.props.children, { appBarTitle: this.handleTitle, stylesRoot: styles.root })}</div>
+              <div style={styles.root}>{this.props.children}</div>
               
-        </div>
-           <AppSnackBar />
-        </Paper>
+
       </MuiThemeProvider>
     );
   }
 }
 
-Main.contextTypes = {
-  router: React.PropTypes.object.isRequired
-};
-export default Main;
+export default BlankPage;

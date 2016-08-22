@@ -34,7 +34,7 @@ class HomePage extends Component {
     super(props);
 
   }
-  componentDidMount(){
+  componentWillMount(){
      this.props.appBarTitle && this.props.appBarTitle("Home");
   }
 

@@ -1,6 +1,7 @@
 import isOnline from 'is-online'
 
 export const USER_SEES_INTRO = 'USER_SEES_INTRO';
+export const USER_SEES_SPLASH = 'USER_SEES_SPLASH';
 export const USER_LOAD_VIDEO = 'USER_LOAD_VIDEO';
 export const CONNECTIVITY_CHANGE = 'CONNECTIVITY_CHANGE';
 export const CONNECTIVITY_CHECK_START = 'CONNECTIVITY_CHECK_START';
@@ -55,6 +56,12 @@ export const userSeesIntro = () => {
 		type: USER_SEES_INTRO
 	}
 };
+
+export const userSeesSplash = () => {
+	return {
+		type: USER_SEES_SPLASH
+	}
+}
 
 export const showFlashMessage = (text) => {
 	return {

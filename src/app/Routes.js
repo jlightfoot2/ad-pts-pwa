@@ -3,17 +3,19 @@ import ReactDOM from 'react-dom';
 import Main from './Main.js';
 import IntroPage from './Intro.js';
 import HomePage from './HomePage.js';
+import BlankPage from './BlankPage.js';
 import VideosPage from './VideosPage.js';
+import SplashPage from './SplashPage.js';
 import Assessment from './Assessment2.js';
 import AssessmentResult from './AssessmentResult.js';
 import PTSLibrary from './PTSLibrary.js';
 import VideoPage from './VideoContainer.js';
-import { Router, Route, hashHistory } from 'react-router'
+import { Router, Route, hashHistory, IndexRoute} from 'react-router'
 import { createStore ,applyMiddleware} from 'redux'
 import { Provider } from 'react-redux'
 import appHub from './reducers'
 import { Map } from 'immutable';
-import { userSeesIntro,windowResize } from './actions';
+import { userSeesIntro,windowResize,userSeesSplash } from './actions';
 import thunkMiddleware from 'redux-thunk'
 import {persistStore, autoRehydrate} from 'redux-persist'
 import localForage from 'localForage'
@@ -75,32 +77,56 @@ var storeObserver = observerGenerator();
 storeObserver (
 			store,
 			(state) => {
-				return state.user.stage === 0 && state.routing.locationBeforeTransitions.pathname === '/intro'
+				return state.user.stage === 0 && state.routing.locationBeforeTransitions.pathname === '/splash'
 			},
 			(store, previousValue, currentValue) => {
-					store.dispatch(userSeesIntro());
+					store.dispatch(userSeesSplash());
 			}
 		);
 
+storeObserver (
+      store,
+      (state) => {
+        return state.user.stage === 1 && state.routing.locationBeforeTransitions.pathname === '/intro'
+      },
+      (store, previousValue, currentValue) => {
+
+          store.dispatch(userSeesIntro());
+      }
+    );
 
 
 function requireIntro(nextState, replace) {
-  if (store.getState().user.stage === 0) {
-    replace({
-      pathname: '/intro',
-      state: { nextPathname: nextState.location.pathname }
-    })
+
+  switch(store.getState().user.stage){
+    case 0:
+
+      replace({
+        pathname: '/intro',
+        state: { nextPathname: nextState.location.pathname }
+      });
+      break;
+    case 1:
+      replace({
+        pathname: '/splash',
+        state: { nextPathname: nextState.location.pathname }
+      });
+      break;
   }
 }
 
 const Routes = () => (
 	<Provider store={store}>
 	  <Router history={history}>
+
+      <Route component={BlankPage}>
+        <IndexRoute component={SplashPage} onEnter={requireIntro} />
+        <Route path="/splash" component={SplashPage} onEnter={requireIntro} />
+      </Route>
 	    <Route component={Main}>
-	      {/* make them children of `App` */}
+	      {/* make them children of `Main` */}
 	      <Route path="/" component={HomePage} onEnter={requireIntro} />
-	      <Route path="/intro" component={IntroPage} />
-        <Route path="/splash" component={IntroPage} />
+	      <Route path="/intro" component={IntroPage} onEnter={requireIntro} />
 	      <Route path="/home" component={HomePage} />
         <Route path="/videos" component={VideosPage} />
         <Route path="/video/:id" component={VideoPage} /> 

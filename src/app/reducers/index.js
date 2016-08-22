@@ -8,7 +8,8 @@ import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
 import {updateMapItem, arrayHasItem, arrayPush, arrayPushUnique ,arrayDeleteValue} from './utils.js';
 
 import {
-	USER_SEES_INTRO
+	USER_SEES_INTRO,
+	USER_SEES_SPLASH
 } from '../actions'
 /* 
 * The data below could come from a rest server
@@ -20,16 +21,29 @@ const defaultUser = {
 	lastname: ''	
 }
 
-
 /**
  * Redux State functions
  */
 
+/**
+ * Controlls the user state
+ * @param object state the user's current state
+ * @param object action The action that this function may respond to
+ *
+ * @return object the new state or the current state
+ */
 function user(state = defaultUser, action){
 	switch(action.type){
-		case USER_SEES_INTRO: //User has seen the intro so they don't need to see it again with stage > -
-		    state.stage = 1;
-			return  {...state};
+		case USER_SEES_SPLASH:
+			if(state.stage !== 0){
+				return state;
+			}
+			return  {...state,stage: 1};
+		case USER_SEES_INTRO:
+			if(state.stage !== 1){
+				return state;
+			}
+			return  {...state,stage: 2};
 	}
 	return state;
 }

@@ -1,4 +1,4 @@
-import ReactPlayer from 'react-player';
+
 import React,{Component} from 'react';
 
 const videoViewer = ({video,stylesRoot,isOnline}) => {
