@@ -35,17 +35,13 @@ const defaultUser = {
 function user(state = defaultUser, action){
 	switch(action.type){
 		case USER_SEES_SPLASH:
-			console.log(USER_SEES_SPLASH);
-			console.log(state)
 			if(state.stage !== 0){
-				return state
+				return state;
 			}
 			return  {...state,stage: 1};
 		case USER_SEES_INTRO:
-			console.log(USER_SEES_INTRO);
-			console.log(state)
 			if(state.stage !== 1){
-				return state
+				return state;
 			}
 			return  {...state,stage: 2};
 	}

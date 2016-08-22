@@ -20,7 +20,8 @@ import MenuIcon from 'material-ui/svg-icons/navigation/menu';
 import { Link } from 'react-router'
 import { Router, Route, hashHistory } from 'react-router'
 import OnlineStatusBarIcon from './OnlineStatusContainer.js'
-import AppSnackBar from './AppSnackBar.js'
+import AppSnackBar from './AppSnackBar.js';
+import AppBarMenuIcon from './AppBarMenuIcon.js';
 const styles = {
   root: {
     display: 'flex',
@@ -49,7 +50,8 @@ class Main extends Component {
     this.handleRequestClose = this.handleRequestClose.bind(this);
     this.handleTouchTap = this.handleTouchTap.bind(this);
     this.handleTitle = this.handleTitle.bind(this);
-
+   
+    
     this.state = {
       open: false,
       title: ''
@@ -90,20 +92,7 @@ class Main extends Component {
 
           <AppBar
               title={this.state.title}
-    			    iconElementLeft={
-    			      <IconMenu
-    			        iconButtonElement={
-    			          <IconButton><MenuIcon /></IconButton>
-    			        }
-    			        targetOrigin={{horizontal: 'left', vertical: 'top'}}
-    			        anchorOrigin={{horizontal: 'left', vertical: 'top'}}
-    			      >
-    			        <MenuItem primaryText="Home" containerElement={<Link to="/home" />} />
-                  <MenuItem primaryText="Videos" containerElement={<Link to="/videos" />} />
-                  <MenuItem primaryText="Assessments" containerElement={<Link to="/assessment" />} />
-
-    			      </IconMenu>
-    			    }
+    			    iconElementLeft={<AppBarMenuIcon/>}
               iconElementRight={<OnlineStatusBarIcon/>}
                />
 
@@ -118,4 +107,7 @@ class Main extends Component {
   }
 }
 
+Main.contextTypes = {
+  router: React.PropTypes.object.isRequired
+};
 export default Main;

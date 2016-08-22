@@ -6,10 +6,10 @@ export default class HomePage extends React.Component {
   constructor(props){
     super(props);
     this.props = props;
-    this.componentDidMount = this.componentDidMount.bind(this)
+    this.componentWillMount = this.componentWillMount.bind(this)
   }
 
-  componentDidMount(){
+  componentWillMount(){
       this.props.appBarTitle("Intro");
   }
 

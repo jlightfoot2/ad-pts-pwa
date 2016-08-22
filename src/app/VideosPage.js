@@ -26,7 +26,7 @@ const styles = {
 };
 
 class VideosPage extends Component {
-  componentDidMount(){
+  componentWillMount(){
       this.props.appBarTitle && this.props.appBarTitle("Videos");
   }
   render(){
