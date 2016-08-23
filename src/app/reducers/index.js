@@ -3,6 +3,7 @@ import {view,device} from './view.js';
 import {videos, videoIds,} from './videos.js';
 import { app } from './app.js';
 import assessment from './assessment.js';
+import {navigation} from './navigation.js';
 import {reducer as formReducer} from 'redux-form';
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
 import {updateMapItem, arrayHasItem, arrayPush, arrayPushUnique ,arrayDeleteValue} from './utils.js';
@@ -58,7 +59,8 @@ const appHub = combineReducers({
   routing: routerReducer,
   user,
   view,
-  device
+  device,
+  navigation
 });
 
 

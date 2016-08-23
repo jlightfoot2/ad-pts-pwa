@@ -92,6 +92,7 @@ class Main extends Component {
 
           <AppBar
               title={this.state.title}
+              titleStyle={{textAlign: 'center'}}
     			    iconElementLeft={<AppBarMenuIcon/>}
               iconElementRight={<OnlineStatusBarIcon/>}
                />
