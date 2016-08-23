@@ -31,8 +31,9 @@ const config = {
         filename: 'ad-service-worker.js',
         maximumFileSizeToCacheInBytes: 104857600, //100Mb
         staticFileGlobs: [
-                          'build/**/*.{js,html,css,json}',
-                          'build/static/**/*.{png,jpg,jpeg,svg,gif,mp4}'
+                          'build/manifest.json',
+                          'build/**/*.{js,html,css}',
+                          'build/static/**/*.{png,jpg,jpeg,svg,gif,mp4,json}'
                           ],
         runtimeCaching: [{
           handler: 'cacheFirst',

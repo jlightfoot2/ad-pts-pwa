@@ -6,10 +6,10 @@ import IconButton from 'material-ui/IconButton/IconButton';
 import MenuIcon from 'material-ui/svg-icons/navigation/menu';
 import ArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
 import { Link } from 'react-router'
-const AppBarMenuIcon = ({paths,submenu}) => {
+const AppBarMenuIcon = ({paths,submenu,parent}) => {
 	if(paths.current.level > 0){
-		if(paths.current.level > paths.last.level){
-			return (<Link to={paths.last.pathname}><IconButton><ArrowBack /></IconButton></Link>)
+		if(parent){
+			return (<Link to={parent.pathname}><IconButton><ArrowBack /></IconButton></Link>)
 		}
 		return (<Link to="/home"><IconButton><ArrowBack /></IconButton></Link>)
 	}else{
@@ -21,6 +21,7 @@ const AppBarMenuIcon = ({paths,submenu}) => {
 		        targetOrigin={{horizontal: 'left', vertical: 'top'}}
 		        anchorOrigin={{horizontal: 'left', vertical: 'top'}}
 		      >
+		      <MenuItem primaryText={paths.current.name} containerElement={<Link to={paths.current.pathname} />} />
 		      {submenu.map((item) => (
 		      	 <MenuItem primaryText={item.name} containerElement={<Link to={item.pathname} />} />
 		      ))}
@@ -33,7 +34,8 @@ const AppBarMenuIcon = ({paths,submenu}) => {
 const mapStateToProp = (state,ownProps) => {
 	return {
 		paths: state.navigation.paths,
-		submenu: state.navigation.paths.current.childrenIds.map((id) => (state.navigation.tree[id+""]))
+		submenu: state.navigation.paths.current.childrenIds.map((id) => (state.navigation.tree[id+""])),
+		parent: state.navigation.paths.current.parentId ? state.navigation.tree[state.navigation.paths.current.parentId] : null
 	}
 }
 export default connect(mapStateToProp)

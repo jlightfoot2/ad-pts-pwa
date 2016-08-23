@@ -1,13 +1,14 @@
 import {LOCATION_CHANGE} from 'react-router-redux';
 import {updateMapItem} from './utils.js'
-const navigationTree ={
+const navigationTree = addParentProperty({
 		'1': {
 			id:   '1',
-			name: 'root',
+			name: 'Home',
 			routes: ['/home','/','/intro'],
 			pathname: '/home',
 			level: 0,
-			childrenIds: ['3','2','4']
+			childrenIds: ['3','2','4'],
+			parentId: null
 		},
 		'2': {
 			id:   '2',
@@ -15,7 +16,7 @@ const navigationTree ={
 			routes: ['/assessment'],
 			level: 1,
 			pathname: '/assessment',
-			childrenIds: []
+			childrenIds: ['6']
 		},
 		'3': {
 			id:   '3',
@@ -40,11 +41,28 @@ const navigationTree ={
 			level: 2,
 			pathname: '/video',
 			childrenIds: []
+		},
+		'6': {
+			id:   '6',
+			name: 'Assessmen Result',
+			routes: ['/result'],
+			level: 2,
+			pathname: '/result',
+			childrenIds: []
 		}
 
+});
+
+function addParentProperty(navTree){
+	Object.keys(navTree).map(function(propName){
+		navTree[propName].childrenIds.forEach((cid) => {
+			navTree[cid]['parentId'] = navTree[propName].id
+		});
+	});
+	return navTree;
 }
 
-var navigationIds = ['1','2','3','4','5'];
+var navigationIds = ['1','2','3','4','5','6'];
 
 const navigatinDefaults = {
 	tree: navigationTree,
@@ -54,7 +72,8 @@ const navigatinDefaults = {
 	},
 	paths: {
 		current: navigationTree[1],
-		last: navigationTree[1]
+		last: navigationTree[1],
+		parent: navigationTree[1]
 	} 
 }
 
@@ -63,8 +82,16 @@ function findRoute(path,cb){
 	var defaultRoute = navigationTree[1];
 
 	for(var id in navigationIds){
-	
 		var navItem = navigationTree[navigationIds[id]];
+		var foundRoute = navHasPath(navItem,path);
+		if(foundRoute){
+			return foundRoute;
+		}
+	}
+	return false;
+}
+
+function navHasPath(navItem,path){
 		var routes = navItem.routes;
 		if(routes.indexOf(path) > -1){
 			return navItem;
@@ -78,8 +105,6 @@ function findRoute(path,cb){
 				}
 			}
 		}
-	}
-	return defaultRoute;
 }
 
 function paths(state,action){
