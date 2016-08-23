@@ -1,25 +1,31 @@
 
 import React,{Component} from 'react';
+class videoViewer extends Component {
+  componentWillMount(){
+  	var {video} = this.props;
+      this.props.appBarTitle && this.props.appBarTitle(video.title);
+  }
+	render(){
 
-const videoViewer = ({video,stylesRoot,isOnline}) => {
-	console.log(isOnline);
-
-	var onlineVideo = <video src={video.src}  poster={video.img} controls >
-					     Sorry, your browser doesn't support embedded videos.
-					</video>;
-					/*
-	var offlineVideo =  <video  poster={video.img}>
-	                     <source src={video.src} type="video/mp4"/>
-					     Sorry, your browser doesn't support embedded videos.
-						</video>; */
+		var {video,stylesRoot,isOnline} = this.props;
+		var onlineVideo = <video src={video.src}  poster={video.img} controls >
+						     Sorry, your browser doesn't support embedded videos.
+						</video>;
+						/*
+		var offlineVideo =  <video  poster={video.img}>
+		                     <source src={video.src} type="video/mp4"/>
+						     Sorry, your browser doesn't support embedded videos.
+							</video>; */
 
 
-	var content =  onlineVideo;//typeof isOnline === 'undefined' ||  isOnline ? onlineVideo : offlineVideo;
-	return (
-		<div style={stylesRoot}>
-			{content}
-		</div>
-		)
+		var content =  onlineVideo;//typeof isOnline === 'undefined' ||  isOnline ? onlineVideo : offlineVideo;
+		return (
+			<div style={stylesRoot}>
+				{content}
+			</div>
+			)
+	}
 }
+
 
 export default videoViewer;
