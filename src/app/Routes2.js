@@ -1,22 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Main from './Main.js';
-import IntroPage from './Intro.js';
-import HomePage from './HomePage.js';
 import BlankPage from './BlankPage.js';
-//import VideosPage from './VideosPage.js';
-import SplashPage from './SplashPage.js';
-import Assessment from './Assessment2.js';
-import AssessmentResult from './AssessmentResult.js';
-import PTSLibrary from './PTSLibrary.js';
-//import VideoPage from './VideoContainer.js';
-import VidoeRoute from './routes/videoRoute.js';
-import VidoesRoute from './routes/videosRoute.js';
+
 import { Router, Route, hashHistory, IndexRoute} from 'react-router'
 import { createStore ,applyMiddleware} from 'redux'
 import { Provider } from 'react-redux'
 import appHub from './reducers'
-import { Map } from 'immutable';
+
 import { userSeesIntro,windowResize,userSeesSplash } from './actions';
 import thunkMiddleware from 'redux-thunk'
 import {persistStore, autoRehydrate} from 'redux-persist'
