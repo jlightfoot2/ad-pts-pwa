@@ -9,7 +9,7 @@ function* checkOnlineStatus() {
 
 		yield call(delay,defaultDelay);
 		yield put(checkIsOnline('timer'));
-	}q
+	}
 }
 
 // Our watcher Saga: spawn a new incrementAsync task on each INCREMENT_ASYNC

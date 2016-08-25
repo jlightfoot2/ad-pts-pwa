@@ -92,7 +92,7 @@ export default connect(
 		return {
 			handleSubmit: (formId,fields,router) => {
 				dispatch(formSubmitted(formId,fields))
-				router.push('/result');
+				router.push('/main/result');
 			}
 		}
 	}

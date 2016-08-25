@@ -4,8 +4,8 @@ const navigationTree = addParentProperty({
 		'1': {
 			id:   '1',
 			name: 'Home',
-			routes: ['/home','/','/intro'],
-			pathname: '/home',
+			routes: ['/main/home','/','/intro'],
+			pathname: '/main/home',
 			level: 0,
 			childrenIds: ['3','2','4'],
 			parentId: null
@@ -13,41 +13,41 @@ const navigationTree = addParentProperty({
 		'2': {
 			id:   '2',
 			name: 'Assessment',
-			routes: ['/assessment'],
+			routes: ['/main/assessment'],
 			level: 1,
-			pathname: '/assessment',
+			pathname: '/main/assessment',
 			childrenIds: ['6']
 		},
 		'3': {
 			id:   '3',
 			name: 'Videos',
-			routes: ['/videos'],
+			routes: ['/main/videos'],
 			level: 1,
-			pathname: '/videos',
+			pathname: '/main/videos',
 			childrenIds: ['5']
 		},
 		'4': {
 			id:   '4',
 			name: 'PTS Library',
-			routes: ['/library'],
-			pathname: '/library',
+			routes: ['/main/library'],
+			pathname: '/main/library',
 			level: 1,
 			childrenIds: []
 		},
 		'5': {
 			id:   '5',
 			name: 'Video',
-			routes: [new RegExp('/video/[0-9]+')],
+			routes: [new RegExp('/main/video/[0-9]+')],
 			level: 2,
-			pathname: '/video',
+			pathname: '/main/video',
 			childrenIds: []
 		},
 		'6': {
 			id:   '6',
 			name: 'Assessmen Result',
-			routes: ['/result'],
+			routes: ['/main/result'],
 			level: 2,
-			pathname: '/result',
+			pathname: '/main/result',
 			childrenIds: []
 		}
 

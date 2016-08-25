@@ -4,12 +4,14 @@ import Main from './Main.js';
 import IntroPage from './Intro.js';
 import HomePage from './HomePage.js';
 import BlankPage from './BlankPage.js';
-import VideosPage from './VideosPage.js';
+//import VideosPage from './VideosPage.js';
 import SplashPage from './SplashPage.js';
 import Assessment from './Assessment2.js';
 import AssessmentResult from './AssessmentResult.js';
 import PTSLibrary from './PTSLibrary.js';
-import VideoPage from './VideoContainer.js';
+//import VideoPage from './VideoContainer.js';
+import VidoeRoute from './routes/videoRoute.js';
+import VidoesRoute from './routes/videosRoute.js';
 import { Router, Route, hashHistory, IndexRoute} from 'react-router'
 import { createStore ,applyMiddleware} from 'redux'
 import { Provider } from 'react-redux'
@@ -115,6 +117,7 @@ function requireIntro(nextState, replace) {
   }
 }
 
+
 const Routes = () => (
 	<Provider store={store}>
 	  <Router history={history}>
@@ -128,8 +131,12 @@ const Routes = () => (
 	      <Route path="/" component={HomePage} onEnter={requireIntro} />
 	      <Route path="/intro" component={IntroPage} onEnter={requireIntro} />
 	      <Route path="/home" component={HomePage} />
+      {/*
         <Route path="/videos" component={VideosPage} />
         <Route path="/video/:id" component={VideoPage} /> 
+      */}
+        <VidoesRoute />
+        <VidoeRoute />
         <Route path="/assessment" component={Assessment} />
         <Route path="/result" component={AssessmentResult} />
         <Route path="/library" component={PTSLibrary} />

@@ -23,9 +23,9 @@ const styles = {
 };
 
 const categories = [
-  {id: 1,title: 'Videos', path: '/videos',featured: true, img: require("../images/videos/introduction-to-pts.jpg")},
-  {id: 2,title: 'Assessments', path: '/assessment',featured: false, img: require("../images/videos/reaction-and-triggers.jpg")},
-  {id: 3,title: 'PTS Library', path: '/library',featured: false, img: require("../images/videos/harmful-habits.jpg")}
+  {id: 1,title: 'Videos', path: '/main/videos',featured: true, img: require("../images/videos/introduction-to-pts.jpg")},
+  {id: 2,title: 'Assessments', path: '/main/assessment',featured: false, img: require("../images/videos/reaction-and-triggers.jpg")},
+  {id: 3,title: 'PTS Library', path: '/main/library',featured: false, img: require("../images/videos/harmful-habits.jpg")}
 ];
 
 class HomePage extends Component {

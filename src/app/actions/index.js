@@ -1,4 +1,4 @@
-import isOnline from 'is-online'
+import isOnline from 'is-online';
 
 export const USER_SEES_INTRO = 'USER_SEES_INTRO';
 export const USER_SEES_SPLASH = 'USER_SEES_SPLASH';
@@ -14,103 +14,99 @@ export const ORIENTATION_CHANGE = 'ORIENTATION_CHANGE_EVENT';
 export const WINDOW_RESIZE = 'WINDOW_RESIZE';
 export const FORM_FIELD_CHANGE = 'FORM_FIELD_CHANGE';
 export const FORM_SUBMITTED = 'FORM_SUBMITTED';
-;
 
-
-export const fieldChange = (formId,fieldId,value) => {
+export const fieldChange = (formId, fieldId, value) => {
   return {
-  	type: FORM_FIELD_CHANGE,
-  	formId,
-  	fieldId,
-  	value
-  }
-}
-
-export const formSubmitted = (formId,fields) => {
-
-  return {
-  	type: FORM_SUBMITTED,
-  	formId,
-  	answers: fields
-  }
-}
-
-export const tabChangeIndex = (id,index) => {
-	return {
-		type: TAB_CHANGE_INDEX,
-		id,
-		index 
-	}
+    type: FORM_FIELD_CHANGE,
+    formId,
+    fieldId,
+    value
+  };
 };
 
-export const windowResize = (width,height=0) => {
-	return {
-		type: WINDOW_RESIZE,
-		width,
-		height
-	}
-}
+export const formSubmitted = (formId, fields) => {
+  return {
+    type: FORM_SUBMITTED,
+    formId,
+    answers: fields
+  };
+};
+
+export const tabChangeIndex = (id, index) => {
+  return {
+    type: TAB_CHANGE_INDEX,
+    id,
+    index
+  };
+};
+
+export const windowResize = (width, height = 0) => {
+  return {
+    type: WINDOW_RESIZE,
+    width,
+    height
+  };
+};
 
 export const userSeesIntro = () => {
-	return {
-		type: USER_SEES_INTRO
-	}
+  return {
+    type: USER_SEES_INTRO
+  };
 };
 
 export const userSeesSplash = () => {
-	return {
-		type: USER_SEES_SPLASH
-	}
-}
+  return {
+    type: USER_SEES_SPLASH
+  };
+};
 
 export const showFlashMessage = (text) => {
-	return {
-		type: SHOW_FLASH_MESSAGE,
-		text
-	};	
-}
+  return {
+    type: SHOW_FLASH_MESSAGE,
+    text
+  };
+};
 export const hideFlashMessage = (text) => {
-	return {
-		type: HIDE_FLASH_MESSAGE,
-	};	
-}
+  return {
+    type: HIDE_FLASH_MESSAGE
+  };
+};
 
 export const connectivityChange = (status) => {
-	return {
-		type: CONNECTIVITY_CHANGE,
-		status
-	};	
-}
+  return {
+    type: CONNECTIVITY_CHANGE,
+    status
+  };
+};
 export const connectivityCheckStart = () => {
-	return {
-		type: CONNECTIVITY_CHECK_START
-	};	
-}
+  return {
+    type: CONNECTIVITY_CHECK_START
+  };
+};
 
 export const connectivityCheckEnd = () => {
-	return {
-		type: CONNECTIVITY_CHECK_END
-	};	
-}
+  return {
+    type: CONNECTIVITY_CHECK_END
+  };
+};
 
 export const checkIsOnline = (checkSource) => {
-	return function(dispatch,getState){
-		dispatch(connectivityCheckStart());
-	    isOnline(function(online) {
-	    	var onlineId = online ? 1 : 0;
-	    	if(getState().app.connectivity.status !== onlineId){
-	    		dispatch(connectivityChange(onlineId))
-	    	}
+  return function (dispatch, getState) {
+    dispatch(connectivityCheckStart());
+    isOnline(function (online) {
+      var onlineId = online ? 1 : 0;
+      if (getState().app.connectivity.status !== onlineId) {
+        dispatch(connectivityChange(onlineId));
+      }
 
-	        dispatch(connectivityCheckEnd());
-	    });
-	}
-
-}
+      dispatch(connectivityCheckEnd());
+    });
+  };
+};
 
 export const questionAnswered = (answers) => {
-	return {
-		type: QUESTION_ANSWERED,
-		answers
-	}
-}
+  return {
+    type: QUESTION_ANSWERED,
+    answers
+  };
+};
