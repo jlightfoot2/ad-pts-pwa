@@ -21,9 +21,9 @@ const AppBarMenuIcon = ({paths,submenu,parent}) => {
 		        targetOrigin={{horizontal: 'left', vertical: 'top'}}
 		        anchorOrigin={{horizontal: 'left', vertical: 'top'}}
 		      >
-		      <MenuItem primaryText={paths.current.name} containerElement={<Link to={paths.current.pathname} />} />
+		      <MenuItem key="0" primaryText={paths.current.name} containerElement={<Link to={paths.current.pathname} />} />
 		      {submenu.map((item) => (
-		      	 <MenuItem primaryText={item.name} containerElement={<Link to={item.pathname} />} />
+		      	 <MenuItem  key={item.id} primaryText={item.name} containerElement={<Link to={item.pathname} />} />
 		      ))}
 
 	    	</IconMenu>);

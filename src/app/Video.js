@@ -11,11 +11,7 @@ class videoViewer extends Component {
 		var onlineVideo = <video src={video.src}  poster={video.img} controls >
 						     Sorry, your browser doesn't support embedded videos.
 						</video>;
-						/*
-		var offlineVideo =  <video  poster={video.img}>
-		                     <source src={video.src} type="video/mp4"/>
-						     Sorry, your browser doesn't support embedded videos.
-							</video>; */
+
 
 
 		var content =  onlineVideo;//typeof isOnline === 'undefined' ||  isOnline ? onlineVideo : offlineVideo;

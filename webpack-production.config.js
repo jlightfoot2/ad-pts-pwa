@@ -16,6 +16,10 @@ const config = {
     filename: 'app.js', // Name of output file
   },
   plugins: [
+    new webpack.optimize.CommonsChunkPlugin({
+        children:  true, // Look for common dependencies in all children,
+        minChunks: 2, // How many times a dependency must come up before being extracted
+    }),
     // Minify the bundle
     new webpack.optimize.UglifyJsPlugin({
       compress: {

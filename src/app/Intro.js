@@ -1,5 +1,5 @@
 import React from 'react';
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import {Card, CardActions,  CardTitle, CardText} from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import { Link } from 'react-router'
 export default class HomePage extends React.Component {
@@ -29,7 +29,7 @@ post-traumatic stress, and explore the e-library for in-depth information.
   			<CardActions>
         
   				<RaisedButton 
-            containerElement={<Link to="/home" />}
+            containerElement={<Link to="/main/home" />}
             
             primary={true} label="Get Started!" />
   

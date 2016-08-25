@@ -7,7 +7,7 @@
 import React from 'react';
 import {render} from 'react-dom';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import Routes from './Routes'; // Our custom react component
+import Routes from './Routes2.js'; // Our custom react component
 import "./reducers";
 require("file?name=manifest.json!json-file!json!../www/manifest.json");
 require('../www/index.html');

@@ -28,6 +28,11 @@ const config = {
     filename: 'app.js',
   },
   plugins: [
+   new webpack.optimize.CommonsChunkPlugin({
+        //name:      'main', // Move dependencies to our main file
+        children:  true, // Look for common dependencies in all children,
+        minChunks: 2, // How many times a dependency must come up before being extracted
+    }),
     // Enables Hot Modules Replacement
     new webpack.HotModuleReplacementPlugin(),
     // Allows error warnings but does not stop compiling.

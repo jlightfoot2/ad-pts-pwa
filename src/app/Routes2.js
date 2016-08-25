@@ -118,30 +118,24 @@ function requireIntro(nextState, replace) {
 }
 
 
+const rootRoute = [
+	{
+	
+	  //onEnter: ({ params }, replace) => replace(`/home`),
+	  getComponent(nextState,cb){
+	  	cb(null,BlankPage)
+	  },
+	
+	  childRoutes: [
+	    require('./routes/quickLoadRoute.js').default,
+	  	require('./routes/mainPageRoute.js').default
+	  ]
+	}
+];
+
 const Routes = () => (
 	<Provider store={store}>
-	  <Router history={history}>
-
-      <Route component={BlankPage}>
-        <IndexRoute component={SplashPage} onEnter={requireIntro} />
-        <Route path="/splash" component={SplashPage} onEnter={requireIntro} />
-      </Route>
-	    <Route component={Main}>
-	      {/* make them children of `Main` */}
-	      <Route path="/" component={HomePage} onEnter={requireIntro} />
-	      <Route path="/intro" component={IntroPage} onEnter={requireIntro} />
-	      <Route path="/home" component={HomePage} />
-      {/*
-        <Route path="/videos" component={VideosPage} />
-        <Route path="/video/:id" component={VideoPage} /> 
-      */}
-        <VidoesRoute />
-        <VidoeRoute />
-        <Route path="/assessment" component={Assessment} />
-        <Route path="/result" component={AssessmentResult} />
-        <Route path="/library" component={PTSLibrary} />
-	    </Route>
-	  </Router>
+	  <Router history={history} routes={rootRoute} />
 	</Provider>
 );
 
