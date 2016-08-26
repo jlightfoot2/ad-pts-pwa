@@ -28,25 +28,6 @@ const config = {
     filename: 'app.js',
   },
   plugins: [
-   new webpack.optimize.CommonsChunkPlugin({
-        //name:      'main', // Move dependencies to our main file
-        children:  true, // Look for common dependencies in all children,
-        minChunks: 2, // How many times a dependency must come up before being extracted
-    }),
-    // This plugin looks for similar chunks and files
-    // and merges them for better caching by the user
-    new webpack.optimize.DedupePlugin(),
-
-    // This plugins optimizes chunks and modules by
-    // how much they are used in your app
-    new webpack.optimize.OccurenceOrderPlugin(),
-
-    // This plugin prevents Webpack from creating chunks
-    // that would be too small to be worth loading separately
-    new webpack.optimize.MinChunkSizePlugin({
-        minChunkSize: 51200, // ~50kb
-    }),
-   
     // Enables Hot Modules Replacement
     new webpack.HotModuleReplacementPlugin(),
     // Allows error warnings but does not stop compiling.

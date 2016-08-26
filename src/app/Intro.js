@@ -6,7 +6,6 @@ export default class HomePage extends Component {
   constructor (props) {
     super(props);
     this.props = props;
-    this.componentWillMount = this.componentWillMount.bind(this);
   }
 
   componentWillMount () {

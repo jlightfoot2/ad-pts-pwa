@@ -8,7 +8,8 @@ export default {
   getChildRoutes (partialNextState, cb) {
     cb(null, [
       require('./introRoute.js').default,
-      require('./defaultRoute.js').default
+      require('./defaultRoute.js').default,
+      require('./splashRoute.js').default
     ]);
   }
 };

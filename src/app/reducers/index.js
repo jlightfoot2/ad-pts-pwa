@@ -7,19 +7,20 @@ import {navigation} from './navigation.js';
 import {reducer as formReducer} from 'redux-form';
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
 import {updateMapItem, arrayHasItem, arrayPush, arrayPushUnique ,arrayDeleteValue} from './utils.js';
-
+import {LOCATION_CHANGE} from 'react-router-redux';
 import {
 	USER_SEES_INTRO,
-	USER_SEES_SPLASH
+	USER_SEES_SPLASH,
+	START_MONITORING_STAGES
 } from '../actions'
 /* 
 * The data below could come from a rest server
 */
 const defaultUser = {
-	stage: 0, //intro stage
+	stage: -1, //default is page not loaded stage
 	role: 'anonymous',
 	firstname: '',
-	lastname: ''	
+	lastname: ''
 }
 
 /**
@@ -36,15 +37,19 @@ const defaultUser = {
 function user(state = defaultUser, action){
 	switch(action.type){
 		case USER_SEES_SPLASH:
-			if(state.stage !== 0){
-				return state;
+			if(state.stage === 0){
+				return  {...state,stage: 1};
 			}
-			return  {...state,stage: 1};
+			break;
 		case USER_SEES_INTRO:
-			if(state.stage !== 1){
-				return state;
+			if(state.stage === 1){
+				return  {...state,stage: 2};
 			}
-			return  {...state,stage: 2};
+			break;
+		case START_MONITORING_STAGES:
+		  if(state.stage === -1){
+		  	return  {...state,stage: 0};
+		  }
 	}
 	return state;
 }
