@@ -43,6 +43,10 @@ class Main extends Component {
 
     this.props.stageCheck(this.props.stage, this.props.currentPath, this.props.router);
   }
+  componentWillReceiveProps() {
+    this.props.stageCheck(this.props.stage, this.props.currentPath, this.props.router);
+  }
+
   handleRequestClose () {
     this.setState({
       open: false
@@ -92,26 +96,31 @@ let stateToProps = (state, ownProps) => {
     currentPath: state.routing.locationBeforeTransitions.pathname
   };
 };
-
+var timeoutId = null; //TODO
 let dispatchToProps = (dispatch, ownProps) => {
+  
   return {
     stageCheck: (stage, path, router) => {
-      console.log(stage, path);
-      if(stage > -1){
-        if (path !== '/splash') {
-          switch (stage) {
-            case 0:
-              router.push('/splash');
-              setTimeout(() => (router.push('/intro')), 2000);
-          }
-        } else if (path === '/splash') {
-          setTimeout(() => (router.push('/intro')), 2000);
-        } else if (path === '/intro' && stage === 1) {
+      if (stage > -1){
+        if(path === '/splash'){
+          dispatch(userSeesSplash());
+        }
+        if(path === '/intro'){
           dispatch(userSeesIntro());
-        }      
+        }
+        if (stage < 2){
+            if(path !== '/splash'){
+              router.push('/splash');
+            }
+            if(!timeoutId){
+              timeoutId = setTimeout(() => (router.push('/intro')), 2000);
+            }
+        }else if(timeoutId){
+          clearTimeout(timeoutId);
+        }
       }else{
-        router.push('/splash');
         dispatch(startMonitoringStages());
+        router.push('/splash');
       }
 
     }
