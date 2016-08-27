@@ -1,6 +1,6 @@
-import React,{Component} from 'react';
-import { reduxForm } from 'redux-form'
-import RadioList from './RadioList2.js'
+import React, {Component} from 'react';
+import { reduxForm } from 'redux-form';
+import RadioList from './RadioList2.js';
 import {formSubmitted} from './actions';
 import { dispatch } from 'redux';
 import { withRouter } from 'react-router';

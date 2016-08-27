@@ -3,7 +3,7 @@ import {
 	HIDE_FLASH_MESSAGE,
 	TAB_CHANGE_INDEX,
 	ORIENTATION_CHANGE,
-	WINDOW_RESIZE,
+	WINDOW_RESIZE
 } from '../actions'
 import {updateMapItem} from  './utils.js'
 

@@ -28,25 +28,6 @@ const config = {
     filename: 'app.js',
   },
   plugins: [
-   new webpack.optimize.CommonsChunkPlugin({
-        //name:      'main', // Move dependencies to our main file
-        children:  true, // Look for common dependencies in all children,
-        minChunks: 2, // How many times a dependency must come up before being extracted
-    }),
-    // This plugin looks for similar chunks and files
-    // and merges them for better caching by the user
-    new webpack.optimize.DedupePlugin(),
-
-    // This plugins optimizes chunks and modules by
-    // how much they are used in your app
-    new webpack.optimize.OccurenceOrderPlugin(),
-
-    // This plugin prevents Webpack from creating chunks
-    // that would be too small to be worth loading separately
-    new webpack.optimize.MinChunkSizePlugin({
-        minChunkSize: 51200, // ~50kb
-    }),
-   
     // Enables Hot Modules Replacement
     new webpack.HotModuleReplacementPlugin(),
     // Allows error warnings but does not stop compiling.
@@ -62,17 +43,17 @@ const config = {
         loaders: ['react-hot', 'babel-loader'], // react-hot is like browser sync and babel loads jsx and es6-7
         exclude: [nodeModulesPath],
       },
-{
-        test:   /\.(png|gif|jpe?g|svg)$/i,
-        loader: 'url?limit=100&name=static/[name]-[hash].[ext]',
+      {
+        test: /\.(png|gif|jpe?g|svg)$/i,
+        loader: 'url?limit=100&name=static/[name]-[hash].[ext]'
         /*
         TODO upping limit cause images to in-line but this causes probems
         with webpack-path-rewriter https://github.com/skozin/webpack-path-rewriter
          */
       },
       {
-        test:   /\.(mp3|mp4)$/i,
-        loader: 'file?name=dynamic/[name]-[hash].[ext]',
+        test: /\.(mp3|mp4)$/i,
+        loader: 'file?name=dynamic/[name]-[hash].[ext]'
       },
       {
           test: /\.css/,

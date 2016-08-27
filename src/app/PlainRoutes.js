@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import BlankPage from './BlankPage.js';
-
+import SplashPage from './SplashPage.js';
 import {Router, hashHistory, browserHistory} from 'react-router';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import appHub from './reducers';
 
-import { userSeesIntro, windowResize, userSeesSplash } from './actions';
+import {windowResize} from './actions';
 import thunkMiddleware from 'redux-thunk';
 import {persistStore, autoRehydrate} from 'redux-persist';
 import localForage from 'localForage';
@@ -18,7 +18,7 @@ import sagaRoot from './sagas';
 
 const sagaMiddleware = createSagaMiddleware();
 
-let store = createStore(
+const store = createStore(
     appHub,
     applyMiddleware(
             routerMiddleware(browserHistory),
@@ -34,47 +34,9 @@ window.addEventListener('resize', () => {
   store.dispatch(windowResize(window.innerWidth, window.innerHeight));
 });
 
-persistStore(store);
-var observerGenerator = function () {
-  return function (store, selector, onChange) {
-    if (!store) throw Error('\'store\' should be truthy');
-    if (!selector) throw Error('\'selector\' should be truthy');
-    var currentValue = null;
-    store.subscribe(() => {
-      console.log(store.getState());
-      let previousValue = currentValue;
-      try {
-        currentValue = selector(store.getState());
-      } catch (ex) {
-        // the selector could not get the value. Maybe because of a null reference. Let's assume undefined
-        currentValue = undefined;
-      }
-      if (previousValue !== currentValue) {
-        onChange(store, previousValue, currentValue);
-      }
-    });
-  };
-};
-var storeObserver = observerGenerator();
-storeObserver(
-  store,
-  (state) => {
-    return state.user.stage === 0 && state.routing.locationBeforeTransitions.pathname === '/splash';
-  },
-  (store, previousValue, currentValue) => {
-    store.dispatch(userSeesSplash());
-  }
-);
-
-storeObserver(
-      store,
-      (state) => {
-        return state.user.stage === 1 && state.routing.locationBeforeTransitions.pathname === '/intro';
-      },
-      (store, previousValue, currentValue) => {
-        store.dispatch(userSeesIntro());
-      }
-);
+store.subscribe(() => {
+  console.log(store.getState());
+});
 
 const rootRoute = [
   {
@@ -88,10 +50,33 @@ const rootRoute = [
   }
 ];
 
-const Routes = () => (
-    <Provider store={store}>
-      <Router history={history} routes={rootRoute} />
-    </Provider>
-);
+export default class AppProvider extends React.Component {
 
-export default Routes;
+  constructor() {
+    super()
+    this.state = { rehydrated: false };
+  }
+
+  componentWillMount () {
+    persistStore(store, {}, () => {
+    
+      setTimeout(() => {
+        this.setState({ rehydrated: true });
+      }, 1000);
+      
+    });
+  }
+
+  render() {
+    if (!this.state.rehydrated){
+      return <BlankPage><SplashPage/></BlankPage>;
+    }
+    return (
+      <Provider store={store}>
+        <Router history={history} routes={rootRoute} />
+      </Provider>
+    )
+  }
+}
+
+export default AppProvider;

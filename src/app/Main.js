@@ -3,15 +3,18 @@
  * which incorporates components provided by Material-UI.
  */
 import React, {Component} from 'react';
-import FlatButton from 'material-ui/FlatButton';
 
 import Paper from 'material-ui/Paper';
 import AppBar from 'material-ui/AppBar';
 
-
-import OnlineStatusBarIcon from './OnlineStatusContainer.js'
+import OnlineStatusBarIcon from './OnlineStatusContainer.js';
 import AppSnackBar from './AppSnackBar.js';
 import AppBarMenuIcon from './AppBarMenuIcon.js';
+import { connect } from 'react-redux';
+import {userSeesSplash, userSeesIntro} from './actions';
+import {push, replace} from 'react-router-redux';
+import { withRouter } from 'react-router';
+import {startMonitoringStages} from './actions';
 
 const styles = {
   root: {
@@ -25,66 +28,57 @@ const styles = {
 };
 
 class Main extends Component {
-  constructor(props, context) {
+  constructor (props, context) {
     super(props, context);
 
     this.handleRequestClose = this.handleRequestClose.bind(this);
     this.handleTouchTap = this.handleTouchTap.bind(this);
     this.handleTitle = this.handleTitle.bind(this);
-   
-    
     this.state = {
       open: false,
       title: ''
     };
   }
+  componentWillMount () {
+    // redirect to login and add next param so we can redirect again after login
+  }
+  componentWillReceiveProps () {
 
-  handleRequestClose() {
+  }
+
+  handleRequestClose () {
     this.setState({
-      open: false,
+      open: false
     });
   }
 
-  handleTouchTap() {
+  handleTouchTap () {
     this.setState({
-      open: true,
+      open: true
     });
   }
 
-  handleTitle(title){
+  handleTitle (title) {
     this.setState({
       title: title
     });
   }
 
-  render() {
-    const standardActions = (
-      <FlatButton
-        label="Ok"
-        primary={true}
-        onTouchTap={this.handleRequestClose}
-      />
-    );
-
+  render () {
     return (
-   
-        <Paper  zDepth={2} style={styles.container} >
-        <div style={styles.desktop}>
+        <Paper zDepth={2} style={styles.container} >
+          <div style={styles.desktop}>
 
-          <AppBar
-              title={this.state.title}
-              titleStyle={{textAlign: 'center'}}
-    			    iconElementLeft={<AppBarMenuIcon/>}
-              iconElementRight={<OnlineStatusBarIcon/>}
-               />
-
-
-              <div>{React.cloneElement(this.props.children, { appBarTitle: this.handleTitle, stylesRoot: styles.root })}</div>
-              
-        </div>
-           <AppSnackBar />
+            <AppBar
+                title={this.state.title}
+                titleStyle={{textAlign: 'center'}}
+                iconElementLeft={<AppBarMenuIcon/>}
+                iconElementRight={<OnlineStatusBarIcon/>}
+                 />
+                <div>{React.cloneElement(this.props.children, { appBarTitle: this.handleTitle, stylesRoot: styles.root })}</div>
+          </div>
+          <AppSnackBar />
         </Paper>
- 
     );
   }
 }
@@ -93,4 +87,5 @@ Main.contextTypes = {
   router: React.PropTypes.object.isRequired
 };
 
-export default Main
+
+export default Main;
