@@ -13,7 +13,8 @@ const styles = {
     flexWrap: 'wrap',
     justifyContent: 'space-around',
     padding: '10px',
-    backgroundColor: '#E64818'
+    backgroundColor: '#E64818',
+    height: '100%'
   },
   desktop: {
   }

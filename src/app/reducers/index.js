@@ -1,27 +1,23 @@
 import {combineReducers} from 'redux';
-import {view,device} from './view.js';
-import {videos, videoIds,} from './videos.js';
+import {view, device} from './view.js';
+import {videos, videoIds} from './videos.js';
 import { app } from './app.js';
 import assessment from './assessment.js';
 import {navigation} from './navigation.js';
 import {reducer as formReducer} from 'redux-form';
-import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
-import {updateMapItem, arrayHasItem, arrayPush, arrayPushUnique ,arrayDeleteValue} from './utils.js';
-import {LOCATION_CHANGE} from 'react-router-redux';
-import {
-	USER_SEES_INTRO,
-	USER_SEES_SPLASH,
-	START_MONITORING_STAGES
-} from '../actions'
-/* 
+import {routerReducer} from 'react-router-redux';
+import {REHYDRATE} from 'redux-persist/constants';
+import {USER_SEES_INTRO, USER_SEES_SPLASH} from '../actions';
+/*
 * The data below could come from a rest server
 */
 const defaultUser = {
-	stage: -1, //default is page not loaded stage
+	stage: 0,
+	loaded: 0,
 	role: 'anonymous',
 	firstname: '',
 	lastname: ''
-}
+};
 
 /**
  * Redux State functions
@@ -34,26 +30,30 @@ const defaultUser = {
  *
  * @return object the new state or the current state
  */
-function user(state = defaultUser, action){
-	switch(action.type){
+
+function user (state = defaultUser, action) {
+
+	switch (action.type) {
+		case REHYDRATE:
+		  if(state.loaded === 0){
+		  	if (typeof action.payload.user !== 'undefined') {
+		  		return {...action.payload.user};
+		  	}
+		  	return {...state, loaded: 1};
+		  }
 		case USER_SEES_SPLASH:
-			if(state.stage === 0){
+			if(state.loaded && state.stage === 0){
 				return  {...state,stage: 1};
 			}
 			break;
 		case USER_SEES_INTRO:
-			if(state.stage === 1){
+			if(state.loaded && state.stage === 1){
 				return  {...state,stage: 2};
 			}
 			break;
-		case START_MONITORING_STAGES:
-		  if(state.stage === -1){
-		  	return  {...state,stage: 0};
-		  }
 	}
 	return state;
 }
-
 
 const appHub = combineReducers({
   app,
@@ -68,5 +68,4 @@ const appHub = combineReducers({
   navigation
 });
 
-
-export default appHub
+export default appHub;

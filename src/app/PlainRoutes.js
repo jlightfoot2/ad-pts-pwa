@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import BlankPage from './BlankPage.js';
-
+import SplashPage from './SplashPage.js';
 import {Router, hashHistory, browserHistory} from 'react-router';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
@@ -18,7 +18,7 @@ import sagaRoot from './sagas';
 
 const sagaMiddleware = createSagaMiddleware();
 
-let store = createStore(
+const store = createStore(
     appHub,
     applyMiddleware(
             routerMiddleware(browserHistory),
@@ -34,7 +34,10 @@ window.addEventListener('resize', () => {
   store.dispatch(windowResize(window.innerWidth, window.innerHeight));
 });
 
-persistStore(store);
+store.subscribe(() => {
+  console.log(store.getState());
+});
+
 const rootRoute = [
   {
     getComponent (nextState, cb) {
@@ -47,10 +50,29 @@ const rootRoute = [
   }
 ];
 
-const Routes = () => (
-    <Provider store={store}>
-      <Router history={history} routes={rootRoute} />
-    </Provider>
-);
+export default class AppProvider extends React.Component {
 
-export default Routes;
+  constructor() {
+    super()
+    this.state = { rehydrated: false };
+  }
+
+  componentWillMount () {
+    persistStore(store, {}, () => {
+      this.setState({ rehydrated: true });
+    });
+  }
+
+  render() {
+    if (!this.state.rehydrated){
+      return <BlankPage><SplashPage/></BlankPage>;
+    }
+    return (
+      <Provider store={store}>
+        <Router history={history} routes={rootRoute} />
+      </Provider>
+    )
+  }
+}
+
+export default AppProvider;

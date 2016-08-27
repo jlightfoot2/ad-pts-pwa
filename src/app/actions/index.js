@@ -16,7 +16,6 @@ export const FORM_FIELD_CHANGE = 'FORM_FIELD_CHANGE';
 export const FORM_SUBMITTED = 'FORM_SUBMITTED';
 export const START_MONITORING_STAGES = 'START_MONITORING_STAGES';
 
-
 export const startMonitoringStages = () => {
   return {
     type: START_MONITORING_STAGES
