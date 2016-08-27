@@ -59,7 +59,11 @@ export default class AppProvider extends React.Component {
 
   componentWillMount () {
     persistStore(store, {}, () => {
-      this.setState({ rehydrated: true });
+    
+      setTimeout(() => {
+        this.setState({ rehydrated: true });
+      }, 1000);
+      
     });
   }
 
