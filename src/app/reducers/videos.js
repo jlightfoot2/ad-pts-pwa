@@ -50,6 +50,7 @@ const apiVideos = [
 			name: 'Popular'
 		}
 	},
+	
 	{
 		id: 4,
 	    img: require('../../images/videos/helpful-habits.jpg'),
@@ -76,6 +77,7 @@ const apiVideos = [
 			name: 'Popular'
 		}
 	}
+	
 ];
 
 

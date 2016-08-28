@@ -9,14 +9,9 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import SplashPage from './SplashPage.js';
 const styles = {
   root: {
-    display: 'flex',
-    flexFlow: 'row wrap',
-    padding: '0',
-    justifyContent: 'space-around',
-    backgroundColor: '#E64818',
-    height: '100%'
   },
-  desktop: {
+  container: {
+
   }
 };
 
@@ -35,7 +30,7 @@ class BlankPage extends Component {
   render () {
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
-              <div style={styles.root}>{this.props.children || <SplashPage />}</div>
+              {this.props.children || <SplashPage />}
       </MuiThemeProvider>
     );
   }

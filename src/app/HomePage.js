@@ -12,12 +12,15 @@ import { push } from 'react-router-redux';
 
 const styles = {
   gridList: {
-
+    
     overflowY: 'auto',
     marginBottom: 24,
   },
   gridTile: {
     backgroundColor: 'blue'
+  },
+  container: {
+
   }
 };
 
@@ -38,9 +41,9 @@ class HomePage extends Component {
   }
 
   render(){
-  var {videoList,flashMessage, appBarTitle,stylesRoot,onTileClick,device} = this.props;
-  console.log(device)
-    var cols = 3;
+  var {videoList,flashMessage, appBarTitle,onTileClick,device} = this.props;
+ 
+    var cols = 2;
     if(device.size === 'large'){
       cols = 3;
     } else if (device.size === 'small'){
@@ -48,21 +51,20 @@ class HomePage extends Component {
     }
 
     return (
-    <div>
+    <div style={styles.container}>
       <GridList
-        cellHeight={200}
+     
         style={styles.gridList}
         cols={cols}
       >
 
         {categories.map((tile) => (
-          <Link cols={tile.featured && cols > 1 ? 1 : 1} key={tile.id} to={tile.path}>
+          <Link cols={tile.featured && cols == 2 ? 2 : 1} key={tile.id} to={tile.path}>
             <GridTile
               key={tile.id}
                {...tile}
               title={tile.title}
               titlePosition="bottom"
-              style={{flex: '2 97%'}}
             >
                <img src={tile.img} /> 
 

@@ -10,8 +10,8 @@ var
   https = require('https'),
   http = require('http'),
   util = require('util')
-  //sendSeekable = require('send-seekable'),
-  //fs = require('fs')
+  sendSeekable = require('send-seekable'),
+  fs = require('fs')
   ;
   
 /*
@@ -21,10 +21,10 @@ const options = {
 }*/
 
 app = express();
-//app.use(sendSeekable);
+app.use(sendSeekable);
 app.use(function(req, res, next) { console.log(req.url); next(); });
 
-/*
+
 app.use("/*.mp4*",function(req,res,next){
   console.log('video route called');
    var filePath = root + '/build' + req.baseUrl;
@@ -44,7 +44,7 @@ app.use("/*.mp4*",function(req,res,next){
    
 
 }); 
-*/
+
 
 app.use(express.static(root + '/build'));
 //server = app.listen(port, host, serverStarted); //old server

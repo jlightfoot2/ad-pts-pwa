@@ -17,15 +17,11 @@ import { withRouter } from 'react-router';
 import {startMonitoringStages} from './actions';
 
 const styles = {
-  root: {
+  content: {
+    paddingTop: '10px',
     display: 'flex',
     flexFlow: 'row wrap',
-    justifyContent: 'space-around'
-  },
-  content: {
-    padding: '10px',
-    backgroundColor: 'white',
-    flex: '2 100%'
+    justifyContent: 'center'
   }
 };
 
@@ -40,12 +36,6 @@ class Main extends Component {
       open: false,
       title: ''
     };
-  }
-  componentWillMount () {
-    // redirect to login and add next param so we can redirect again after login
-  }
-  componentWillReceiveProps () {
-
   }
 
   handleRequestClose () {
@@ -68,7 +58,7 @@ class Main extends Component {
 
   render () {
     return (
-        <div style={styles.container} >
+        <div>
             <AppBar
                 title={this.state.title}
                 titleStyle={{textAlign: 'center'}}
