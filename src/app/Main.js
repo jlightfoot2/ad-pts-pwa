@@ -19,11 +19,13 @@ import {startMonitoringStages} from './actions';
 const styles = {
   root: {
     display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-    padding: '10px'
+    flexFlow: 'row wrap',
+    justifyContent: 'space-around'
   },
-  desktop: {
+  content: {
+    padding: '10px',
+    backgroundColor: 'white',
+    flex: '2 100%'
   }
 };
 
@@ -66,19 +68,17 @@ class Main extends Component {
 
   render () {
     return (
-        <Paper zDepth={2} style={styles.container} >
-          <div style={styles.desktop}>
-
+        <div style={styles.container} >
             <AppBar
                 title={this.state.title}
                 titleStyle={{textAlign: 'center'}}
                 iconElementLeft={<AppBarMenuIcon/>}
                 iconElementRight={<OnlineStatusBarIcon/>}
                  />
-                <div>{React.cloneElement(this.props.children, { appBarTitle: this.handleTitle, stylesRoot: styles.root })}</div>
-          </div>
+                <div style={styles.content}>{React.cloneElement(this.props.children, { appBarTitle: this.handleTitle, stylesRoot: styles.root })}</div>
+       
           <AppSnackBar />
-        </Paper>
+        </div>
     );
   }
 }

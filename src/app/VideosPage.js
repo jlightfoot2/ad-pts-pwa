@@ -15,13 +15,14 @@ import Connectivity from './Connectivity.js';
 import OnlineOnlyLink from './OnlineOnlyLink.js';
 const styles = {
   gridList: {
-    width: 500,
-    height: 650,
     overflowY: 'auto',
     marginBottom: 24,
   },
   playIcon: {
   	marginRight: 24
+  },
+  container: {
+  
   }
 };
 
@@ -35,10 +36,10 @@ class VideosPage extends Component {
 
 
     return (
-    <div style={stylesRoot}>
+    <div>
     
       <GridList
-        cellHeight={200}
+      
         style={styles.gridList}
         cols={2}
       >

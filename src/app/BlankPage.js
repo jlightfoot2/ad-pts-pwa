@@ -10,9 +10,9 @@ import SplashPage from './SplashPage.js';
 const styles = {
   root: {
     display: 'flex',
-    flexWrap: 'wrap',
+    flexFlow: 'row wrap',
+    padding: '0',
     justifyContent: 'space-around',
-    padding: '10px',
     backgroundColor: '#E64818',
     height: '100%'
   },
