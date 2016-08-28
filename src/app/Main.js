@@ -17,13 +17,11 @@ import { withRouter } from 'react-router';
 import {startMonitoringStages} from './actions';
 
 const styles = {
-  root: {
+  content: {
+    paddingTop: '10px',
     display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-    padding: '10px'
-  },
-  desktop: {
+    flexFlow: 'row wrap',
+    justifyContent: 'center'
   }
 };
 
@@ -38,12 +36,6 @@ class Main extends Component {
       open: false,
       title: ''
     };
-  }
-  componentWillMount () {
-    // redirect to login and add next param so we can redirect again after login
-  }
-  componentWillReceiveProps () {
-
   }
 
   handleRequestClose () {
@@ -66,19 +58,17 @@ class Main extends Component {
 
   render () {
     return (
-        <Paper zDepth={2} style={styles.container} >
-          <div style={styles.desktop}>
-
+        <div>
             <AppBar
                 title={this.state.title}
                 titleStyle={{textAlign: 'center'}}
                 iconElementLeft={<AppBarMenuIcon/>}
                 iconElementRight={<OnlineStatusBarIcon/>}
                  />
-                <div>{React.cloneElement(this.props.children, { appBarTitle: this.handleTitle, stylesRoot: styles.root })}</div>
-          </div>
+                <div style={styles.content}>{React.cloneElement(this.props.children, { appBarTitle: this.handleTitle, stylesRoot: styles.root })}</div>
+       
           <AppSnackBar />
-        </Paper>
+        </div>
     );
   }
 }

@@ -59,8 +59,13 @@ const config = {
                           ],
         runtimeCaching: [{
           handler: 'cacheFirst',
-          urlPattern: /dynamic\/[\w_-]+\.(gif|jpg|jpeg|png|svg|mp4|mp3)$/i
-        }],
+          urlPattern: /dynamic\/[\w_-]+\.(gif|jpg|jpeg|png|svg)$/i
+        },
+        {
+          handler: 'networkFirst',
+          urlPattern: /dynamic\/[\w_-]+\.(mp4|mp3)$/i
+        }
+        ],
         "stripPrefix": "build/"
       }
     ),

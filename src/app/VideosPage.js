@@ -15,13 +15,14 @@ import Connectivity from './Connectivity.js';
 import OnlineOnlyLink from './OnlineOnlyLink.js';
 const styles = {
   gridList: {
-    width: 500,
-    height: 650,
     overflowY: 'auto',
     marginBottom: 24,
   },
   playIcon: {
   	marginRight: 24
+  },
+  container: {
+  
   }
 };
 
@@ -31,21 +32,26 @@ class VideosPage extends Component {
   }
   render(){
 
-  var {videoList,toggleToMyApps,flashMessage, appBarTitle,stylesRoot,isOnline} = this.props;
+  var {videoList,toggleToMyApps,flashMessage, appBarTitle,isOnline,device} = this.props;
 
-
+    var cols = 2;
+    if(device.size === 'large'){
+      cols = 4;
+    } else if (device.size === 'small'){
+      cols = 1;
+    }
     return (
-    <div style={stylesRoot}>
+    <div>
     
       <GridList
-        cellHeight={200}
+      
         style={styles.gridList}
-        cols={2}
+        cols={cols}
       >
 
         {videoList.map((tile) => (
 
-          <OnlineOnlyLink isOnline={true} key={tile.id} to={'/main/video/'+tile.id} cols={tile.featured ? 2 : 1}>
+          <OnlineOnlyLink isOnline={true} key={tile.id} to={'/main/video/'+tile.id} cols={tile.featured ? 1 : 1}>
             <GridTile
               key={tile.id}
                {...tile}
@@ -69,7 +75,8 @@ class VideosPage extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    videoList: Map(state.videos).toArray()
+    videoList: Map(state.videos).toArray(),
+    device: state.device
   }
 }
 
