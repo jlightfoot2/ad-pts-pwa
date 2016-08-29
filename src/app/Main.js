@@ -67,7 +67,7 @@ class Main extends Component {
                 title={this.state.title}
                 titleStyle={{textAlign: 'center'}}
                 iconElementLeft={<AppBarMenuIcon/>}
-                iconElementRight={<OnlineStatusBarIcon/>}
+                iconElementRight={<OnlineStatusBarIcon />}
                  />
                 <div style={styles.content}>{React.cloneElement(this.props.children, { appBarTitle: this.handleTitle })}</div>
 

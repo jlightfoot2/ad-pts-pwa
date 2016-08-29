@@ -37,8 +37,7 @@ export const device = function(state = defaultDevice, action){
 	switch(action.type){
 		case ORIENTATION_CHANGE:
 		case WINDOW_RESIZE:
-			if(state.width !== action.width){
-				return updateMapItem(state,(err,item) => {
+				return updateMapItem(state, (err, item) => {
 					item.width = action.width;
 
 					if(item.width > breakPoints.medium){
@@ -51,7 +50,6 @@ export const device = function(state = defaultDevice, action){
 					item.orientation = action.width > action.height ? 'landscape' : 'portrait';
 					return item;
 				} );
-			}
 	}
 	return state
 }
