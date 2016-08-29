@@ -24,7 +24,7 @@ const defaultView = {
 const defaultDevice = {
 	orientation: 'landscape',
 	width: typeof window === 'object' ? window.innerWidth : 0,
-	size: 'large'
+	size: 'small'
 }
 
 const breakPoints = {
