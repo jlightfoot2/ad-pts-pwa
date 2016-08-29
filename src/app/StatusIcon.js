@@ -21,7 +21,7 @@ const StatusIcon = ({onlineStatus,checkOnlineStatus}) => {
   }
 
   return (
-  		<div>
+  		<div style={{marginTop: '12px'}}>
   			{cellIcon} <span onClick={onClick}>{message}</span>
   		</div>
   );
