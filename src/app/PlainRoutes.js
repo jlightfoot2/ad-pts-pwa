@@ -32,6 +32,9 @@ const history = syncHistoryWithStore(hashHistory, store);
 window.addEventListener('resize', () => {
   store.dispatch(windowResize(window.innerWidth, window.innerHeight));
 });
+window.addEventListener('orientationchange', () => {
+  setTimeout(() => (store.dispatch(windowResize(window.innerWidth, window.innerHeight))), 500);
+});
 
 store.subscribe(() => {
   console.log(store.getState());
