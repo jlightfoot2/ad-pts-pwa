@@ -13,9 +13,7 @@ class videoViewer extends Component {
 						     Sorry, your browser doesn't support embedded videos.
 						</video>;
 
-		var offlineVideo = <video src={video.src}  poster={video.img} autoPlay >
-						     Sorry, your browser doesn't support embedded videos.
-						</video>;
+		var offlineVideo = 'This video is not available while offline';
 
 		var content =  typeof isOnline === 'undefined' ||  isOnline ? onlineVideo : offlineVideo;
 		return (

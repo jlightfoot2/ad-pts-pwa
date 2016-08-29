@@ -10,7 +10,6 @@ import appHub from './reducers';
 import {windowResize} from './actions';
 import thunkMiddleware from 'redux-thunk';
 import {persistStore, autoRehydrate} from 'redux-persist';
-import localForage from 'localForage';
 
 import { syncHistoryWithStore, routerMiddleware } from 'react-router-redux';
 import createSagaMiddleware from 'redux-saga';
@@ -52,29 +51,27 @@ const rootRoute = [
 
 export default class AppProvider extends React.Component {
 
-  constructor() {
-    super()
+  constructor () {
+    super();
     this.state = { rehydrated: false };
   }
 
   componentWillMount () {
     persistStore(store, {}, () => {
-    
       setTimeout(() => {
         this.setState({ rehydrated: true });
       }, 1000);
-      
     });
   }
 
-  render() {
-    if (!this.state.rehydrated){
+  render () {
+    if (!this.state.rehydrated) {
       return <BlankPage><SplashPage/></BlankPage>;
     }
     return (
       <Provider store={store}>
         <Router history={history} routes={rootRoute} />
       </Provider>
-    )
+    );
   }
 }

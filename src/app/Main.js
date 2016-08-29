@@ -17,6 +17,10 @@ import { withRouter } from 'react-router';
 import {startMonitoringStages} from './actions';
 
 const styles = {
+  wrapper: {
+    maxWidth: '1500px',
+    margin: '0 auto 0 auto'
+  },
   content: {
     paddingTop: '10px',
     display: 'flex',
@@ -58,15 +62,15 @@ class Main extends Component {
 
   render () {
     return (
-        <div>
+        <div style={styles.wrapper}>
             <AppBar
                 title={this.state.title}
                 titleStyle={{textAlign: 'center'}}
                 iconElementLeft={<AppBarMenuIcon/>}
                 iconElementRight={<OnlineStatusBarIcon/>}
                  />
-                <div style={styles.content}>{React.cloneElement(this.props.children, { appBarTitle: this.handleTitle, stylesRoot: styles.root })}</div>
-       
+                <div style={styles.content}>{React.cloneElement(this.props.children, { appBarTitle: this.handleTitle })}</div>
+
           <AppSnackBar />
         </div>
     );

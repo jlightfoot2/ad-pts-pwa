@@ -23,7 +23,7 @@ class Assessment extends Component{
 	}
 	render(){
 
-		var {fields,result,questions,handleSubmit,formSubmitted,stylesRoot,router} = this.props;
+		var {fields,result,questions,handleSubmit,formSubmitted,router} = this.props;
 	
 
 		function getInput(field){
@@ -37,7 +37,7 @@ class Assessment extends Component{
 		}
 			
 	   return (
-	   		<div style={stylesRoot}>
+	   		<div>
 	   		    <div>
 	   		    	<p>
 						Below is a list of problems and complaints that veterans sometimes have in 
