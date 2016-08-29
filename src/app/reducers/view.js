@@ -38,17 +38,17 @@ export const device = function(state = defaultDevice, action){
 		case ORIENTATION_CHANGE:
 		case WINDOW_RESIZE:
 				return updateMapItem(state, (err, item) => {
-					item.width = action.width;
-
-					if(item.width > breakPoints.medium){
-						item.size = 'large';
-					}else if(item.width > breakPoints.small){
-						item.size = 'medium';
-					}else if(item.width > 0){
-						item.size = 'small';
+					var width = action.width || 0;
+					var size = item.size;
+					if(width > breakPoints.medium){
+						size = 'large';
+					}else if(width > breakPoints.small){
+						size = 'medium';
+					}else if(width > 0){
+						size = 'small';
 					}
-					item.orientation = action.width > action.height ? 'landscape' : 'portrait';
-					return item;
+					var orientation = action.width > action.height ? 'landscape' : 'portrait';
+					return {...item, size: size, width: width, orientation: orientation};
 				} );
 	}
 	return state
