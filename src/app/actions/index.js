@@ -97,16 +97,30 @@ export const connectivityCheckEnd = () => {
 };
 
 export const checkIsOnline = (checkSource) => {
+  var onlineId = 1;
+
   return function (dispatch, getState) {
     dispatch(connectivityCheckStart());
-    isOnline(function (online) {
-      var onlineId = online ? 1 : 0;
-      if (getState().app.connectivity.status !== onlineId) {
-        dispatch(connectivityChange(onlineId));
+    var makeRequest = true;
+    if ('onLine' in navigator) {
+      if (onlineId && !navigator.onLine) { //if navigator says offline we "over-rule" the is-online module
+        onlineId = 0;
+        makeRequest = false;
+        if (getState().app.connectivity.status !== onlineId) {
+          dispatch(connectivityChange(onlineId));
+        }
+        dispatch(connectivityCheckEnd());
       }
-
-      dispatch(connectivityCheckEnd());
-    });
+    }
+    if (makeRequest) {
+      isOnline(function (online) {
+        onlineId = online ? 1 : 0;
+        if (getState().app.connectivity.status !== onlineId) {
+          dispatch(connectivityChange(onlineId));
+        }
+        dispatch(connectivityCheckEnd());
+      });
+    }
   };
 };
 

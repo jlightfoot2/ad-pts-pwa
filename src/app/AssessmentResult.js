@@ -19,7 +19,7 @@ class AssessentText extends Component {
     	var el = this.refs.assessmentText;
 	    TweenLite.set(el, {opacity: 0});
 	    setTimeout(function() {
-	      console.log("timed in");
+	
 	      TweenLite.to(el, 1, {opacity: 1}).play().eventCallback("onComplete", callback);
 	    }, 1000);
     }
@@ -35,8 +35,8 @@ class AssessentText extends Component {
 }
 
 const AssessmentResult = (props) => {
-const {stylesRoot,result,resultDetails} = props;
-	return (<div style={stylesRoot}>
+const {resultDetails} = props;
+	return (<div>
 				<D3LinearaGauge {...props} />
 				<ReactTransitionGroup>
 				    <AssessentText text={resultDetails.conclusion} />

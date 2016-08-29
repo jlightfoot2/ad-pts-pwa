@@ -13,9 +13,8 @@ export default class HomePage extends Component {
   }
 
   render () {
-    var {stylesRoot} = this.props;
     return (
-      <div style={stylesRoot}>
+      <div>
         <Card>
           <CardTitle title="Post Traumatic Stress" subtitle="A subtitle here" />
           <CardText>

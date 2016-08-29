@@ -1,5 +1,6 @@
 
 import React,{Component} from 'react';
+import {connect} from 'react-redux';
 class videoViewer extends Component {
   componentWillMount(){
   	var {video} = this.props;
@@ -7,21 +8,23 @@ class videoViewer extends Component {
   }
 	render(){
 
-		var {video,stylesRoot,isOnline} = this.props;
+		var {video,isOnline} = this.props;
 		var onlineVideo = <video src={video.src}  poster={video.img} controls >
 						     Sorry, your browser doesn't support embedded videos.
 						</video>;
 
+		var offlineVideo = 'This video is not available while offline';
 
-
-		var content =  onlineVideo;//typeof isOnline === 'undefined' ||  isOnline ? onlineVideo : offlineVideo;
+		var content =  typeof isOnline === 'undefined' ||  isOnline ? onlineVideo : offlineVideo;
 		return (
-			<div style={stylesRoot}>
+			<div>
 				{content}
 			</div>
 			)
 	}
 }
 
-
+const stateToProps = (state,ownProps) => {
+	isOnline: state.app.connectivity.status
+}
 export default videoViewer;

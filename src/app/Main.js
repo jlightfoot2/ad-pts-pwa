@@ -17,13 +17,15 @@ import { withRouter } from 'react-router';
 import {startMonitoringStages} from './actions';
 
 const styles = {
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-    padding: '10px'
+  wrapper: {
+    maxWidth: '1500px',
+    margin: '0 auto 0 auto'
   },
-  desktop: {
+  content: {
+    paddingTop: '10px',
+    display: 'flex',
+    flexFlow: 'row wrap',
+    justifyContent: 'center'
   }
 };
 
@@ -38,12 +40,6 @@ class Main extends Component {
       open: false,
       title: ''
     };
-  }
-  componentWillMount () {
-    // redirect to login and add next param so we can redirect again after login
-  }
-  componentWillReceiveProps () {
-
   }
 
   handleRequestClose () {
@@ -66,19 +62,17 @@ class Main extends Component {
 
   render () {
     return (
-        <Paper zDepth={2} style={styles.container} >
-          <div style={styles.desktop}>
-
+        <div style={styles.wrapper}>
             <AppBar
                 title={this.state.title}
                 titleStyle={{textAlign: 'center'}}
                 iconElementLeft={<AppBarMenuIcon/>}
                 iconElementRight={<OnlineStatusBarIcon/>}
                  />
-                <div>{React.cloneElement(this.props.children, { appBarTitle: this.handleTitle, stylesRoot: styles.root })}</div>
-          </div>
+                <div style={styles.content}>{React.cloneElement(this.props.children, { appBarTitle: this.handleTitle })}</div>
+
           <AppSnackBar />
-        </Paper>
+        </div>
     );
   }
 }
