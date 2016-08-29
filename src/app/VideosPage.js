@@ -38,13 +38,11 @@ class VideosPage extends Component {
     if(device.size === 'large'){
       cols = 4;
     } else if (device.size === 'small'){
-      cols = 1;
+      cols = device.orientation !== 'landscape' ? 1 : 2;
     }
     return (
     <div>
-    
       <GridList
-      
         style={styles.gridList}
         cols={cols}
       >
