@@ -58,6 +58,10 @@ const config = {
                           'build/static/**/*.{png,jpg,jpeg,svg,gif,mp4,json}'
                           ],
         runtimeCaching: [{
+          handler: 'fastest',
+          urlPattern: /\/[\w_-]+\.(js)$/i
+        },
+        runtimeCaching: [{
           handler: 'cacheFirst',
           urlPattern: /dynamic\/[\w_-]+\.(gif|jpg|jpeg|png|svg)$/i
         },
