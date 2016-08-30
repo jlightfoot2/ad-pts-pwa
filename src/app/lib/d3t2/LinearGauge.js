@@ -16,27 +16,27 @@ ns.tickMark = null;
 ns.tickPosition = 0.0;
 ns.width = 500;
 ns.chart_w = ns.width - 20;
+ns.svg = null;
 
 ns.create = function(el, props, state) {
-
+	ns.width = state.width;
    var scales = ns._scales(el,state.domain);
-
+   console.log(el,state.domain);
 	var gauge_h = 60;
 
 
 	var chart_y_pos = 5;
 
-	var result = state.data;	// in a scale [0 1]
+  var result = state.data;
 
-	var resultPos = this.chart_w * result;
-    this.tickPosition = scales.x(result);
+  this.tickPosition = scales.x(result);
     
 	var text_margins = {top: chart_y_pos + gauge_h + 35, right: 10, bottom: 0, left: 10};
 
 	var svg = d3.select(el).append("svg")
-	.attr("width", this.width)
+	.attr("width", ns.width)
 	.attr("height", '100%');
-
+  ns.svg = svg;
 	var gradient = svg.append("svg:defs")
 	  .append("svg:linearGradient")
 	    .attr("id", "gradient")
@@ -135,13 +135,14 @@ ns.create = function(el, props, state) {
 
 ns.update = function(el, state, dispatcher) {
 
+	ns.width = state.width;
+	ns.svg.attr("width", ns.width);
   var scales = this._scales(el, state.domain);
-  var prevScales = this._scales(el, state.prevDomain);
-  var resultPos = this.chart_w * state.data;
+	
+  //var prevScales = this._scales(el, state.prevDomain);
   this.tickPosition = scales.x(state.data);
-  //this.tickLine.attr("x2", this.tickPosition);
-  //this.tickLine.attr("x1", this.tickPosition)
 
+  //console.log('tick pos: '+this.tickPosition,state.data);
 
  this.tickMark
   			.transition()
@@ -152,8 +153,8 @@ ns.update = function(el, state, dispatcher) {
 
   //this.tickCircle.attr("cx", this.tickPosition)
   			;
-  this._draw(el, scales, state.data, prevScales, dispatcher);
-  //this._drawTooltips(el, scales, state.tooltips, prevScales);
+
+ 
 };
 
 ns._scales = function(el, domain) {
@@ -161,7 +162,8 @@ ns._scales = function(el, domain) {
     return null;
   }
 
-  var width = el.offsetWidth;
+  var width = ns.width
+  console.log('offsWidth: '+width);
   var height = el.offsetHeight;
 
   var x = d3.scaleLinear()
@@ -178,12 +180,6 @@ ns._scales = function(el, domain) {
 
   return {x: x, y: y, z: z};
 };
-
-ns._draw = function(el, scales, data, prevScales, dispatcher) {
-
-
-};
-
 
 ns.destroy = function(el) {
 
