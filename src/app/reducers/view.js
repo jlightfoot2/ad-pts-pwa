@@ -22,7 +22,7 @@ const defaultView = {
 };
 
 const defaultDevice = {
-	orientation: 'landscape',
+	orientation: typeof window === 'object' && window.innerWidth < window.innerHeight ? 'portrait' : 'landscape',
 	width: typeof window === 'object' ? window.innerWidth : 0,
 	size: 'small'
 }
