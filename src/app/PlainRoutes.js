@@ -68,6 +68,7 @@ export default class AppProvider extends React.Component {
   }
   componentDidMount () {
     setTimeout(() => {
+      console.log(window.innerWidth,window.innerHeight);
       windowResize(window.innerWidth, window.innerHeight);
     }, 500);
   }
