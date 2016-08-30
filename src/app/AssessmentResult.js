@@ -4,14 +4,14 @@ import D3LinearaGauge from './D3LinearaGauge.js';
 import { connect } from 'react-redux';
 import ReactTransitionGroup from 'react-addons-transition-group';
 import {TweenLite} from 'gsap';
-class AssessentText extends Component {
+class AssessmentText extends Component {
 
     componentWillAppear(callback){
       this._animateIn(callback);
     }
 
 
-    componentWillEnder(callback){
+    componentWillEnter(callback){
         this._animateIn(callback);
     }
 
@@ -35,11 +35,18 @@ class AssessentText extends Component {
 }
 
 const AssessmentResult = (props) => {
-const {resultDetails} = props;
+const {resultDetails,device} = props;
+	var gaugeWidth = 300;
+	if (device.size === 'medium') {
+		gaugeWidth = 500;
+	} else if (device.size === 'large') {
+     gaugeWidth = 700;
+	}
+	
 	return (<div>
-				<D3LinearaGauge {...props} />
+				<D3LinearaGauge width={gaugeWidth} {...props} />
 				<ReactTransitionGroup>
-				    <AssessentText text={resultDetails.conclusion} />
+				    <AssessmentText text={resultDetails.conclusion} />
 				</ReactTransitionGroup>
 			</div>);
 }
@@ -47,7 +54,8 @@ const {resultDetails} = props;
 const mapStateToProps = (state) => {
 	return {
 		result: state.assessment.result,
-		resultDetails: state.assessment.resultDetails
+		resultDetails: state.assessment.resultDetails,
+		device: state.device
 	}
 }
 export default connect(

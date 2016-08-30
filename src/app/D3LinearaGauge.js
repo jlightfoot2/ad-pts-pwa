@@ -30,7 +30,8 @@ var Gauge = React.createClass({
   getChartState: function() {
     return {
       data: this.props.result,
-      domain: {x: [15, 87], y: [0, 100]}
+      domain: {x: [15, 87], y: [0, 100]},
+      width: this.props.width || 500
     };
   },
 
@@ -41,8 +42,9 @@ var Gauge = React.createClass({
   },
 
   render: function() {
+    const {width} = this.props;
     return (
-      <div ref="assessmentGauge"></div>
+      <div style={{width: width, margin: 'auto auto auto auto'}} ref="assessmentGauge"></div>
     );
   }
 });
