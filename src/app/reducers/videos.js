@@ -14,7 +14,7 @@ videoSchema.define({
 const apiVideos = [
 	{
 		id: 1,
-	    img: require('../../images/videos/introduction-to-pts.jpg'),
+	    img: require('../../images/videos/introduction-to-pts-med.jpg'),
 	    src: require('../../assets/videos/1041122098001_1633032942001_PTS-Introduction-to-PTS.mp4'),
 	    title: 'Introduction to PTS',
 	    author: 'T2',	
@@ -27,7 +27,7 @@ const apiVideos = [
 	},
 	{
 		id: 2,
-	    img: require('../../images/videos/reaction-and-triggers.jpg'),
+	    img: require('../../images/videos/reaction-and-triggers-med.jpg'),
 	    src: require('../../assets/videos/1041122098001_1633034474001_PTS-Reactions-and-Triggers.mp4'),
 	    title: 'Reactions and Triggers',
 	    author: 'T2',
@@ -40,7 +40,7 @@ const apiVideos = [
 	},
 	{
 		id: 3,
-	    img: require('../../images/videos/harmful-habits.jpg'),
+	    img: require('../../images/videos/harmful-habits-med.jpg'),
 	    src: require("../../assets/videos/1041122098001_1633034505001_PTS-Harmful-Habits.mp4"),
 	    title: 'Harmful Habits',
 	    author: 'T2',	
@@ -53,7 +53,7 @@ const apiVideos = [
 	
 	{
 		id: 4,
-	    img: require('../../images/videos/helpful-habits.jpg'),
+	    img: require('../../images/videos/helpful-habits-med.jpg'),
 	    src: require("../../assets/videos/1041122098001_1633034469001_PTS-Helpful-Habits.mp4"),
 	    title: 'Helpful Habits',
 	    author: 'T2',	
@@ -66,7 +66,7 @@ const apiVideos = [
 	},
 	{
 		id: 5,
-	    img: require('../../images/videos/treatment.jpg'),
+	    img: require('../../images/videos/treatment-med.jpg'),
 	    src: require("../../assets/videos/1041122098001_1633034502001_PTS-Treatment.mp4"),
 	    title: 'Treatment',
 	    author: 'T2',	

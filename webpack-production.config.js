@@ -54,10 +54,14 @@ const config = {
         maximumFileSizeToCacheInBytes: 104857600, //100Mb
         staticFileGlobs: [
                           'build/manifest.json',
-                          'build/**/*.{js,html,css}',
+                          'build/**/*.{html,css}',
                           'build/static/**/*.{png,jpg,jpeg,svg,gif,mp4,json}'
                           ],
         runtimeCaching: [{
+          handler: 'fastest',
+          urlPattern: /\/[\S_-]+\.(js)$/i
+        },
+        {
           handler: 'cacheFirst',
           urlPattern: /dynamic\/[\w_-]+\.(gif|jpg|jpeg|png|svg)$/i
         },
