@@ -19,7 +19,6 @@ ns.svg = null;
 ns.create = function(el, props, state) {
 	ns.width = state.width;
    var scales = ns._scales(el,state.domain);
-   console.log(el,state.domain);
 	var gauge_h = 60;
 
 
@@ -31,7 +30,7 @@ ns.create = function(el, props, state) {
     
 	var text_margins = {top: chart_y_pos + gauge_h + 35, right: 10, bottom: 0, left: 10};
 
-	var svg = d3.select(el).append("svg")
+	var svg = d3.select(el).select("svg")
 	.attr("width", ns.width)
 	.attr("height", '100%');
   ns.svg = svg;
@@ -136,7 +135,7 @@ ns.update = function (el, state) {
   //var prevScales = this._scales(el, state.prevDomain);
   this.tickPosition = scales.x(state.data);
 
-  //console.log('tick pos: '+this.tickPosition,state.data);
+
 
  this.tickMark
   			.transition()
@@ -156,8 +155,8 @@ ns._scales = function(el, domain) {
     return null;
   }
 
-  var width = ns.width
-  console.log('offsWidth: '+width);
+  var width = ns.width;
+
   var height = el.offsetHeight;
 
   var x = d3.scaleLinear()

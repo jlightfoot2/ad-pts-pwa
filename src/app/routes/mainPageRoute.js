@@ -8,6 +8,7 @@ export default {
 console.log('main page called 1');
 		cb(null,Main);
 	},
+  name: 'main',
   	getChildRoutes(partialNextState, cb) {
   		require.ensure([], function (require) {
 	      	cb(null, [

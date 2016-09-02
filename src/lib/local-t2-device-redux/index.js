@@ -40,9 +40,8 @@ const deviceMiddleware = store => next => {
   return action => {
     lastMS = loadDate.getTime();
     let result = next(action);
-    console.log('device action');
+
     if (firstLoad) {
-      console.log('first Load');
       firstLoad = false;
       next(windowResize(window.innerWidth, window.innerHeight));
     }

@@ -1,7 +1,7 @@
 import VideosPage from '../VideosPage.js';
 const dynamicVideosPage = {
   path: 'videos',
-
+  name: 'videos',
 /*
   getChildRoutes(nextState, callback) {
   console.log("videos routes")

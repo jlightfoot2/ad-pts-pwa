@@ -3,12 +3,12 @@ import {view} from './view.js';
 import {videos, videoIds} from './videos.js';
 import { app } from './app.js';
 import assessment from './assessment.js';
-import {navigation} from './navigation.js';
 import {reducer as formReducer} from 'redux-form';
 import {routerReducer} from 'react-router-redux';
 import {REHYDRATE} from 'redux-persist/constants';
 import {USER_SEES_INTRO, USER_SEES_SPLASH} from '../actions';
 import {deviceReducer} from 'local-t2-device-redux';
+import {navigationReducer} from 'local-t2-navigation-redux';
 /*
 * The data below could come from a rest server
 */
@@ -66,7 +66,7 @@ const appHub = combineReducers({
   user,
   view,
   device: deviceReducer,
-  navigation
+  navigation: navigationReducer
 });
 
 export default appHub;
