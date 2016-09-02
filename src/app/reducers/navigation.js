@@ -53,13 +53,13 @@ const navigationTree = addParentProperty({
 
 });
 
-function addParentProperty(navTree){
-	Object.keys(navTree).map(function(propName){
-		navTree[propName].childrenIds.forEach((cid) => {
-			navTree[cid]['parentId'] = navTree[propName].id
-		});
-	});
-	return navTree;
+function addParentProperty (navTree) {
+  Object.keys(navTree).map(function (propName) {
+    navTree[propName].childrenIds.forEach((cid) => {
+      navTree[cid]['parentId'] = navTree[propName].id;
+    });
+  });
+  return navTree;
 }
 
 var navigationIds = ['1','2','3','4','5','6'];

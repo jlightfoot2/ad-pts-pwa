@@ -1,9 +1,7 @@
 /**
  * adapted from https://codepen.io/VicM/pen/NPGqwr
  */
-var EventEmitter = require('events').EventEmitter;
 var d3 = require('d3');
-
 
 var ANIMATION_DURATION = 400;
 var TOOLTIP_WIDTH = 30;
@@ -127,16 +125,12 @@ ns.create = function(el, props, state) {
 	    .attr('fill','grey')
 		.attr("r", 10);
 
-	  var dispatcher = new EventEmitter();
-
-	  this.update(el, state, dispatcher)
-	  return dispatcher;
+  this.update(el, state);
 };
 
-ns.update = function(el, state, dispatcher) {
-
-	ns.width = state.width;
-	ns.svg.attr("width", ns.width);
+ns.update = function (el, state) {
+  ns.width = state.width;
+  ns.svg.attr("width", ns.width);
   var scales = this._scales(el, state.domain);
 	
   //var prevScales = this._scales(el, state.prevDomain);

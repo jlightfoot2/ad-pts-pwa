@@ -14,7 +14,10 @@ import {persistStore, autoRehydrate} from 'redux-persist';
 import { syncHistoryWithStore, routerMiddleware } from 'react-router-redux';
 import createSagaMiddleware from 'redux-saga';
 import sagaRoot from './sagas';
+import {navigationTree,routeChainer} from 'local-t2-navigation-redux';
 
+console.log(navigationTree);
+routeChainer(navigationTree);
 const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(
@@ -37,7 +40,7 @@ window.addEventListener('orientationchange', () => {
 });
 
 store.subscribe(() => {
-  console.log(store.getState());
+  //console.log(store.getState());
 });
 
 const rootRoute = [
@@ -68,7 +71,7 @@ export default class AppProvider extends React.Component {
   }
   componentDidMount () {
     setTimeout(() => {
-      console.log(window.innerWidth,window.innerHeight);
+      //TODO this action needs to be dispatched !!
       windowResize(window.innerWidth, window.innerHeight);
     }, 500);
   }
