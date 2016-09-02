@@ -56,7 +56,7 @@ const config = {
     new webpack.NoErrorsPlugin(),
     new SWPrecacheWebpackPlugin(
       {
-        cacheId: 'ad-asset-cache1',
+        cacheId: 'ad-pts-pwa-cache1',
         filename: 'ad-service-worker.js',
         maximumFileSizeToCacheInBytes: 104857600, //100Mb
         staticFileGlobs: [
