@@ -8,6 +8,13 @@ const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 const PathRewriterPlugin = require('webpack-path-rewriter');
 const config = {
   entry: ['babel-polyfill',path.join(__dirname, '/src/app/app.js')],
+  resolve: {
+    root: path.resolve(__dirname),
+    alias: {
+      'local-t2-navigation-redux': 'src/lib/local-t2-navigation-redux/index.js',
+      'local-t2-device-redux': 'src/lib/local-t2-device-redux/index.js',
+    }
+  },
   // Render source-map file for final build
   devtool: 'source-map',
   // output config
@@ -49,7 +56,7 @@ const config = {
     new webpack.NoErrorsPlugin(),
     new SWPrecacheWebpackPlugin(
       {
-        cacheId: 'ad-asset-cache1',
+        cacheId: 'ad-pts-pwa-cache1',
         filename: 'ad-service-worker.js',
         maximumFileSizeToCacheInBytes: 104857600, //100Mb
         staticFileGlobs: [
