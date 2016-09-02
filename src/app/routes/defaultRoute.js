@@ -3,6 +3,7 @@ import {requireIntro} from './utils.js';
 
 export default {
 	path: '/',
+  name: 'default',
 	onEnter(nextState,replace){
 		requireIntro(nextState,replace);
 	},

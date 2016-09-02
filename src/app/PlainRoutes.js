@@ -14,6 +14,10 @@ import {persistStore, autoRehydrate} from 'redux-persist';
 import { syncHistoryWithStore, routerMiddleware } from 'react-router-redux';
 import createSagaMiddleware from 'redux-saga';
 import sagaRoot from './sagas';
+import {navigationCreateMiddleware} from 'local-t2-navigation-redux';
+import navigationConfig from './navigationConfig';
+
+console.log(navigationConfig);
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -22,7 +26,8 @@ const store = createStore(
     applyMiddleware(
             routerMiddleware(browserHistory),
             thunkMiddleware,
-            sagaMiddleware
+            sagaMiddleware,
+            navigationCreateMiddleware(navigationConfig)
           ),
     autoRehydrate()
   );
@@ -45,6 +50,7 @@ const rootRoute = [
     getComponent (nextState, cb) {
       cb(null, BlankPage);
     },
+    name: 'root',
     childRoutes: [
       require('./routes/quickLoadRoute.js').default,
       require('./routes/mainPageRoute.js').default
@@ -68,7 +74,7 @@ export default class AppProvider extends React.Component {
   }
   componentDidMount () {
     setTimeout(() => {
-      console.log(window.innerWidth,window.innerHeight);
+      //TODO this action needs to be dispatched !!
       windowResize(window.innerWidth, window.innerHeight);
     }, 500);
   }

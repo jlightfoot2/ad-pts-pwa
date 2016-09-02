@@ -14,7 +14,9 @@ import { connect } from 'react-redux';
 import {userSeesSplash, userSeesIntro} from './actions';
 import {push, replace} from 'react-router-redux';
 import { withRouter } from 'react-router';
-import {startMonitoringStages} from './actions';
+
+import {deviceActions} from 'local-t2-device-redux';
+var {windowResize} = deviceActions;
 
 const styles = {
   wrapper: {
@@ -41,7 +43,9 @@ class Main extends Component {
       title: ''
     };
   }
-
+  componentWillMount () {
+    this.props.dispatch(windowResize(window.innerWidth, window.innerHeight));
+  }
   handleRequestClose () {
     this.setState({
       open: false
@@ -61,6 +65,7 @@ class Main extends Component {
   }
 
   render () {
+    console.log(this.props);
     return (
         <div style={styles.wrapper}>
             <AppBar
@@ -80,5 +85,13 @@ class Main extends Component {
 Main.contextTypes = {
   router: React.PropTypes.object.isRequired
 };
-
-export default Main;
+export default connect(
+  (state) => ({
+    device: state.device
+  }),
+  (dispatch, ownProps) => {
+    return {
+      dispatch: dispatch
+    };
+  }
+  )(Main);

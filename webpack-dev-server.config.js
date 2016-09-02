@@ -13,6 +13,13 @@ const config = {
     'webpack/hot/only-dev-server',
     path.join(__dirname, '/src/app/app.js'),
   ],
+  resolve: {
+    root: path.resolve(__dirname),
+    alias: {
+      'local-t2-navigation-redux': 'src/lib/local-t2-navigation-redux/index.js',
+      'local-t2-device-redux': 'src/lib/local-t2-device-redux/index.js',
+    }
+  },
   // Server Configuration options
   devServer: {
     contentBase: 'src/www', // Relative directory for base of server
@@ -56,8 +63,8 @@ const config = {
         loader: 'file?name=dynamic/[name]-[hash].[ext]'
       },
       {
-          test: /\.css/,
-          loader: "file?name=[name]-[hash].[ext]"
+        test: /\.css/,
+        loader: 'file?name=[name]-[hash].[ext]'
       },
       {
         test: /[.]html$/,

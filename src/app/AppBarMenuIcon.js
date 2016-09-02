@@ -34,7 +34,7 @@ const mapStateToProp = (state, ownProps) => {
   return {
     paths: state.navigation.paths,
     submenu: state.navigation.paths.current.childrenIds.map((id) => (state.navigation.tree[id + ''])),
-    parent: state.navigation.paths.current.parentId ? state.navigation.tree[state.navigation.paths.current.parentId] : null
+    parent: state.navigation.paths.parent
   };
 };
 export default connect(mapStateToProp)(AppBarMenuIcon);

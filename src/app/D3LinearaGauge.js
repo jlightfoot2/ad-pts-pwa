@@ -35,7 +35,6 @@ var Gauge = React.createClass({
     };
   },
 
-  
   componentWillUnmount: function() {
     var el = this.refs.assessmentGauge;
     d3Chart.destroy(el);
@@ -44,7 +43,9 @@ var Gauge = React.createClass({
   render: function() {
     const {width} = this.props;
     return (
-      <div style={{width: width, margin: 'auto auto auto auto'}} ref="assessmentGauge"></div>
+      <div style={{width: width, margin: 'auto auto auto auto'}} ref="assessmentGauge">
+        <svg />
+      </div>
     );
   }
 });
