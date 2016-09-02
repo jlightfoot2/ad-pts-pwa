@@ -6,67 +6,7 @@ import {CONFIG_T2_NAVIGATION} from '../actions';
  * @type {[type]}
  */
 var navigationIds = [];
-export const navigationTree = addParentProperty({
-  '1': {
-    id: '1',
-    name: 'Home',
-    routes: ['/main/home', '/', '/intro'],
-    pathname: '/main/home',
-    level: 0,
-    childrenIds: ['3', '2', '4'],
-    parentId: null
-  },
-  '2': {
-    id: '2',
-    name: 'Assessment',
-    routes: ['/main/assessment'],
-    level: 1,
-    pathname: '/main/assessment',
-    childrenIds: ['6']
-  },
-  '3': {
-    id: '3',
-    name: 'Videos',
-    routes: ['/main/videos'],
-    level: 1,
-    pathname: '/main/videos',
-    childrenIds: ['5']
-  },
-  '4': {
-    id: '4',
-    name: 'PTS Library',
-    routes: ['/main/library'],
-    pathname: '/main/library',
-    level: 1,
-    childrenIds: []
-  },
-  '5': {
-    id: '5',
-    name: 'Video',
-    routes: [new RegExp('/main/video/[0-9]+')],
-    level: 2,
-    pathname: '/main/video',
-    childrenIds: []
-  },
-  '6': {
-    id: '6',
-    name: 'Assessmen Result',
-    routes: ['/main/result'],
-    level: 2,
-    pathname: '/main/result',
-    childrenIds: []
-  }
-});
-
-function addParentProperty (navTree) {
-  Object.keys(navTree).map(function (propName) {
-    navigationIds.push(propName);
-    navTree[propName].childrenIds.forEach((cid) => {
-      navTree[cid]['parentId'] = navTree[propName].id;
-    });
-  });
-  return navTree;
-}
+var navigationTree = {};
 var defaultNav = {
   id: '-1',
   name: 'Default',
@@ -117,17 +57,20 @@ function navHasPath (navItem, path) {
   }
 }
 
+function getParent (route) {
+  return typeof navigationTree[route.parentId] !== 'undefined' ? {...navigationTree[route.parentId]} : null;
+}
+
 function paths (state, action) {
   switch (action.type) {
     case LOCATION_CHANGE:
       var newRoute = findRoute(action.payload.pathname);
       if (state.current && newRoute && newRoute.id !== state.current.id) {
-        var parent = typeof navigationTree[state.current.id] !== 'undefined' ? navigationTree[state.current.id] : null;
         return {
           ...state,
           current: {...newRoute, pathname: action.payload.pathname},
           last: state.current,
-          parent: parent
+          parent: getParent(newRoute)
         };
       }
 
@@ -139,10 +82,13 @@ export const navigation = (state = navigatinDefaults, action) => {
 
   switch (action.type) {
     case CONFIG_T2_NAVIGATION:
+      navigationTree = action.config.tree;
+      navigationIds = action.config.treeIds;
       return {
         ...state,
         tree: action.config.tree || state.tree,
-        treeIds: action.config.treeIds || state.treeIds
+        treeIds: action.config.treeIds || state.treeIds,
+        paths: paths(state.paths, action)
       };
     case LOCATION_CHANGE:
       if (action.payload.pathname !== state.paths.current) {

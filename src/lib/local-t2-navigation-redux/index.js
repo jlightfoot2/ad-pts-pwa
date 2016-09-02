@@ -11,14 +11,14 @@ function addParentProperty (navTree) {
   });
   return navTree;
 }
-
+var firstLoad = true;
 const navigationCreateMiddleware = treeRaw => {
   var config = {
     tree: addParentProperty(treeRaw),
     treeIds: navigationIds
   };
   return store => next => {
-    next(init(config));
+    store.dispatch(init(config));
     return action => {
       return next(action);
     };
