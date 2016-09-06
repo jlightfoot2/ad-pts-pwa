@@ -66,7 +66,7 @@ export default class AppProvider extends React.Component {
   }
 
   componentWillMount () {
-    persistStore(store, {}, () => {
+    persistStore(store, {keyPrefix: 'reduxPresistAdModulePts'}, () => {
       setTimeout(() => {
         this.setState({ rehydrated: true });
       }, 1000);
