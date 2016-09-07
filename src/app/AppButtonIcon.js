@@ -15,7 +15,7 @@ const MyCheckbox = ({id,installed,title,toggleToMyApps,flashMessage}) => {
   }
 
   return (
-    <IconButton onClick={onClick} >
+    <IconButton onTouchTap={onClick} >
       <CheckBox color={color} />
     </IconButton>
   );
