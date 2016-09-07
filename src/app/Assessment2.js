@@ -117,7 +117,7 @@ export default connect(
       },
       clearForm: (fields) => {
         fields.forEach(function (field) {
-          dispatch(fieldChange({...field, value: null}));
+          dispatch(fieldChange({...field, value: null, error: ''}));
         });
       }
     };
