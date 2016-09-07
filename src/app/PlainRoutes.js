@@ -69,7 +69,7 @@ export default class AppProvider extends React.Component {
     persistStore(store, {keyPrefix: 'reduxPresistAdModulePts'}, () => {
       setTimeout(() => {
         this.setState({ rehydrated: true });
-      }, 1000);
+      }, 300);
     });
   }
 

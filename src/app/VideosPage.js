@@ -16,13 +16,12 @@ import OnlineOnlyLink from './OnlineOnlyLink.js';
 const styles = {
   gridList: {
     overflowY: 'auto',
-    marginBottom: 24,
+    marginBottom: 24
   },
   playIcon: {
-  	marginRight: 24
+    marginRight: 24
   },
   container: {
-  
   }
 };
 
@@ -52,8 +51,7 @@ class VideosPage extends Component {
           <OnlineOnlyLink isOnline={true} key={tile.id} to={'/main/video/'+tile.id} cols={tile.featured ? 1 : 1}>
             <GridTile
               key={tile.id}
-               {...tile}
-              
+              {...tile}
               actionPosition="right"
               titlePosition="top"
               actionIcon={<IconButton><PlayIcon color={'white'} {...tile}  /></IconButton>}
