@@ -21,12 +21,10 @@ export const startMonitoringStages = () => {
     type: START_MONITORING_STAGES
   };
 };
-export const fieldChange = (formId, fieldId, value) => {
+export const fieldChange = (field) => {
   return {
     type: FORM_FIELD_CHANGE,
-    formId,
-    fieldId,
-    value
+    field
   };
 };
 

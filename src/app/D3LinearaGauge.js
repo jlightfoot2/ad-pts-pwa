@@ -1,7 +1,5 @@
 import React,{Component} from 'react';
 
-
-
 import d3Chart from './lib/d3t2/LinearGauge.js';
 var sampleData = [
 
@@ -12,9 +10,8 @@ var Gauge = React.createClass({
     data: React.PropTypes.array,
     domain: React.PropTypes.object
   },
-  
-  componentDidMount: function() {
 
+  componentDidMount: function () {
     var el = this.refs.assessmentGauge;
     d3Chart.create(el, {
       width: '100%',
@@ -22,12 +19,12 @@ var Gauge = React.createClass({
     }, this.getChartState());
   },
 
-  componentDidUpdate: function() {
+  componentDidUpdate: function () {
     var el = this.refs.assessmentGauge;
     d3Chart.update(el, this.getChartState());
   },
 
-  getChartState: function() {
+  getChartState: function () {
     return {
       data: this.props.result,
       domain: {x: [15, 87], y: [0, 100]},
@@ -35,12 +32,12 @@ var Gauge = React.createClass({
     };
   },
 
-  componentWillUnmount: function() {
+  componentWillUnmount: function () {
     var el = this.refs.assessmentGauge;
     d3Chart.destroy(el);
   },
 
-  render: function() {
+  render: function () {
     const {width} = this.props;
     return (
       <div style={{width: width, margin: 'auto auto auto auto'}} ref="assessmentGauge">
@@ -50,6 +47,4 @@ var Gauge = React.createClass({
   }
 });
 
-
-
-export default Gauge
+export default Gauge;
