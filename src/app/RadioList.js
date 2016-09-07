@@ -16,19 +16,19 @@ const style = {
 
 const RadioLists = ({choices,field}) => {
 	return (
-			<div style={style.container} >
-			 	{choices.map(function(choice,i){
-				 	return (
-				 		<div style={style.horizontal} key={i} >
-					 		<label >{choice.title}</label>
-					 		
-					 		<input type="radio" {...field} value={choice.value} checked={field.value===choice.value} />
-					 
-				 		</div>
-				 		);
-			 	})}
-		 	</div>
-		)
-}
+		<div style={style.container} >
+			{choices.map(function(choice,i){
+				return (
+			 		<div style={style.horizontal} key={i} >
+				 		<label >{choice.title}</label>
+				 		
+				 		<input type="radio" {...field} value={choice.value} checked={field.value===choice.value} />
+				 
+			 		</div>
+			 		);
+		 	})}
+	 	</div>
+	);
+};
 
 export default RadioLists;

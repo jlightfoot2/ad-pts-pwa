@@ -72,12 +72,6 @@ export default class AppProvider extends React.Component {
       }, 1000);
     });
   }
-  componentDidMount () {
-    setTimeout(() => {
-      //TODO this action needs to be dispatched !!
-      windowResize(window.innerWidth, window.innerHeight);
-    }, 500);
-  }
 
   render () {
     if (!this.state.rehydrated) {

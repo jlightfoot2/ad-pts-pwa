@@ -21,7 +21,7 @@ const Connectivity = (props) => {
 		}
 	}
 	return (
-		<div onClick={onlineMessage}>
+		<div onTouchTap={onlineMessage}>
 			{React.cloneElement(props.children, Object.assign({ isOnline },props))}
 		</div>
 		)
