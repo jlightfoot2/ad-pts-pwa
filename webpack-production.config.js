@@ -2,7 +2,6 @@ const webpack = require('webpack');
 const path = require('path');
 const buildPath = path.resolve(__dirname, 'build');
 const nodeModulesPath = path.resolve(__dirname, 'node_modules');
-const TransferWebpackPlugin = require('transfer-webpack-plugin');
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 //const HtmlWebpackPlugin = require('html-webpack-plugin');
 const PathRewriterPlugin = require('webpack-path-rewriter');
@@ -23,7 +22,12 @@ const config = {
     filename: 'app.js', // Name of output file
   },
   plugins: [
-  
+    //http://dev.topheman.com/make-your-react-production-minified-version-with-webpack/
+    new webpack.DefinePlugin({
+      'process.env':{
+        'NODE_ENV': JSON.stringify('production')
+      }
+    }),
     new webpack.optimize.CommonsChunkPlugin({
         children:  true, // Look for common dependencies in all children,
         minChunks: 2, // How many times a dependency must come up before being extracted
@@ -49,7 +53,7 @@ const config = {
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         // suppresses warnings, usually from module minification
-        warnings: false,
+        warnings: true,
       },
     }),
     // Allows error warnings but does not stop compiling.
@@ -61,7 +65,7 @@ const config = {
         maximumFileSizeToCacheInBytes: 104857600, //100Mb
         staticFileGlobs: [
                           'build/manifest.json',
-                          'build/**/*.{html,css}',
+                          'build/**/*.{html,css,ico}',
                           'build/static/**/*.{png,jpg,jpeg,svg,gif,mp4,json}'
                           ],
         runtimeCaching: [{
@@ -90,7 +94,7 @@ const config = {
         exclude: [nodeModulesPath],
       },
       {
-        test:   /\.(jpe?g|png|gif|svg)$/i,
+        test:   /\.(jpe?g|png|gif|svg|ico)$/i,
         loader: 'url?limit=100&name=static/[name]-[hash].[ext]',
         /*
         TODO upping limit cause images to in-line but this causes probems
