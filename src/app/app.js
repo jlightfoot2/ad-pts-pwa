@@ -12,7 +12,6 @@ import './reducers';
 require('file?name=manifest.json!json-file!json!../www/manifest.json');
 require('../www/index.html');
 require('../www/main.css');
-require('../www/favicon.ico');
 require('../images/icons/star_144.png');
 require('../images/icons/star_152.png');
 // Needed for onTouchTap
