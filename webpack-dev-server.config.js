@@ -2,7 +2,6 @@ const webpack = require('webpack');
 const path = require('path');
 const buildPath = path.resolve(__dirname, 'build');
 const nodeModulesPath = path.resolve(__dirname, 'node_modules');
-const TransferWebpackPlugin = require('transfer-webpack-plugin');
 const PathRewriterPlugin = require('webpack-path-rewriter');
 
 const config = {
@@ -11,13 +10,13 @@ const config = {
     'babel-polyfill',
     'webpack/hot/dev-server',
     'webpack/hot/only-dev-server',
-    path.join(__dirname, '/src/app/app.js'),
+    path.join(__dirname, '/src/app/app.js')
   ],
   resolve: {
     root: path.resolve(__dirname),
     alias: {
       'local-t2-navigation-redux': 'src/lib/local-t2-navigation-redux/index.js',
-      'local-t2-device-redux': 'src/lib/local-t2-device-redux/index.js',
+      'local-t2-device-redux': 'src/lib/local-t2-device-redux/index.js'
     }
   },
   // Server Configuration options
@@ -27,12 +26,12 @@ const config = {
     hot: true, // Live-reload
     inline: true,
     port: 3002, // Port Number
-    host: '0.0.0.0', // Change to '0.0.0.0' for external facing server
+    host: '0.0.0.0' // Change to '0.0.0.0' for external facing server
   },
   devtool: 'eval',
   output: {
     path: buildPath, // Path of output file
-    filename: 'app.js',
+    filename: 'app.js'
   },
   plugins: [
     // Enables Hot Modules Replacement
@@ -48,7 +47,7 @@ const config = {
         // React-hot loader and
         test: /\.js$/, // All .js files
         loaders: ['react-hot', 'babel-loader'], // react-hot is like browser sync and babel loads jsx and es6-7
-        exclude: [nodeModulesPath],
+        exclude: [nodeModulesPath]
       },
       {
         test: /\.(png|gif|jpe?g|svg)$/i,
@@ -78,8 +77,8 @@ const config = {
           name: '[name].ico'
         })
       }
-    ],
-  },
+    ]
+  }
 };
 
 module.exports = config;

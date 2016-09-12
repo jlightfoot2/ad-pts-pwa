@@ -11,7 +11,7 @@ videoSchema.define({
 /* 
 * The data below could come from a rest server
 */
-const apiVideos = [
+export const apiVideos = [
 	{
 		id: 1,
 	    img: require('../../images/videos/introduction-to-pts-med.jpg'),
@@ -69,7 +69,7 @@ const apiVideos = [
 	    img: require('../../images/videos/treatment-med.jpg'),
 	    src: 'http://brightcove.vo.llnwd.net/e1/uds/pd/1041122098001/1041122098001_1633034502001_PTS-Treatment.mp4',
 	    title: 'Treatment',
-	    author: 'T2',	
+	    author: 'T2',
 	    url: 'https://google.com',
 	    featured: false,
 		category: {
@@ -92,16 +92,13 @@ const appTree = {
 * see https://github.com/paularmstrong/normalizr
 * see http://stackoverflow.com/questions/32135779/updating-nested-data-in-redux-store    (scroll to dan abramov's answer)
 */
-const videoItems = normalize(appTree.videos,arrayOf(videoSchema));
-
-
-
+export const videoItems = normalize(appTree.videos,arrayOf(videoSchema));
 
 export const videoIds = (state = videoItems.result , action) => {
 	return state;
 };
 
-export const videos = (state = videoItems.entities.videos , action) => {
+export const videos = (state = videoItems.entities.videos, action) => {
 	return state;
 }
 
