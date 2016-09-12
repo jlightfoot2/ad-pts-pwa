@@ -1,9 +1,3 @@
-(function() {
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./ad-service-worker.js');
-  }
-})();
-
 import React from 'react';
 import {render} from 'react-dom';
 import injectTapEventPlugin from 'react-tap-event-plugin';

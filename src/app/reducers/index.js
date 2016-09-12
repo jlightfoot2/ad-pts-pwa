@@ -56,8 +56,13 @@ function user (state = defaultUser, action) {
   return state;
 }
 
+function migrations(state = {}, action) {
+  return state;
+}
+
 const appHub = combineReducers({
   app,
+  migrations,
   videos,
   videoIds,
   assessment,
