@@ -17,7 +17,8 @@ console.log('main page called 1');
 	        	require('./videoRoute.js').default,
 	        	require('./libraryRoute.js').default,
 	        	require('./assessmentRoute.js').default,
-	        	require('./assessmentResultRoute.js').default
+	        	require('./assessmentResultRoute.js').default,
+            require('./resourcesRoute.js').default
 	      	])
       });
 

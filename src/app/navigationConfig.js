@@ -5,7 +5,7 @@ export default {
     routes: ['/main/home', '/', '/intro'],
     pathname: '/main/home',
     level: 0,
-    childrenIds: ['3', '2', '4'],
+    childrenIds: ['3', '2', '4', '7'],
     parentId: null
   },
   '2': {
@@ -29,6 +29,14 @@ export default {
     name: 'PTS Library',
     routes: ['/main/library'],
     pathname: '/main/library',
+    level: 1,
+    childrenIds: []
+  },
+  '7': {
+    id: '7',
+    name: 'Resources',
+    routes: ['/main/resources'],
+    pathname: '/main/resources',
     level: 1,
     childrenIds: []
   },

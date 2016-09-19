@@ -24,9 +24,10 @@ const styles = {
 };
 
 const categories = [
-  {id: 1, title: 'Videos', path: '/main/videos', featured: true, img: require('../images/videos/introduction-to-pts.jpg')},
-  {id: 2, title: 'Assessments', path: '/main/assessment', featured: false, img: require('../images/videos/reaction-and-triggers.jpg')},
-  {id: 3, title: 'PTS Library', path: '/main/library', featured: false, img: require('../images/videos/harmful-habits.jpg')}
+  {id: 1, title: 'Videos', path: '/main/videos', featured: true, img: require('../images/ic_play_arrow_black_24px.svg')},
+  {id: 2, title: 'Assessments', path: '/main/assessment', featured: false, img: require('../images/ic_assignment_turned_in_black_24px.svg')},
+  {id: 3, title: 'Library', path: '/main/library', featured: false, img: require('../images/ic_library_books_black_24px.svg')},
+  {id: 4, title: 'Resources', path: '/main/resources', featured: false, img: require('../images/ic_info_outline_black_24px.svg')}
 ];
 
 class HomePage extends Component {
@@ -41,11 +42,9 @@ class HomePage extends Component {
   render () {
     var {videoList, flashMessage, appBarTitle, onTileClick, device} = this.props;
 
-    var cols = 2;
-    if (device.size === 'large') {
-      cols = 3;
-    } else if (device.size === 'small') {
-      cols = 1;
+    var cols = 4;
+    if (device.size === 'small') {
+      cols = 2;
     }
 
     return (
@@ -56,7 +55,7 @@ class HomePage extends Component {
       >
 
         {categories.map((tile) => (
-          <Link cols={tile.featured && cols == 2 ? 2 : 1} key={tile.id} to={tile.path}>
+          <Link cols={1} key={tile.id} to={tile.path}>
             <GridTile
               key={tile.id}
                {...tile}
