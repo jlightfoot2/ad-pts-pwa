@@ -72,7 +72,8 @@ function changeObjectKeys (trgt, src, ignoreKeys = []) { // TODO rename or just 
   return Object.assign({}, trgt, src);
 }
 const manifest = {
-  1: (state) => (state)
+  1: (state) => (state),
+  9: (state) => ({...state, navigation: null})
 };
 
 const sagaMiddleware = createSagaMiddleware();
