@@ -42,6 +42,11 @@ const styles = {
   fieldItem: {
     maxWidth: 600,
     padding: 10
+  },
+  formActions: {
+    display: 'flex',
+    flexFlow: 'row',
+    justifyContent: 'space-between'
   }
 };
 class Assessment extends Component {
