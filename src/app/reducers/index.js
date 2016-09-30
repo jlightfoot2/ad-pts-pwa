@@ -1,7 +1,6 @@
 import {combineReducers} from 'redux';
 import {view} from './view.js';
 import {videos, videoIds} from './videos.js';
-import { app } from './app.js';
 import assessment from './assessment.js';
 import {reducer as formReducer} from 'redux-form';
 import {routerReducer} from 'react-router-redux';
@@ -9,6 +8,7 @@ import {REHYDRATE} from 'redux-persist/constants';
 import {USER_SEES_INTRO, USER_SEES_SPLASH} from '../actions';
 import {deviceReducer} from 'local-t2-device-redux';
 import {navigationReducer} from 'local-t2-navigation-redux';
+import {appReducer} from 'local-t2-app-redux';
 /*
 * The data below could come from a rest server
 */
@@ -61,7 +61,7 @@ function migrations(state = {}, action) {
 }
 
 const appHub = combineReducers({
-  app,
+  app: appReducer,
   migrations,
   videos,
   videoIds,

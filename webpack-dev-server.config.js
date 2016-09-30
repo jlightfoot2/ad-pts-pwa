@@ -13,11 +13,7 @@ const config = {
     path.join(__dirname, '/src/app/app.js')
   ],
   resolve: {
-    root: path.resolve(__dirname),
-    alias: {
-      'local-t2-navigation-redux': 'src/lib/local-t2-navigation-redux/index.js',
-      'local-t2-device-redux': 'src/lib/local-t2-device-redux/index.js'
-    }
+    root: path.resolve(__dirname)
   },
   // Server Configuration options
   devServer: {
@@ -25,7 +21,7 @@ const config = {
     devtool: 'eval',
     hot: true, // Live-reload
     inline: true,
-    port: 3002, // Port Number
+    port: 3004, // Port Number
     host: '0.0.0.0' // Change to '0.0.0.0' for external facing server
   },
   devtool: 'eval',
@@ -34,6 +30,10 @@ const config = {
     filename: 'app.js'
   },
   plugins: [
+    new webpack.DefinePlugin({
+      '__DEVTOOLS__': true,
+      '__INCLUDE_SERVICE_WORKER__': false
+    }),
     // Enables Hot Modules Replacement
     new webpack.HotModuleReplacementPlugin(),
     // Allows error warnings but does not stop compiling.
