@@ -18,7 +18,8 @@ console.log('main page called 1');
 	        	require('./libraryRoute.js').default,
 	        	require('./assessmentRoute.js').default,
 	        	require('./assessmentResultRoute.js').default,
-            require('./resourcesRoute.js').default
+            require('./resourcesRoute.js').default,
+            require('./debugRoute.js').default
 	      	])
       });
 

@@ -36,6 +36,7 @@
     "transfer-webpack-plugin": "^0.1.4",
     "url-loader": "^0.5.7",
     "webpack": "^1.12.9",
+    "webpack-cleanup-plugin": "^0.4.0",
     "webpack-dev-server": "^1.14.0",
     "webpack-path-rewriter": "^1.1.4"
   },
@@ -47,6 +48,8 @@
     "install": "^0.8.1",
     "is-online": "^5.1.2",
     "json-loader": "^0.5.4",
+    "local-t2-app-redux": "0.0.30",
+    "local-t2-device-redux": "0.0.5",
     "localforage": "^1.4.2",
     "manifest-revision-webpack-plugin": "^0.3.0",
     "material-ui": "^0.15.0",

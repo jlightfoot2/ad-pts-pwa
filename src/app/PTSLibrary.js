@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import { connect } from 'react-redux';
-
+import { Link } from 'react-router';
 
 
 class PTSLibrary extends Component {
@@ -10,7 +10,7 @@ class PTSLibrary extends Component {
 	render(){
 		return (
 			<div>
-				<h3>Introduction</h3>
+				<h3>Introduction to PTS</h3>
 				<p>
 	There are four main types of combat or Post-Traumatic Stress reactions:
 
@@ -28,6 +28,7 @@ class PTSLibrary extends Component {
 				you may experience upsetting thoughts or dreams.  Certain people, 
 				places, sounds, or smells can remind you of things that happened while 
 				deployed.  These reminders are called "triggers".</p>
+				<p><Link to="main/debug"> Test Debug </Link></p>
 			</div>
 		);
 	}
