@@ -25,7 +25,7 @@ const config = {
       'process.env': {
         'NODE_ENV': JSON.stringify('production')
       },
-      '__DEVTOOLS__': true,
+      '__DEVTOOLS__': false,
       '__INCLUDE_SERVICE_WORKER__': true
     }),
     new webpack.optimize.CommonsChunkPlugin({
