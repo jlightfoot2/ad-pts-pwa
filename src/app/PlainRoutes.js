@@ -71,7 +71,8 @@ const rootRoute = [
     name: 'root',
     childRoutes: [
       require('./routes/quickLoadRoute.js').default,
-      require('./routes/mainPageRoute.js').default
+      require('./routes/mainPageRoute.js').default,
+      require('./routes/notFoundRoute.js').default
     ]
   }
 ];
